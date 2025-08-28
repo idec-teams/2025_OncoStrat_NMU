@@ -15,6 +15,28 @@ h1,
     padding-left: 0.625rem; /* pl-2.5 */
     border-left: 8px solid var(--primary-color); /* border-l-8 border-primary-color */
 }
+.heading-text {
+  font-family: var(--header-font-family);
+  font-size: 1.875rem;
+  font-weight: 600;
+  padding-top: 0.625rem;
+  padding-bottom: 1.5rem;
+  color: var(--primary-text-color);
+}
+h1, .title-text {
+  font-family: var(--header-font-family);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-text-color);
+  padding-left: 0.625rem;
+  /* border-left: 8px solid var(--primary-color); */
+}
+h2, .subtitle-text {
+  font-family: var(--header-font-family);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--primary-text-color);
+}
 h2,
 .subtitle-text {
     font-family: var(--header-font-family);

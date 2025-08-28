@@ -95,7 +95,27 @@ header {
     bottom: 20px;
     cursor: pointer;
 }
+/* 过渡图片 */
+.section2 {
+  height: 800px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  transition: opacity 1s ease-in-out;
+  opacity: 1; 
+  /* 默认可见 */
 
+}
+.background-image2{
+  background-image: url('../images/homebackground1.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
 main {
     /* flex -> display:flex; px-24 -> padding-left/right:6rem; py-12 -> padding-top/bottom:3rem; flex-grow -> flex-grow:1; */
     display: flex;
@@ -144,7 +164,7 @@ main .toc-item-child {
     border-top: 5px solid var(--primary-color);
     background-color: var(--toc-background-color);
     position: sticky;
-    top: 5px;
+    top: 120px;
     padding: 10px 0 20px;
     max-height: 100vh;
     overflow: auto;

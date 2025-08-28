@@ -45,14 +45,14 @@
                 class="absolute inset-0 w-full h-auto object-cover z-0"
             />
             <!-- 文字内容在图片之上 -->
-            <!-- TODO: 这个字你改下吧 -->
+            <!-- TODO: -->
             <div
                 class="relative z-10 w-full flex flex-col items-center justify-center h-full text-center"
             >
                 <!-- <h1 id="heading-text" style="font-size: 40px;">
                     Evolve to Counter Evolve
                 </h1> -->
-                <!-- TODO: 额这个字你也改下吧 -->
+                <!-- TODO:  -->
                 <h2 class="title-text" style="font-style: italic;font-size: 70px;" >
                     DECODING THE EVOLUTIONARY ARMS RACE OF 
                 </h2>
@@ -67,19 +67,23 @@
                 class="explore-more text absolute bottom-5 left-1/2 -translate-x-1/2 z-20"
                 onclick="document.getElementById('space2').scrollIntoView({behavior: 'smooth'})"
             >
-                <!-- TODO: 额这个字你也改下吧 -->
+                <!-- TODO: -->
                 <a href="javascript:void(0);" style="font-size: 25px;">Explore More &#8681</a>
             </div>
             {% endblock hero %}
         </div>
 
+        
+         
+         <!-- 添加过渡图片 -->
+          <div class="section2 background-image2">
+            </div>
         <!-- 标签栏占位空格，确保第二屏内容不被遮挡 -->
-        <div
+          <div
             id="space2"
             style="height: 150px; width: 100%"
-            class="col-span-full"
-        ></div>
-
+            class="col-span-full">
+             </div>
         <!-- 第二屏 -->
         <div id="track" class="col-span-full grid grid-cols-subgrid">
             <div class="col-start-3 col-span-6">
@@ -175,20 +179,23 @@
         let items = document.querySelectorAll('h1,h2,h3,h4,h5,h6');
         items.forEach((item) => observer.observe(item));
 
-        // Animate.css 进入/离开动画
+        // Animate.css 进入/离开动画（防止闪烁，兼容窄屏）
         const panImg = document.getElementById('panImg');
         if (panImg) {
+            let lastVisible = false;
             const panImgObserver = new IntersectionObserver(
                 (entries) => {
                     entries.forEach(entry => {
-                        if (entry.isIntersecting) {
+                        // 只在图片实际可见且宽度大于0时才处理动画
+                        const isActuallyVisible = entry.isIntersecting && panImg.offsetParent !== null && panImg.getBoundingClientRect().width > 0;
+                        if (isActuallyVisible && !lastVisible) {
                             panImg.classList.remove('animate__fadeOutLeft', 'opacity-0');
-                            panImg.classList.add('animate__animated', 'animate__fadeInRight');
-                            panImg.classList.add('opacity-100');
-                        } else {
+                            panImg.classList.add('animate__animated', 'animate__fadeInRight', 'opacity-100');
+                            lastVisible = true;
+                        } else if (!isActuallyVisible && lastVisible) {
                             panImg.classList.remove('animate__fadeInRight', 'opacity-100');
-                            panImg.classList.add('animate__animated', 'animate__fadeOutLeft');
-                            panImg.classList.add('opacity-0');
+                            panImg.classList.add('animate__animated', 'animate__fadeOutLeft', 'opacity-0');
+                            lastVisible = false;
                         }
                     });
                 },

@@ -74,7 +74,7 @@ You can override theme variable by creating a file named `_variables.html` in yo
     /* Primary theme color */
     --primary-color: #fed43f;
     /* Primary theme text color */
-    --primary-text-color: #543631;
+    --primary-text-color: #ffffffff;
     --primary-text-color-over: #000;
     /* Primary theme link color */
     --primary-link-color: #f9bb2d;
@@ -82,7 +82,7 @@ You can override theme variable by creating a file named `_variables.html` in yo
     --secondary-color: #fcfaf6;
     --secondary-text-color: #303030;
     /* Highlight text color of table of content */
-    --toc-highlight-text-color: #d46e13;
+    --toc-highlight-text-color: #ffffffff;
     --toc-background-color: white;
     --code-color: #4a4a4a;
     --code-background-color: white;

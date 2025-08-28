@@ -83,7 +83,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    height: 100vh;
+    height: 800px;
     background-color: var(--primary-color);
     overflow-x: hidden;
     padding-left: 2.5rem;
@@ -144,7 +144,7 @@ main .toc-item-child {
     border-top: 5px solid var(--primary-color);
     background-color: var(--toc-background-color);
     position: sticky;
-    top: 10px;
+    top: 5px;
     padding: 10px 0 20px;
     max-height: 100vh;
     overflow: auto;

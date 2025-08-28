@@ -42,7 +42,7 @@
             <img
                 src="{{ get_url(path='images/home_picture.jpg') }}"
                 alt="hero"
-                class="absolute inset-0 w-full h-auto object-cover z-0"
+                class="absolute inset-0 w-full h-full object-cover z-0 block"
             />
             <!-- 文字内容在图片之上 -->
             <!-- TODO: -->
@@ -75,20 +75,21 @@
 
         
          
-         <!-- 添加过渡图片 -->
-          <div class="section2 background-image2">
-            </div>
+         <!-- 添加过渡图片 暂定-->
+          <!-- <div class="section2 background-image2">
+            </div> -->
+<div class="background-image2">
         <!-- 标签栏占位空格，确保第二屏内容不被遮挡 -->
           <div
             id="space2"
             style="height: 150px; width: 100%"
             class="col-span-full">
-             </div>
+         </div>
         <!-- 第二屏 -->
         <div id="track" class="col-span-full grid grid-cols-subgrid">
             <div class="col-start-3 col-span-6">
-                <h3 class="font-semibold">演化动力学：RC48 抵抗</h3>
-                <p class="text-sm mt-2">
+                <h3 class="font-semibold font-style" style="color: #ffff; ">演化动力学：RC48 抵抗</h3>
+                <p class="text-sm mt-2" style="color: #ffff; ">
                     滚动以查看：突变选择 → 抵抗兴起 → 快速演化消失
                 </p>
             </div>
@@ -149,8 +150,8 @@
             </small>
         </footer>
         {% endblock footer %}
+</div> 
     </body>
-
     <script>
         const scrollHandler = (entries) => {
             // Find the first entry which intersecting and ratio > 0.9 to highlight.

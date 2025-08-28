@@ -15,22 +15,22 @@ jobs:
     name: Publish site
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout main
-      uses: actions/checkout@v4
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'pnpm'
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 8
-        run_install: true
-    - name: Build site
-      run: pnpm run build
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
+      - name: Checkout main
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: true
+      - name: Build site
+        run: pnpm run build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public

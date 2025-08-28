@@ -10,7 +10,7 @@ on:
   branches:
    - main
 
-obs:
+jobs:
   build:
     # 作业的名称
     name: 构建和部署

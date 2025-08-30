@@ -9,40 +9,35 @@ on:
  push:
   branches:
    - main
-
 jobs:
   build:
     name: Publish site
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Install pnpm
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm install
-      - name: Checkout main
-        uses: actions/checkout@v4
+          # 我们在下一步手动执行安装，所以这里不需要自动安装
+          run_install: false 
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-              node-version: '20'
-              cache: 'pnpm'
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-              version: 8
-              run_install: true
+          node-version: '20'
+          cache: 'pnpm' # 启用 pnpm 缓存，加速后续构建
+
+      - name: Install dependencies
+        run: pnpm install
+
       - name: Build site
         run: pnpm run build
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-              github_token: ${{ secrets.GITHUB_TOKEN }}
-              publish_dir: ./public
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public

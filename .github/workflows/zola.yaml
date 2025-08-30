@@ -19,7 +19,7 @@ jobs:
       - name: Setup Zola
         uses: shalzz/zola-deploy-action@v0.21.0
         env:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          GUTHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # args: "build --version 0.21.0"
 
       - name: Setup pnpm

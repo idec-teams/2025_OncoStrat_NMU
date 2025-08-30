@@ -17,7 +17,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Setup Zola
-        uses: shalimski/zola-action@v0.4.1
+        uses: shalzz/zola-deploy-action@v0.21.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           zola_version: '0.21.0' # setup zola

@@ -16,8 +16,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Setup Zola
-        uses: shalzz/zola-deploy-action@v0.21.0
+      - name: Install Zola
+        uses: 
+        run: |
+          sudo apt-get update
+          sudo apt-get install zola -y
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # args: "build --version 0.21.0"

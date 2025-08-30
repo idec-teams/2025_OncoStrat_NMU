@@ -16,6 +16,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Setup Zola
+        uses: s-light/actions-zola@v0.4.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          zola_version: '0.21.0' # setup zola
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4

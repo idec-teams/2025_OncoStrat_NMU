@@ -18,9 +18,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Zola
         uses: shalzz/zola-deploy-action@v0.21.0
-        with:
+        env:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          args: "build --version 0.21.0"
+          # args: "build --version 0.21.0"
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4

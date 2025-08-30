@@ -20,7 +20,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.14.0
           # 我们在下一步手动执行安装，所以这里不需要自动安装
           run_install: false 
 

@@ -12,43 +12,37 @@ on:
 
 jobs:
   build:
-    # 作业的名称
-    name: 构建和部署
-    # 作业将在最新的 Ubuntu 环境上运行
+    name: Publish site
     runs-on: ubuntu-latest
-    # 作业的步骤
     steps:
-      # 检出代码库
-      - name: 检出仓库
-        uses: actions/checkout@v4
-
-      # 设置 Node.js 环境
-      - name: 设置 Node.js
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          # 使用 Node.js 20 版本
-          node-version: '20'
-          # 缓存 pnpm 依赖
-          cache: 'pnpm'
-
-      # 设置 pnpm
-      - name: 设置 pnpm
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Checkout main
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+              node-version: '20'
+              cache: 'pnpm'
+      - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          # 使用 pnpm 8 版本
-          version: 8
-          # 在设置后自动运行 pnpm install
-          run_install: true
-
-      # 运行 pnpm build 命令来构建网站
-      - name: 构建网站
+              version: 8
+              run_install: true
+      - name: Build site
         run: pnpm run build
-
-      # 使用 peaceiris/actions-gh-pages 动作来部署到 GitHub Pages
-      - name: 部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          # 使用 GITHUB_TOKEN 进行认证
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          # 指定要部署的目录
-          publish_dir: ./public
+              github_token: ${{ secrets.GITHUB_TOKEN }}
+              publish_dir: ./public

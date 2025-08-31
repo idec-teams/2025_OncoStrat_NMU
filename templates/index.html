@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="{{ lang }}">
     <head>
-        <base href="https://idec-teams.github.io/2025_OncoStrat_NMU/">
+        <!-- <base href="https://idec-teams.github.io/2025_OncoStrat_NMU/"> -->
         <meta charset="UTF-8" />
         <title>{% block title %}{{ config.title }}{% endblock title %}</title>
         <meta
@@ -10,7 +10,7 @@
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
         />
         {% block favicon %}
-        <link rel="icon" type="image/png" href="images/icon.png" />
+        <link rel="icon" type="image/png" href="../static/images/icon.png" />
         {% endblock favicon %} {% include "_variables.html" %} {% block fonts %}
         <link
             href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap"
@@ -21,7 +21,7 @@
             rel="stylesheet"
         />
         {% endblock fonts %}
-        <link rel="stylesheet" href="/css/style.css" />
+        <link rel="stylesheet" href="../css/styles.css" />
     </head>
 
     <body class="grid grid-cols-24">

@@ -47,6 +47,9 @@ jobs:
       - name: Build site
         run: pnpm run build
 
+      - name: Show output
+        run: tree ./public
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:

@@ -48,7 +48,7 @@ jobs:
         run: pnpm run build:css
 
       - name: Build site
-        run: zola Build
+        run: zola build
 
       - name: Show output
         run: tree ./public

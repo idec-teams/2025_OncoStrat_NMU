@@ -1,7 +1,8 @@
 +++
-title = "Changelog"
+title = "Safety"
 description = "Changelog"
 weight = 2
+template="background-page.html"
 +++
 
 # v0.7.0 - 2024-06-01

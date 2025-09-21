@@ -1,7 +1,8 @@
 +++
-title = "About"
+title ="Team"
 description = "About"
 weight = 3
+template="background-page.html"
 +++
 
 # Juice

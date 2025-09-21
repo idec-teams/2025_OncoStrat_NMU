@@ -72,14 +72,14 @@ You can override theme variable by creating a file named `_variables.html` in yo
 <style>
   :root {
     /* Primary theme color */
-    --primary-color: #fed43f;
+    --primary-color: #922b21;
     /* Primary theme text color */
     --primary-text-color: #ffffffff;
     --primary-text-color-over: #000;
     /* Primary theme link color */
-    --primary-link-color: #f9bb2d;
+    --primary-link-color: #fffffeff;
     /* Secondary color: the background body color */
-    --secondary-color: #fcfaf6;
+    --secondary-color: #111011ff;
     --secondary-text-color: #303030;
     /* Highlight text color of table of content */
     --toc-highlight-text-color: #ffffffff;

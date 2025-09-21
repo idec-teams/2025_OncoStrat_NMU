@@ -8,6 +8,7 @@
         "watch:css": "pnpm exec tailwindcss --watch=always -i ./css/styles.css -o ./static/css/styles.css",
         "build": "concurrently \"pnpm run build:css\" \"zola build\"",
         "dev": "concurrently \"pnpm run watch:css\" \"zola serve\""
+        
     },
     "keywords": [],
     "author": "",

@@ -1,209 +1,795 @@
-{% import "_macros.html" as macros %}
 <!DOCTYPE html>
-<html lang="{{ lang }}">
-    <head>
-        <!-- <base href="https://idec-teams.github.io/2025_OncoStrat_NMU/"> -->
-        <meta charset="UTF-8" />
-        <title>{% block title %}{{ config.title }}{% endblock title %}</title>
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        {% block favicon %}
-        <link rel="icon" type="image/png" href="../static/images/icon.png" />
-        {% endblock favicon %} {% include "_variables.html" %} {% block fonts %}
-        <link
-            href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap"
-            rel="stylesheet"
-        />
-        {% endblock fonts %}
-        <link rel="stylesheet" href="{{ get_url(path="css/styles.css") }}">
-    </head>
-
-    <body class="grid grid-cols-24">
-        {% block header %}
-
-        <!-- 标签栏 -->
-        <div
-            class="fixed top-0 left-0 h-23 w-full z-50 bg-[#922B21] items-center col-span-full grid grid-cols-subgrid"
-        >
-            {{ macros::render_header() }}
-        </div>
-
-        <!-- 第一屏 -->
-        <div
-            class="hero col-span-full relative min-h-screen overflow-hidden flex items-center justify-center"
-        >
-            {% block hero %}
-            <!-- 图片铺满整个.hero区域 -->
-            <img
-                src="{{ get_url(path='images/home_picture.jpg') }}"
-                alt="hero"
-                class="absolute inset-0 w-full h-full object-cover z-0 block"
-            />
-            <!-- 文字内容在图片之上 -->
-            <!-- TODO: -->
-            <div
-                class="relative z-10 w-full flex flex-col items-center justify-center h-full text-center"
-            >
-                <!-- <h1 id="heading-text" style="font-size: 40px;">
-                    Evolve to Counter Evolve
-                </h1> -->
-                <!-- TODO:  -->
-                <h2 class="title-text" style="font-style: italic;font-size: 70px;" >
-                    DECODING THE EVOLUTIONARY ARMS RACE OF 
-                </h2>
-                <h id="title-text2" style="font-size: 80px;" >
-                     RC48 RESISTANCE
-                </h>
-                 <h2 class="title-text" style="font-style: italic;font-size: 70px;" >
-                    IN BLADDER CANCER
-                </h2>
-            </div>
-            <div
-                class="explore-more text absolute bottom-5 left-1/2 -translate-x-1/2 z-20"
-                onclick="document.getElementById('space2').scrollIntoView({behavior: 'smooth'})"
-            >
-                <!-- TODO: -->
-                <a href="javascript:void(0);" style="font-size: 25px;">Explore More &#8681</a>
-            </div>
-            {% endblock hero %}
-        </div>
-
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星空山脉 - 太阳渐变效果</title>
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #64ffda;
+            --text-color: #e6f1ff;
+            --text-secondary: #8892b0;
+            --font-main: 'Arial', sans-serif;
+        }
         
-         
-         <!-- 添加过渡图片 暂定-->
-          <!-- <div class="section2 background-image2">
-            </div> -->
-<div class="background-image2">
-        <!-- 标签栏占位空格，确保第二屏内容不被遮挡 -->
-          <div
-            id="space2"
-            style="height: 150px; width: 100%"
-            class="col-span-full">
-         </div>
-        <!-- 第二屏 -->
-        <div id="track" class="col-span-full grid grid-cols-subgrid">
-            <div class="col-start-3 col-span-6">
-                <h3 class="font-semibold font-style" style="color: #ffff; ">演化动力学：RC48 抵抗</h3>
-                <p class="text-sm mt-2" style="color: #ffff; ">
-                    滚动以查看：突变选择 → 抵抗兴起 → 快速演化消失
-                </p>
-            </div>
-            <div class="col-start-15 col-span-6">
-                <img
-                    id="panImg"
-                    class="h-64 w-auto opacity-0"
-                    src="{{ get_url(path='images/5aa534d0205fdbaf0a9117778af6f8b3.jpg') }}"
-                    alt="pan-on-scroll"
-                />
-            </div>
-            <div class="text-center text-xs opacity-70 mt-4">
-                滚动鼠标滚轮试试 →
-            </div>
+        .Chapter {
+            font-weight: bold;
+            color: #f37704ef;
+            font-size: 60px;
+            font-family: 'Times New Roman', Times, serif;
+        
+           }
+        .nomal-style{
+            color: #ffffff; 
+            position: relative; 
+            font-size: 40px;
+            font-weight: 200;
+            padding-left: 15vh;;
+            padding-right: 15vh;
+            text-align: justify;
+            line-height: 1.8; 
+
+        }
+        .home1{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: bold; /* font-medium */
+            color: #f0f0f0; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+            border-left: 8px solid  /* border-l-8 border-primary-color */
+            white-space: nowrap; /* 防止换行 */
+            overflow: hidden;
+        }
+        .home2{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: lighter; /* font-medium */
+            color: #000000; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+            border-left: 8px solid  /* border-l-8 border-primary-color */
+            white-space: nowrap; /* 防止换行 */
+            overflow: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: #000; /* 整个页面背景为黑色 */
+            overflow-x: hidden;
+        }
+        
+        /* 导航栏样式 */
+         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, rgba(230, 54, 10, 0.7), rgba(200, 40, 5, 0.85));
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav.scrolled {
+            padding: 10px 40px;
+            background: rgba(180, 40, 5, 0.95);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        nav-links {
+            display: flex;
+            gap: 2.5vh;
+            justify-content: flex-end;
+            flex-grow: 1;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background: #fff;
+            animation: underline 0.3s ease;
+        }
+        
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 4px;
+            background: #fff;
+            border-radius: 0 2px 2px 0;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        .logo {
+            position:fixed ;
+            top: 5px;
+            left: 5px;        
+            background-image: url('/images/白字透明.png');
+            width: 80%;
+            height: 80%; 
+            /* font-size: 24px;
+            font-weight: bold; */
+             
+            background-size: contain;
+            background-position: left center;
+            background-repeat: no-repeat;
+            /* color: var(--accent-color); */
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 5vh;
+            justify-content: flex-end; /* 确保链接靠右对齐 */
+            flex-grow: 1; /* 占据剩余空间 */
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        .sub-menu {
+    position: absolute; /* 绝对定位 */
+    left: 0%; /* 左侧对齐 */
+    background: white; /* 背景色 */
+    top: 8vh; /* 距离顶部位置 */
+    padding: 0; /* 无内边距 */
+    text-align: left; /* 文本左对齐 */
+    box-shadow: 0px 4px 20px -5px rgba(0, 0, 0, 0.15); /* 阴影效果 */
+    max-height: 1000PX; /* 最大高度 */
+    max-width: 300px; /* 最大宽度 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.45s ease all 0.1s; /* 过渡动画 */
+    z-index: 10; /* 较高层叠顺序 */
+    border-radius: 10px; /* 圆角 */
+    list-style: none;
+}
+.sub-menu .menu-item {
+    display: block; /* 块级显示 */
+}
+.sub-menu .sub-menu-item a {
+    color: #000;
+    font-size: 20px;
+    
+
+}
+.menu-item:nth-child(n+2):nth-child(-n+4) .plus-icon {
+    width: 10px; /* 图标宽度 */
+    height: 10px; /* 图标高度 */
+    stroke: hsl(0, 94%, 52%); /* 图标颜色 */
+    margin-bottom: 1px; /* 底部外边距 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4) .sub-menu-item {
+    list-style-type: none; /* 移除列表标记 */
+    display: block; /* 块级显示 */
+    margin: 15px; /* 外边距 */
+    position: relative; /* 相对定位 */
+    transform: translateY(-10px); /* Y轴位移 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.1s; /* 过渡动画 */
+    visibility: hidden; /* 隐藏元素 */
+    border-radius: 40%; /* 圆角 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu {
+    max-height: 1000px; /* 最大高度 */
+    max-width: 200px; /* 最大宽度 */
+    opacity: 1; /* 完全不透明 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item a {
+    transition: 0.15s ease all; /* 链接过渡动画 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item a:hover {
+    color: #fc1202; /* 链接悬停颜色 */
+}
+/* 子菜单项动画延迟设置 */
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:first-child {
+    transform: translateY(0px); /* 重置位移 */
+    opacity: 1; /* 完全不透明 */
+    transition-delay: 0.15s; /* 动画延迟 */
+    visibility: visible; /* 显示元素 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(2) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.3s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(3) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(4) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(5) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 太阳背景图片 - 固定在图层底部 */
+        .sun-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            background: url('/images/sun-background.png') bottom/cover no-repeat;
+            z-index: 1;
+            transition: opacity 0.8s ease-out; 
+            /* 添加渐变效果使太阳与黑色背景融合
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); */
+        }
+        
+        /* 山脉前景图片 */
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/images/山脉2.png') bottom/cover no-repeat;
+            z-index: 3;
+
+            transition: transform 0.8s ease-out;
+        }
+        
+        /* 英雄内容区域 */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            padding: 30px;
+            background: transparent;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            max-width: 100%;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            /* color: var(--accent-color); */
+            /* border: 1px solid var(--accent-color); */
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background:transparent
+            transform: translateY(-3px);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            z-index: 4;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        /* 内容区域 */
+        .content-section {
+            /* padding: 100px 5%; */
+            background-color: #000; /* 黑色背景 */
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .container {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .content-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+        
+        .content-card h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        /* 星空背景 */
+        .star-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        .hero-content0{
+            /* left: auto; */
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            background-image: url('/images/渐变2.png');
+            background-size: cover;
+            background-position: top;
+            display: flex;
+            justify-content: center;
+            z-index:10;
+
+        }
+        /* 文本div的容器 */
+        .text-content0{
+            /* left: auto; */
+            top: 0;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            z-index:10;
+            flex-direction: column
+        }
+        /* 文本的div */
+        .text-content{
+            flex: 1;
+            width: 100%;
+            height: auto;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            flex-direction: column
+        }
+        footer {
+            background-position: top;
+            background-color: #000;
+            padding: 0;
+            width: 100vw;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            height: 60vh;
+        }
+        
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .footer-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 5vh;
+            margin: 5.5vh 0;
+        }
+        
+        .footer-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+      <!-- 导航栏 -->
+        <nav>
+        <div class="logo"> </div>
+        <div class="nav-links">
+
+            <a ><H1>Home</H1></a>
+           <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Project&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            <li class="sub-menu-item"><a href="{{ get_url(path='background.html') }}">Background</a></li>
+                                            <li class="sub-menu-item"><a href="#">Design</a></li>
+                                            <li class="sub-menu-item"><a href="#">Results</a></li>
+                                            <li class="sub-menu-item"><a href="#">Supplement</a></li>
+
+                                            <li class="sub-menu-item"><a href="#">Protocol</a></li>
+                                        </ol>
+            </li>
+            <a class="active"><H1>Background</H1></a>
+            <a href="#"><H1>about</H1></a>
+            <a href="#"><H1>Team</H1></a>
         </div>
+    </nav>
+    <!-- 星空背景 -->
+    <div class="star-background" id="starBackground"></div>
 
-        {% endblock header %}
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="sun-background" style="background-size: cover;" id="sunBackground"></div>
+        <div class="mountains"  style="background-size: cover;" id="mountains"></div>
+        <div class="hero-content">
+            <h class="home1" style="font-style: italic;font-size: 70px;">DECODING THE EVOLUTIONARY ARMS RACE OF </h>
+            <h1 class="home2" style=" color:#000000;font-size: 80px;  text-shadow: #f0f0f0;"> RC48 RESISTANCE</h1>
+            <h class="home1" style="font-style: italic;font-size: 70px;">IN BLADDER CANCER</h>
+            <!-- 调整布局 -->
+            <a href="#content" class="btn"> </a>
+        </div> 
+        
+        <div class="scroll-indicator" style="font-size: 20px;">Explore more</div>
+    </section>
 
-        <main class="col-span-full">
-            {% block toc %} {% if section.toc %} {% set toc = section.toc %} {%
-            elif page.toc %} {% set toc = page.toc %} {% endif %} {% if toc %}
-            <div class="toc">
-                <div class="toc-sticky">
-                    {% for h in toc %}
-                    <div class="toc-item">
-                        <a class="subtext" href="{{h.permalink | safe}}"
-                            >{{ h.title }}</a
-                        >
-                    </div>
-                    {% if h.children %} {% for h2 in h.children %}
-                    <div class="toc-item-child">
-                        <a class="subtext" href="{{h2.permalink | safe}}"
-                            ><small>- {{ h2.title }}</small></a
-                        >
-                    </div>
-                    {% endfor %} {% endif %} {% endfor %}
+    <!-- 内容区域 --> 
+    <div class="hero-content0" style="padding: 0; background-size: contain ;background-position: top;background-repeat: no-repeat ; ">
+    <div class="text-content">
+        
+        <h1 class="Chapter" style=" position: relative; top:-15vh;"> Chapter1&nbsp; &nbsp; &nbsp;&nbsp; History of "Biological Missiles"</h1>
+        <h2 style="color: #f0a70b; position: relative; top:-10vh;font-size: 40px;">"In war, the way is to avoid what is strong and strike at what is weak."</h2>
+        <h3 style="color: #f0a70b; position: relative; top:-5vh; left: 70vh;font-size: 40px;font-weight:100;">—— Sun Tzu</h3>
+        <!-- <p class="nomal-style"style="color: #ffffff; position: relative; bottom:-320px;;font-size: 40px;font-weight: 200;padding-left: 150px;padding-right: 150px;text-align: justify;">" </p> -->
+     </div> 
+  </div>
+    <section id="content" class="content-section" style="background-color: transparent;">
+       <div class="text-content0">
+        <div class="text-content">
+            <p class="nomal-style" style="position:relative; top: 0;">
+            The 20th century began with chemotherapy’s blunt assault on cells, effective &nbsp;yet 
+            destructive. The 1975 discovery of monoclonal antibodies introduced precision-guided 
+            " biological missiles ", culminating in Herceptin’s 1997 debut as the first targeted therapy    
+            against HER2. The 21st century breakthrough of antibody-drug
+            conjugates (ADCs) elevated this precision: antibodies now act as
+            smart delivery systems, directing cytotoxic payloads into tumors.
+            From indiscriminate bombardment to precision strikes, this
+            century-spanning revolution embodies Sun Tzu ’ s
+            timeless.
+            </p>
+            <div style="height: 35vh; width: 100%;margin-top: 5vh; padding-left: 15%;padding-right: 10%;">
+            <div style=" position: relative; height: 35vh; width: 35vh; ;background-image: url('/images/figure1.jpg');background-size: cover; margin-right: 5%; float: left;">
+            </div>
+            <div style=" position: relative; height: 35vh; width: 90vh; ;background-image: url('/images/figure1-2.png');background-size: cover; float: left;">
+            </div>
+            </div>
+            <h class="nomal-style" style="position: relative; margin-top: 5vh;font-size: 30px;">Figure 1 Paul Ehrlich (1854-1915)</h>
+            <h class="Chapter" style="position: relative; margin-top: 20vh;">Chapter2&nbsp; &nbsp;&nbsp;&nbsp;Here Disitamab Vedotin Comes</h> 
+            <p class="nomal-style" style="position:relative; margin-top: 10vh;">
+            Disitamab Vedotin (RC48) is an innovative antibody-drug conjugate
+            (ADC) composed of three key components: a novel monoclonal
+            antibody (disitamab) that binds with high affinity to different epitopes
+            of HER2 on tumor cells; a stable linker that connects the antibody to
+            the cytotoxic payload; and monomethyl auristatin E (MMAE), a potent
+            microtubule-binding agent.
+            </p>
+            <div style=" position: relative; height: 65vh; width: 120vh; ;background-image: url('/images/Figure2.png');background-size: cover;">
+
+            </div>
+            <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Figure 2 The structure of RC48</h>
+            <p class="nomal-style" style="position:relative; margin-top: 10vh;">
+            Disitamab Vedotin (RC48) is an innovative antibody-drug conjugate
+            (ADC) composed of three key components: a novel monoclonal
+            antibody (disitamab) that binds with high affinity to different epitopes
+            of HER2 on tumor cells; a stable linker that connects the antibody to
+            the cytotoxic payload; and monomethyl auristatin E (MMAE), a potent
+            microtubule-binding agent.
+            </p>
+            <div style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('/images/Figure3.png');background-size: cover;">
+
+            </div>
+            <h class="nomal-style" style="position: relative;top: -30vh; margin: 10vh;;font-size: 30px;">Figure 3 The mechanism of RC48</h>
+            <h class="Chapter" style="position: relative; top: -5vh; ">Chapter3&nbsp; &nbsp;&nbsp;&nbsp;The "Roadblock"</h> 
+             <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 5vh;margin-left: 5vw;margin-right: 5vw;">“There is no fixed formation in warfare, just as there is no fixed shapein water.”</h2>
+              <h3 style="color: #f0a70b; position: relative; left: 75vh;font-size: 40px;font-weight:100;margin-top: 20px;">—— Sun Tzu</h3>
+            <p class="nomal-style" style="position:relative; margin-top: 10vh;">
+            Despite RC48's revolutionary targeting of HER2-positive bladder cancer,
+            resistance remains a significant challenge, as is the case with many
+            antibody-drug conjugates. Like water adapting to terrain, cancer cells
+            evolve stealth tactics to evade treatment. How do we outmaneuver an
+            enemy that rewrites its playbook daily?
+            </p>
+            <div style=" position: relative; margin-top:10vh;height: 50vh; width: 97vh; background-image: url('/images/Figure4.jpg');background-size: contain;">
+
+            </div>
+            <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Figure 4 Can Hou Yi shoot down the stronger sun?</h>
+            <h class="Chapter" style="position: relative;margin-top: 10vh;">Chapter4&nbsp; &nbsp;&nbsp;&nbsp;Evove to Counter Evove"</h> 
+             <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20px;">“Know thy enemy and know yourself; in a hundred battles, never peril.”</h2>
+              <h3 style="color: #f0a70b; position: relative; left: 75vh;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
+              <p class="nomal-style" style="position:relative; margin-top: 10vh;">
+              Resistance is no accident but an arms race. To conquer, we must map the
+              enemy’s playbook.To know the enemy, we became the enemy. Through iterative RC48exposure (40 →400 μ g/mL over 12 weeks), we forged T24-RC48 — a
+              mirror of clinical resistance. Its 10-fold IC50 surge (P&lt;0.001) echoes
+              </p>
+             <div style=" position: relative; margin-top:10vh;height: 60vh; width: 90vh; background-image: url('/images/Figure5.png');background-size: cover;">
+
+              </div> 
+              <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">&nbsp; &nbsp; &nbsp; &nbsp;  Figure 5 &nbsp;&nbsp;&nbsp;Drug susceptibility test results diagram </h>
+               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
+            When the enemy digs trenches, we map every foxhole. Multi-omics intel
+            exposes resistance ’ s Achilles ’
+            heel: Integrated proteomic and
+            transcriptomic analyses revealed 120 co-differentially expressed genes.
+            WGS uncovered 3,155,367 SNPs, among which 19,802 were located in
+            exonic regions, 1,718,276 in intergenic regions, and 546 in splicing regions.
+            Among the coding SNPs, an average of 10,017 synonymous and 9,245
+            missense mutations were detected per sample. Additionally, 923,236 InDels
+            were identified, including 571 in exonic regions, 468,933 in intergenic
+            regions, and 385 in splicing regions. Within the coding InDels, each sample
+            carried on average 68 frameshift deletions, 61 frameshift insertions, 177
+            non-frameshift deletions, and 149 non-frameshift insertions.”
+            </p> 
+            <div style="position: relative; margin-top:10vh;min-height: 80vh; height: auto; width: 100vw; display: flex;flex-direction: row;gap: 2vw;flex-wrap: wrap; padding-left: 5vw;">
+                 <div style=" margin-left: 15vw; position: relative; ;height: 40vh; width: 25vw; background-image: url('/images/Figure6-1.png');background-size: contain;">
+
+              </div> 
+               <div style=" position: relative; height: 40vh; width: 35vw; background-image: url('/images/Figure6-2.png');background-size: contain;">
+
+              </div> 
+               <div style=" margin-left: 2vw;position: relative; ;height: 50vh; width: 39vw; background-image: url('/images/Figure6-3.jpg');background-size: contain;">
+
+              </div> 
+               <div style=" position: relative; height: 50vh; width: 46vw; background-image: url('/images/Figure6-4.jpg');background-size: contain;">
+
+             
+
+
+            </div> 
+         </div>
+         <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Figure 6 Overview of multi-omics analysis results</h>
+            <h class="Chapter" style="position: relative;margin-top: 10vh;">Epilogue </h> 
+             <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20px; margin-left: 5vw; margin-right: 5vw;">"The skillful combatant imposes his will on the enemy, but does not allow the enemy's will to be imposed on him"</h2>
+              <h3 style="color: #f0a70b; position: relative; left: 75vh;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
+              <p class="nomal-style" style="position:relative; margin-top: 10vh;">
+              Resistance is not failure—it's evolution. And evolution is the catalyst for innovation. By studying how resistance works, we can use it as a blueprint to design better treatments. By dissecting the intricate mechanisms of resistance, we've turned their armor into a blueprint. The next front? Preemptive strategies that leverage our growing understanding of resistance pathways, transforming vulnerabilities into therapeutic opportunities.
+              </p>
+            <div style=" width: 100vw; height: 120vh;  background-image: url('/images/background板块首页.jpg'); background-size: contain; background-repeat: no-repeat;">
+              <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20vh; margin-left: 5vw; margin-right: 5vw;">"He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain.”</h2>
+              <h3 style="color: #f0a70b; position: relative; left: 75vw;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
+            </div>
+       </div>
+       </div>
+                          
+        <!-- <div class="container">
+        
+            <h2 class="section-title">星空之旅</h2>
+            <div class="content-grid">
+                <div class="content-card">
+                    <h3>山脉奇观</h3>
+                    <p>探索世界各地的壮丽山脉，感受大自然的力量与美丽。从阿尔卑斯到喜马拉雅，每一座山都有其独特的故事。</p>
+                    
+                </div>
+                <div class="content-card">
+                    <h3>星空摄影</h3>
+                    <p>学习如何捕捉星空最美的瞬间。我们的专业摄影师将分享他们的技巧和经验，帮助您拍摄出令人惊叹的星空照片。</p>
+                </div>
+                <div class="content-card">
+                    <h3>天文知识</h3>
+                    <p>了解星座、行星和宇宙的奥秘。无论您是初学者还是资深爱好者，都能在这里找到有趣的天文知识。</p>
                 </div>
             </div>
-            {% endif %} {% endblock toc %}
-
-            <div class="content text">
-                {% block content %}
-                <div id="features" class="heading-text">Overview</div>
-                {{ section.content | safe }} {% endblock content %}
+        </div> -->
+    </section>
+   <footer style="z-index: -1; margin-bottom: 0; " >
+        <div class="footer-content" style="margin-top: 0;  background-color: #000; z-index: -1; position: absolute;bottom: 0; align-items: center;" >
+            <!-- <h2>开启您的星空探索之旅</h2> -->
+            <p style="font-size: 25px; text-align: left;">contect us by </p>
+            <div class="footer-links" style="justify-content: center;">
+                 <a href="#" class="active">首页</a>
+                 <a href="#">关于</a>
+                 <a href="#">画廊</a>
+                 <a href="#">联系</a>联系</a>
+                 </div>
+            <div class="copyright" style="text-align: center;align-self: center; ">
+                &copy; 2025 Onco_Strat
             </div>
-
-            <!-- {% block sidebar %}
-        <div class="sidebar">
-            Your can customize the sidebar.
         </div>
-        {% endblock sidebar %} -->
-        </main>
+    </footer>
 
-        {% block footer %}
-        <footer class="col-span-full">
-            <small class="subtext">
-                <a href="https://huhu.io">Huhu.io</a> © 2021
-            </small>
-        </footer>
-        {% endblock footer %}
-</div> 
-    </body>
     <script>
-        const scrollHandler = (entries) => {
-            // Find the first entry which intersecting and ratio > 0.9 to highlight.
-            let entry = entries.find((entry) => {
-                return entry.isIntersecting && entry.intersectionRatio > 0.9;
-            });
-            if (!entry) return;
-
-            document.querySelectorAll('.toc a').forEach((item) => {
-                item.classList.remove('active');
-            });
-
-            // let url = new URL(`#${entry.target.id}`);
-            let link = document.querySelector(
-                `.toc a[href$="${decodeURIComponent(`#${entry.target.id}`)}"]`
-            );
-            if (link) {
-                link.classList.add('active');
-                link.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+        // 创建星空背景
+        function createStars() {
+            const starBackground = document.getElementById('starBackground');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${animationDelay}s`;
+                
+                starBackground.appendChild(star);
             }
-        };
-        // Set -100px root margin to improve highlight experience.
-        const observer = new IntersectionObserver(scrollHandler, {
-            threshold: 1,
-        });
-        let items = document.querySelectorAll('h1,h2,h3,h4,h5,h6');
-        items.forEach((item) => observer.observe(item));
-
-        // Animate.css 进入/离开动画（防止闪烁，兼容窄屏）
-        const panImg = document.getElementById('panImg');
-        if (panImg) {
-            let lastVisible = false;
-            const panImgObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach(entry => {
-                        // 只在图片实际可见且宽度大于0时才处理动画
-                        const isActuallyVisible = entry.isIntersecting && panImg.offsetParent !== null && panImg.getBoundingClientRect().width > 0;
-                        if (isActuallyVisible && !lastVisible) {
-                            panImg.classList.remove('animate__fadeOutLeft', 'opacity-0');
-                            panImg.classList.add('animate__animated', 'animate__fadeInRight', 'opacity-100');
-                            lastVisible = true;
-                        } else if (!isActuallyVisible && lastVisible) {
-                            panImg.classList.remove('animate__fadeInRight', 'opacity-100');
-                            panImg.classList.add('animate__animated', 'animate__fadeOutLeft', 'opacity-0');
-                            lastVisible = false;
-                        }
-                    });
-                },
-                { threshold: 0.5 }
-            );
-            panImgObserver.observe(panImg);
         }
+        
+        // 处理滚动效果
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const mountains = document.getElementById('mountains');
+            const sunBackground = document.getElementById('sunBackground');
+            
+            // 调整太阳透明度 - 随滚动逐渐消失
+            if (scrollPosition <= heroHeight * 1.2) {
+                const opacity = 1 - (scrollPosition / (heroHeight * 0.8));
+                sunBackground.style.opacity = opacity;
+                sunBackground.style.display = 'block';
+                
+               } 
+            else {
+            sunBackground.style.opacity = 0;
+            sunBackground.style.display = 'none';
+               }
+            
+            // 山脉和内容区域一起向上移动
+        //     if (scrollPosition <= heroHeight) {
+        //         const moveY = scrollPosition * 0.5;
+        //         mountains.style.transform = `translateY(${moveY}px)`;
+        //         document.querySelector('.hero-content').style.transform = `translateY(${moveY * 0.7}px)`;
+        //     }
+         }
+        
+        // 初始化
+        window.addEventListener('load', () => {
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
     </script>
+</body>
 </html>
+

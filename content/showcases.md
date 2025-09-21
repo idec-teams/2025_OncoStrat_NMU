@@ -1,131 +1,76 @@
 +++
-title = "Showcases"
-description = "Showcases"
+title = "Background"
+description = "aaaaa"
 weight = 1
+template="background-page.html"
 +++
+# Preface: A Hidden Threat to Urinary Health
 
-# Pull request
+Bladder cancer, one of the most common malignancies of the urinary system worldwide, is quietly inching its way up the ranks of global health threats. In 2022, it clocked in over 610,000 new cases globally, securing the 9th spot in the cancer hall of fame—or infamy—with over 220,000 lives lost. [1]Projections for 2040 paint a grimmer picture: deaths from bladder cancer could hit 163,000–245,000 in men and 119,000–176,000 in women. [2]
+In terms of diagnosis and treatment, traditional chemotherapy often leads to drug resistance in advanced patients, and immunotherapy has limited response rates. However, the advent of Antibody-Drug Conjugates (ADCs) has brought a revolutionary breakthrough in global bladder cancer treatment. In particular, enfortumab vedotin and sacituzumab govitecan have rewritten the rulebook, giving patients precious extra time.
+**Juice** 
 
-If you use **Juice** as your theme, feel free to make Pull request.
+# Chapter 1: Getting to Know Bladder Cancer
 
-Here are some steps to help you get started:
- 
-- Change the [content/showcases.md](https://github.com/huhu/juice/blob/master/content/showcases.md) file, add your product site. Make sure the lexicographical order.
-- Add a link to your product site.
 
-# Gallery
 
-Here are some product websites which use **Juice** as the theme.
-Sort by lexicographical order. For more showcases, please visit [here](https://github.com/search?l=&p=1&q=theme+%3D+%22juice%22+filename%3Aconfig.toml&ref=advsearch&type=Code).
+## 1. What Exactly Is Bladder Cancer?
+Think of bladder cancer as a mutiny in your bladder: cells lining the organ, tired of following the rules, start multiplying like uninvited party crashers. The bladder, our body’s "urine storage unit", exposes these cells to all sorts of chemicals in urine, making them prone to rebellions (mutations).
+Doctors split it into two main types:
+Non-muscle-invasive: The rebels stay near the surface—easier to squelch, better prognosis.
+Muscle-invasive: The mutiny spreads deep into the bladder wall—tougher to contain, needs heavier firepower.
+<!-- [https://www.acton-lang.org/](https://www.acton-lang.org/) -->
 
-## Acton Lang
+## 2. Who’s on Bladder Cancer’s Radar?
+Smokers: Lighting up doubles to quadruples your risk. Cigarette smoke is basically a cocktail of bladder cell troublemakers. [3]
+Chemistry buffs (unwillingly)[4]:  Workers exposed to dyes, rubber, or plastics (think benzidine) are sitting ducks.
+Chronic trouble: Long-term bladder infections, stones, or catheters keep cells in a bad mood, upping mutation chances.
+Dodgy meds: Pills with aristolochic acid?  They’re like throwing gasoline on a fire for urinary cells.
 
-[https://www.acton-lang.org/](https://www.acton-lang.org/)
 
-## Arara
+## 3.Warning Signs: When Your Bladder Sends an S.O.S.
+Early red flag: Painless blood in urine (like a burglar leaving a calling card without making a sound).Late-stage chaos: Frequent urination, urgent urination, and painful urination—collectively called "bladder irritation symptoms"along with backaches or unexplained weight loss—your bladder’s way of yelling, “Help!” These often indicate advanced disease or spread..
 
-[https://islandoftex.gitlab.io/arara/](https://islandoftex.gitlab.io/arara/)
+## 4.Outsmarting Bladder Cancer: Prevention 101
+Quit smoking: This single move slashes risk by 70%--your lungs (and bladder) will throw a parade.
+Hydrate like it’s your job: Chug 2 liters of water daily. More peeing = less time for baddies to linger in your bladder.
+Mask up (if you must): If your job involves chemicals, gear up with gloves and respirators.
+Check-ups for high-risk folks: Smokers or industrial workers? Annual bladder ultrasounds could catch trouble early.
 
-## Angular Rust
+<!-- [https://atlas-language.github.io/](https://atlas-language.github.io/) -->
+# Chapter 2: Bladder Cancer Treatment--From Old School to Cutting-Edge
+Clinically, bladder cancer treatment has long relied on traditional methods: "surger+ radiotherapy/chemotherapy + immunotherapy." Then, the ADCs was approved, [5]"disitamab vedotin (RC48)" was one of them, offering new hope to bladder cancer patients. It’s like a "precision missile"--composed of a "navigation system (antibody)", a "warhead (cytotoxic drug)", and a "Linker"--capable of accurately targeting cancer cells. [6]
+Disitamab vedotin specifically targets bladder cancer with overexpressed HER2 protein and has been designated a "breakthrough therapy" by both the U.S. FDA and China’s NMPA. Clinical trials show it can extend the survival of advanced patients with fewer side effects than traditional chemotherapy. [7]
+# Chapter 3: The "Roadblock" for ADC Drugs: Drug Resistance
 
-[https://angular-rust.github.io/](https://angular-rust.github.io/)
+Just as bacteria "adapt" to antibiotics, cancer cells can also "resist" drugs. ADCs that once worked may become less effective or even completely useless after a period of use--this is "drug resistance." RC48 also faces this issue, which has become a major obstacle to treatment efficacy.
+The mechanisms of ADC resistance are not yet fully settled, but preliminary evidence categorizes them into four types:
+1)Antibody-mediated resistance: Cancer cells reduce the number of HER2 proteins on their surface or alter their structure, making RC48’s "navigation system" unable to recognize them--like "changing their secret code, leaving the missile lost."
+2)Impaired drug transport: After ADCs are internalized, they fail to enter lysosomes or the linker cannot break, so the "warhead" can’t be released--think of it as "the package gets stuck in the warehouse, unable to be unpacked."
+3)Functional disruption: Cancer cells activate signaling pathways like Notch to enhance their survival ability, counteracting the killing effect of MMAE--"putting on a bulletproof vest to avoid bullets."
+4)Payload efflux: Cancer cells "pump" MMAE out of the cell via ABC transporters, reducing its lethality--"the toxin is promptly drained, failing to deliver a fatal blow." 
+<!-- [https://avatar-cli.dev/](https://avatar-cli.dev/) -->
 
-## Atlas Language
+# Epilogue: From Lab Benches to Hospital Beds—Hope Marches On
 
-[https://atlas-language.github.io/](https://atlas-language.github.io/)
+Epilogue: From Lab Benches to Hospital Beds—Hope Marches On
+Bladder cancer once trapped patients in a loop of recurrence and resistance, but ADCs have thrown open a window of hope. Every step forward is a victory for science—and for patients. 
+Nowadays, in the face of resistance to ADC drugs, for you? Know the risks, spot the signs, and stay vigilant—prevention is still our best offense. For patients? Trust in progress, and keep fighting.
+From lab-grown cells to real-world therapies, from late nights in research labs to brave patients in clinics[8-10]—we’re inching closer to the day we outsmart bladder cancer for good. And that day? It’s coming.  
 
-## Avatar CLI
+<div>"/n"</div>
 
-[https://avatar-cli.dev/](https://avatar-cli.dev/)
+<div style="justify-self: center; align-self: center;color: white; font-size: 30px; font-weight: bold">Reference
+ </div>
 
-## C/C++ Search Extension
+[1] Siegel RL, Kratzer TB, Giaquinto AN, Sung H, Jemal A. Cancer statistics, 2025. CA Cancer J Clin. 2025 Jan-Feb;75(1):10-45. doi: 10.3322/caac.21871. Epub 2025 Jan 16. PMID: 39817679; PMCID: PMC11745215.
+[2] WEBER A, VIGNAT J, SHAH R , et al. Global burden of bladder cancer mortality in 2020 and 2040 according to GLOBOCAN estimates[J]. World J Urol, 2024, 42(1): 237.
+[3] Carreras G, Possenti I, Malevolti MC, Gorini G, Gallus S, Lugo A. Second-hand smoke and bladder cancer risk among nonsmokers: a systematic review and a meta-analysis. Eur J Cancer Prev. 2025 Jun 18. doi: 10.1097/CEJ.0000000000000979. Epub ahead of print. PMID: 40536077.
+[4] Alouini S. Risk Factors Associated with Urothelial Bladder Cancer. Int J Environ Res Public Health. 2024 Jul 22;21(7):954. doi: 10.3390/ijerph21070954. PMID: 39063530; PMCID: PMC11277468.
+[5] Colombo R, Tarantino P, Rich JR, LoRusso PM, de Vries EGE. The Journey of Antibody-Drug Conjugates: Lessons Learned from 40 Years of Development. Cancer Discov. 2024 Nov 1;14(11):2089-2108. doi: 10.1158/2159-8290.CD-24-0708. PMID: 39439290.
+[6] Vlachou E, Johnson BA, Hoffman-Censits J. The Role of Antibody-Drug Conjugates in Urothelial Cancer: A Review of Recent Advances in the Treatment of Locally Advanced and Metastatic Urothelial Cancer. Clin Med Insights Oncol. 2024 Dec 15;18:11795549241290787. doi: 10.1177/11795549241290787. PMID: 39686979; PMCID: PMC11648052.
+[7] Sheng X, Yan X, Wang L, Shi Y, Yao X, Luo H, Shi B, Liu J, He Z, Yu G, Ying J, Han W, Hu C, Ling Y, Chi Z, Cui C, Si L, Fang J, Zhou A, Guo J. Open-label, Multicenter, Phase II Study of RC48-ADC, a HER2-Targeting Antibody-Drug Conjugate, in Patients with Locally Advanced or Metastatic Urothelial Carcinoma. Clin Cancer Res. 2021 Jan 1;27(1):43-51. doi: 10.1158/1078-0432.CCR-20-2488. Epub 2020 Oct 27. PMID: 33109737.
+[8] Díaz-Rodríguez E, Gandullo-Sánchez L, Ocaña A, Pandiella A. Novel ADCs and Strategies to Overcome Resistance to Anti-HER2 ADCs. Cancers (Basel). 2021 Dec 29;14(1):154. doi: 10.3390/cancers14010154. PMID: 35008318; PMCID: PMC8750930.
+[9] Nguyen TD, Bordeau BM, Balthasar JP. Mechanisms of ADC Toxicity and Strategies to Increase ADC Tolerability. Cancers (Basel). 2023 Jan 24;15(3):713. doi: 10.3390/cancers15030713. PMID: 36765668; PMCID: PMC9913659.
+[10] Grairi M, Le Borgne M. Antibody-drug conjugates: prospects for the next generation. Drug Discov Today. 2024 Dec;29(12):104241. doi: 10.1016/j.drudis.2024.104241. Epub 2024 Nov 13. PMID: 39542204.
 
-[https://cpp.extension.sh/](https://cpp.extension.sh/)
-
-## Crow Translate
-
-[https://crow-translate.github.io/](https://crow-translate.github.io/)
-
-## Drogue IOT
-
-[https://www.drogue.io/](https://www.drogue.io/)
-
-## El Monitorro
-
-[https://elmonitorro.badykov.com/](https://elmonitorro.badykov.com/)
-
-## Erg Lang
-
-[https://erg-lang.org/](https://erg-lang.org/)
-
-## Godot-rust
-
-[https://godot-rust.github.io/](https://godot-rust.github.io/)
-
-## GoToFix (JP)
-
-[https://gotofix.kumassy.com/](https://gotofix.kumassy.com/)
-
-## Go Search Extension
-
-[https://go.extension.sh/](https://go.extension.sh/)
-
-## Gradecoin
-
-[https://gradecoin.xyz/](https://gradecoin.xyz/)
-
-## Insta.rs
-
-[https://insta.rs/](https://insta.rs/)
-
-## Instant markdown
-
-[https://instant-markdown.github.io/](https://instant-markdown.github.io/)
-
-## ImpftHessen (DE)
-
-[https://impft-hessen.de/](https://impft-hessen.de/)
-
-## IOL 2024 website
-
-[https://iol2024.org](https://iol2024.org)
-
-## JS Search Extension
-
-[https://js.extension.sh/](https://js.extension.sh/)
-
-## Fun Notation
-
-[https://www.notation.fun/](https://www.notation.fun/)
-
-## PeopleForBike
-
-[https://peopleforbikes.github.io/](https://peopleforbikes.github.io/)
-
-## Rust Search Extension
-
-[https://rust.extension.sh/](https://rust.extension.sh/)
-
-## Stitcherd
-
-[https://stitcherd.vhodges.dev/](https://stitcherd.vhodges.dev/)
-
-## Streamson
-
-[https://streamson.henek.name/](https://streamson.henek.name/)
-
-## Tokay lang
-
-[https://tokay.dev](https://tokay.dev)
-
-## Trunk
-
-[https://trunkrs.dev/](https://trunkrs.dev/)
-
-## Vidar
-
-[https://calebsacks.me/vidar/](https://calebsacks.me/vidar/)
-
-## zDevelopers
-
-[https://dev.zcraft.fr/](https://dev.zcraft.fr/)

@@ -2,6 +2,7 @@
 title = "exclude_from_nav"
 description = "Page without nav link"
 weight = 3
+template="background-page.html"
 +++
 
 # Hidden page

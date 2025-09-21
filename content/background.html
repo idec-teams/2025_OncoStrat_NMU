@@ -675,51 +675,50 @@
             align-items: center;
             flex-direction: column
         }
-        footer {
-            background-color:#3b3939;
-            height: 60vh;
-            height: auto;
-            margin-top: 0;
-            padding: 0;
+         footer {
+            background-position: top;
+            background-color: #000;
+            padding: 40px 5vw; /* 修改为左右对称的padding */
+            width: 100%;
             text-align: center;
             position: relative;
-            z-index: 3;
+            z-index: 2;
+            min-height: 20vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .footer-content {
             max-width: 800px;
             margin: 0 auto;
-        }
-        
-        .footer-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-        
-        .footer-links {
             display: flex;
-            justify: center;
-            gap: 5vh;
-            margin: 5.5vh 0;
+            flex-direction: column;
         }
         
-        .footer-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s;
+        .footer-contact {
+            text-align: left;
+            margin-bottom: 30px;
         }
         
-        .footer-links a:hover {
-            color: var(--accent-color);
+        .footer-contact p {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .copyright-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
         }
         
         .copyright {
-            margin-top: 40px;
             color: var(--text-secondary);
             font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
+            margin: 0 auto;
         }
-        
         @keyframes twinkle {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
@@ -877,7 +876,7 @@
         <div class="sidebar-content">
             <ul class="toc-list" id="toc">
                 <li class="toc-item level-1">
-                    <a href="#Preface" class="toc-link active;"style="font-size:17px;" >Preface</a>
+                    <a href="#Preface" class="toc-link"style="font-size: 18px;" >Preface</a>
                 </li>
                 <li class="toc-item level-1">
                     <a href="#Chapter1" class="toc-link" style="font-size: 17px;">Getting to Know Bladder Cancer</a>
@@ -918,7 +917,7 @@
         <!-- 视频 -->
     <div class="video-background" style="z-index: 3;">
 
-        <video id="bg-video" type="video/mp4" src= "videos/video2.mp4" muted  playsinline>
+        <video id="bg-video" type="video/mp4/webm" src= "videos/video1.webm" muted  playsinline>
             <!-- 备用内容，如果视频无法加载则显示 -->
             您的浏览器不支持HTML5视频标签。
         </video>
@@ -1221,8 +1220,10 @@
             style="
             width: 90%;
             height: auto;
+            min-height: 50vh;
             border: 2px solid #333; 
             padding: 2vw;
+            padding-bottom: 0;
             display: flex;
             margin-top: 15vh;   
         
@@ -1239,22 +1240,23 @@
 
                 margin-top: -2vw;
                 width:30vw;
-                height: 50vw;  
+                min-height: 50vw;
+                height:auto;  
                 border-right: 2px solid #000;
         
               ">
 
             <p  id="explanation"class="nomal-style" style="position:relative; margin-top: 5vh;  text-align: left;
-            text-align-last: left;">
+            text-align-last: left; font-size: 30px;">
             Late-stage chaos: Frequent urination, urgent urination, and painful urination—collectively called "bladder irritation symptoms"along with backaches or unexplained weight loss—your bladder’s way of yelling, “Help!” These often indicate advanced disease or spread..
             </p>
              </div>
-
+          
             <div class="picture-small"
                 style=" 
                 position: relative;
                 width:15vw;
-                height: 80vw;        
+                height: 45vw;        
                 display: flex;
                 flex-direction: column; 
                 margin-left: 3vw;   
@@ -1435,7 +1437,7 @@
                 position: relative;
                 width:100%;
                 height: 30vw;  
-                background-image: url('/images/Bg9.png') ;
+                background-image: url('/images/Bg9.1.png') ;
                 background-size: contain;
                      ">
             </div>
@@ -1551,18 +1553,16 @@
      </div> 
 
 
-     <footer >
-        <div class="footer-content" style="margin-top: 5vh; " >
-            <!-- <h2>开启您的星空探索之旅</h2> -->
-            <p style="font-size: 25px;">contect us by </p>
-            <div class="footer-links" style="justify-content: center;">
-                 <a href="#" class="active">首页</a>
-                 <a href="#">关于</a>
-                 <a href="#">画廊</a>
-                 <a href="#">联系</a>联系</a>
-                 </div>
-            <div class="copyright">
-                &copy; 2025 Onco_Strat
+      <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>Contect us by</p>
+                <p>Email : 1402418580@qq.com | Phone: 86-13566087400</p>
+                <p>Address : 800 Xiangyin Road, Yangpu District, Shanghai, China, 200433.</p>
+            </div>
+            
+            <div class="copyright-container">
+                <div class="copyright">&copy; 2025 Onco_Strat</div>
             </div>
         </div>
     </footer>

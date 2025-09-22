@@ -181,9 +181,11 @@
     position: absolute; /* 绝对定位 */
     left: 0%; /* 左侧对齐 */
     background: white; /* 背景色 */
+    border-left: 10px solid #db3434 ;
     top: 8vh; /* 距离顶部位置 */
     padding: 0; /* 无内边距 */
     text-align: left; /* 文本左对齐 */
+    font-weight: bold;
     box-shadow: 0px 4px 20px -5px rgba(0, 0, 0, 0.15); /* 阴影效果 */
     max-height: 1000PX; /* 最大高度 */
     max-width: 300px; /* 最大宽度 */
@@ -191,6 +193,8 @@
     transition: 0.45s ease all 0.1s; /* 过渡动画 */
     z-index: 10; /* 较高层叠顺序 */
     border-radius: 10px; /* 圆角 */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
     list-style: none;
 }
 .sub-menu .menu-item {
@@ -229,7 +233,10 @@
 }
 .menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item a:hover {
     color: #fc1202; /* 链接悬停颜色 */
+    animation: underline #fc1202 0.3s ease;
+
 }
+
 /* 子菜单项动画延迟设置 */
 .menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:first-child {
     transform: translateY(0px); /* 重置位移 */
@@ -337,8 +344,8 @@
         }
         
         .btn:hover {
-            background:transparent
-            transform: translateY(-3px);
+            background:transparent;
+            transform:translateY(-3px);
         }
         
         .scroll-indicator {
@@ -466,47 +473,81 @@
         footer {
             background-position: top;
             background-color: #000;
-            padding: 0;
-            width: 100vw;
+            padding: 40px 5vw; /* 修改为左右对称的padding */
+            width: 100%;
             text-align: center;
             position: relative;
             z-index: 2;
-            height: 60vh;
+            min-height: 20vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .footer-content {
-            max-width: 800px;
+            width: 100%;
             margin: 0 auto;
-        }
-        
-        .footer-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--accent-color);
-        }
-        
-        .footer-links {
             display: flex;
-            justify-content: center;
-            gap: 5vh;
-            margin: 5.5vh 0;
+            flex-direction: column;
         }
         
-        .footer-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s;
+        .footer-contact {
+            text-align: left;
+            margin-bottom: 30px;
         }
         
-        .footer-links a:hover {
-            color: var(--accent-color);
+        .footer-contact p {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .copyright-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
         }
         
         .copyright {
-            margin-top: 40px;
             color: var(--text-secondary);
             font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
+            margin: 0 auto;
         }
+
+         .button {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+        } 
+
+             /* 边框按钮样式 */
+        .outline-button {
+            background: transparent;
+            color: #db3434;
+            border: 2px solid #db3434;
+            box-shadow: none;
+            font-size: 20px;
+        }
+        
+        .outline-button:hover {
+            background: #db8d34;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
+            
+
+        }
+        
         
         @keyframes twinkle {
             0%, 100% { opacity: 0.2; }
@@ -539,7 +580,7 @@
            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Project&nbsp;&#9660</H1></a>
                 <ol class="sub-menu">
                                             <li class="sub-menu-item"><a href="{{ get_url(path='background.html') }}">Background</a></li>
-                                            <li class="sub-menu-item"><a href="#">Design</a></li>
+                                            <li class="sub-menu-item"><a href="{{ get_url(path='safety.html') }}">Safety</a></li>
                                             <li class="sub-menu-item"><a href="#">Results</a></li>
                                             <li class="sub-menu-item"><a href="#">Supplement</a></li>
 
@@ -576,6 +617,9 @@
         <h1 class="Chapter" style=" position: relative; top:-15vh;"> Chapter1&nbsp; &nbsp; &nbsp;&nbsp; History of "Biological Missiles"</h1>
         <h2 style="color: #f0a70b; position: relative; top:-10vh;font-size: 40px;">"In war, the way is to avoid what is strong and strike at what is weak."</h2>
         <h3 style="color: #f0a70b; position: relative; top:-5vh; left: 70vh;font-size: 40px;font-weight:100;">—— Sun Tzu</h3>
+        <div class="button0" style="position: relative ; left: 70vh; height: 5vh; width: 15vh; margin-top: 2vh;">
+         <a href="https://www.example.com" target="_blank" class="outline-button button">ReadMore </a>        
+        </div>
         <!-- <p class="nomal-style"style="color: #ffffff; position: relative; bottom:-320px;;font-size: 40px;font-weight: 200;padding-left: 150px;padding-right: 150px;text-align: justify;">" </p> -->
      </div> 
   </div>
@@ -628,6 +672,9 @@
             <h class="Chapter" style="position: relative; top: -5vh; ">Chapter3&nbsp; &nbsp;&nbsp;&nbsp;The "Roadblock"</h> 
              <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 5vh;margin-left: 5vw;margin-right: 5vw;">“There is no fixed formation in warfare, just as there is no fixed shapein water.”</h2>
               <h3 style="color: #f0a70b; position: relative; left: 75vh;font-size: 40px;font-weight:100;margin-top: 20px;">—— Sun Tzu</h3>
+                <div class="button0" style="position: relative ; left: 75vh; height: 5vh; width: 15vh; margin-top: 2vh;">
+                     <a href="https://www.example.com" target="_blank" class="outline-button button">ReadMore </a>        
+                </div>
             <p class="nomal-style" style="position:relative; margin-top: 10vh;">
             Despite RC48's revolutionary targeting of HER2-positive bladder cancer,
             resistance remains a significant challenge, as is the case with many
@@ -642,6 +689,9 @@
             <h class="Chapter" style="position: relative;margin-top: 10vh;">Chapter4&nbsp; &nbsp;&nbsp;&nbsp;Evove to Counter Evove"</h> 
              <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20px;">“Know thy enemy and know yourself; in a hundred battles, never peril.”</h2>
               <h3 style="color: #f0a70b; position: relative; left: 75vh;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
+                <div class="button0" style="position: relative ; left: 75vh; height: 5vh; width: 15vh; margin-top: 2vh;">
+                    <a href="https://www.example.com" target="_blank" class="outline-button button">ReadMore </a>        
+                </div>
               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
               Resistance is no accident but an arms race. To conquer, we must map the
               enemy’s playbook.To know the enemy, we became the enemy. Through iterative RC48exposure (40 →400 μ g/mL over 12 weeks), we forged T24-RC48 — a
@@ -686,12 +736,19 @@
             <h class="Chapter" style="position: relative;margin-top: 10vh;">Epilogue </h> 
              <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20px; margin-left: 5vw; margin-right: 5vw;">"The skillful combatant imposes his will on the enemy, but does not allow the enemy's will to be imposed on him"</h2>
               <h3 style="color: #f0a70b; position: relative; left: 75vh;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
+                <div class="button0" style="position: relative ; left: 75vh; height: 5vh; width: 15vh; margin-top: 2vh;">
+                 <a href="https://www.example.com" target="_blank" class="outline-button button">ReadMore </a>        
+                </div>
               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
               Resistance is not failure—it's evolution. And evolution is the catalyst for innovation. By studying how resistance works, we can use it as a blueprint to design better treatments. By dissecting the intricate mechanisms of resistance, we've turned their armor into a blueprint. The next front? Preemptive strategies that leverage our growing understanding of resistance pathways, transforming vulnerabilities into therapeutic opportunities.
               </p>
             <div style=" width: 100vw; height: 120vh;  background-image: url('/images/background板块首页.jpg'); background-size: contain; background-repeat: no-repeat;">
               <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20vh; margin-left: 5vw; margin-right: 5vw;">"He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain.”</h2>
               <h3 style="color: #f0a70b; position: relative; left: 75vw;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
+              
+                <div class="button0" style="position: relative ; left: 80vw; height: 5vh; width: 15vh; margin-top: 2vh;">
+                        <a href="https://www.example.com" target="_blank" class="outline-button button">ReadMore </a>        
+                </div>
             </div>
        </div>
        </div>
@@ -716,18 +773,16 @@
             </div>
         </div> -->
     </section>
-   <footer style="z-index: -1; margin-bottom: 0; " >
-        <div class="footer-content" style="margin-top: 0;  background-color: #000; z-index: -1; position: absolute;bottom: 0; align-items: center;" >
-            <!-- <h2>开启您的星空探索之旅</h2> -->
-            <p style="font-size: 25px; text-align: left;">contect us by </p>
-            <div class="footer-links" style="justify-content: center;">
-                 <a href="#" class="active">首页</a>
-                 <a href="#">关于</a>
-                 <a href="#">画廊</a>
-                 <a href="#">联系</a>联系</a>
-                 </div>
-            <div class="copyright" style="text-align: center;align-self: center; ">
-                &copy; 2025 Onco_Strat
+   <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>Contect us by</p>
+                <p>Email : 1402418580@qq.com | Phone: 86-13566087400</p>
+                <p>Address : 800 Xiangyin Road, Yangpu District, Shanghai, China, 200433.</p>
+            </div>
+            
+            <div class="copyright-container">
+                <div class="copyright">&copy; 2025 Onco_Strat</div>
             </div>
         </div>
     </footer>

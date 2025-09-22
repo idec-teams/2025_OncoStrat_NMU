@@ -1,24 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- <base href="https://idec-teams.github.io/2025_OncoStrat_NMU/"> -->
-        <meta charset="UTF-8" />
-        <title>exclude_from_nav | Juice - An intuitive, elegant, and lightweight Zola theme for product sites. </title>
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-        />
-        
-        <link rel="icon" type="image/png" href="../static/images/icon.png" />
-         <style>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>2025_OncoStrat_NMU</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    
+    <link rel="icon" type="image/png" href="https://idec-teams.github.io/2025_OncoStrat_NMU/images/icon.png">
+     <style>
     :root {
         /* Primary theme color */
-        --primary-color: #FED43F;
+        --primary-color: #922b21;
         /* Primary theme text color */
         --primary-text-color: #ffffff;
         --primary-text-color-over: #000;
         /* Primary theme link color */
-        --primary-link-color: #F9BB2D;
+        --primary-link-color: #f5f5f5;
         /* Secondary color: the background body color */
         --secondary-color: #fcfaf6;
         --secondary-text-color: #303030;
@@ -57,22 +54,17 @@
     }
 </style>
  
-        <link
-            href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap"
-            rel="stylesheet"
-        />
-        <link
-            href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap"
-            rel="stylesheet"
-        />
-        
-        <link rel="stylesheet" href="https://idec-teams.github.io/2025_OncoStrat_NMU/css/styles.css">
-    </head>
-
-    <body class="grid grid-cols-24">
-        
-<header class="box-shadow">
+    <link href="https://fonts.googleapis.com/css?family=Alfa+Slab+One&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap" rel="stylesheet" />
     
+    <link rel="stylesheet" href="https://idec-teams.github.io/2025_OncoStrat_NMU/css/styles.css">
+    
+</head>
+
+<body>
+    
+    <div class="header-container fixed-top">
+        
 
 <a href="https://idec-teams.github.io/2025_OncoStrat_NMU/" class="col-start-2 col-span-8">
     <div class="logoitems-center">
@@ -90,17 +82,17 @@
     
     
     
-    <a class="nav-item col-span-1 ml-6 text-white text-base md:text-lg font-medium hover:underline" href="https://idec-teams.github.io/2025_OncoStrat_NMU/showcases/">Showcases</a>
+    <a class="nav-item col-span-1 ml-6 text-white text-base md:text-lg font-medium hover:underline" href="https://idec-teams.github.io/2025_OncoStrat_NMU/showcases/">Background</a>
     
     
     
     
-    <a class="nav-item col-span-1 ml-6 text-white text-base md:text-lg font-medium hover:underline" href="https://idec-teams.github.io/2025_OncoStrat_NMU/changelog/">Changelog</a>
+    <a class="nav-item col-span-1 ml-6 text-white text-base md:text-lg font-medium hover:underline" href="https://idec-teams.github.io/2025_OncoStrat_NMU/changelog/">Safety</a>
     
     
     
     
-    <a class="nav-item col-span-1 ml-6 text-white text-base md:text-lg font-medium hover:underline" href="https://idec-teams.github.io/2025_OncoStrat_NMU/about/">About</a>
+    <a class="nav-item col-span-1 ml-6 text-white text-base md:text-lg font-medium hover:underline" href="https://idec-teams.github.io/2025_OncoStrat_NMU/about/">Team</a>
     
     
     
@@ -109,100 +101,56 @@
     
 </nav>
 
-</header>
+    </div>
+    
 
+    
+    
+    
+    
+    
 
-        <main class="col-span-full">
-                
-            <div class="toc">
-                <div class="toc-sticky">
-                    
-                    <div class="toc-item">
-                        <a class="subtext" href="https://idec-teams.github.io/2025_OncoStrat_NMU/exclude-from-nav/#hidden-page"
-                            >Hidden page</a
-                        >
-                    </div>
-                     
-                </div>
+    
+    <div class="toc">
+        <div class="toc-sticky">
+            
+            <div class="toc-item">
+                <a class="subtext" href="https://idec-teams.github.io/2025_OncoStrat_NMU/exclude-from-nav/#hidden-page">Hidden page</a>
             </div>
-             
+            
+            
+        </div>
+    </div>
+    
+    
 
-            <div class="content text">
-                
-<div class="heading-text">Page without nav link</div>
-<h1 id="hidden-page">Hidden page</h1>
+    <main>
+        
+    <div class="hero">
+        <div class="hero-content">
+            <h1 class="page-title">exclude_from_nav</h1>
+            <p class="page-description">Page without nav link</p>
+        </div>
+    </div>
+    <div class="content-section">
+        <div class="page-content text">
+            <h1 id="hidden-page">Hidden page</h1>
 <p>This page will not be added to the nav links in the header.</p>
 
-
-            </div>
-
-            <!-- 
-        <div class="sidebar">
-            Your can customize the sidebar.
         </div>
-         -->
-        </main>
+    </div>
 
-        
-        <footer class="col-span-full">
-            <small class="subtext">
-                <a href="https://huhu.io">Huhu.io</a> © 2021
-            </small>
-        </footer>
-        
-</div> 
-    </body>
-    <script>
-        const scrollHandler = (entries) => {
-            // Find the first entry which intersecting and ratio > 0.9 to highlight.
-            let entry = entries.find((entry) => {
-                return entry.isIntersecting && entry.intersectionRatio > 0.9;
-            });
-            if (!entry) return;
+    </main>
 
-            document.querySelectorAll('.toc a').forEach((item) => {
-                item.classList.remove('active');
-            });
+    
+    <footer class="footer-container">
+        <small class="subtext">
+            <a href="https://huhu.io">Idec-Teams___2025_OncoStrat_NMU</a> © 2025
+        </small>
+    </footer>
+    
 
-            // let url = new URL(`#${entry.target.id}`);
-            let link = document.querySelector(
-                `.toc a[href$="${decodeURIComponent(`#${entry.target.id}`)}"]`
-            );
-            if (link) {
-                link.classList.add('active');
-                link.scrollIntoView({ behavior: 'auto', block: 'nearest' });
-            }
-        };
-        // Set -100px root margin to improve highlight experience.
-        const observer = new IntersectionObserver(scrollHandler, {
-            threshold: 1,
-        });
-        let items = document.querySelectorAll('h1,h2,h3,h4,h5,h6');
-        items.forEach((item) => observer.observe(item));
+    
+</body>
 
-        // Animate.css 进入/离开动画（防止闪烁，兼容窄屏）
-        const panImg = document.getElementById('panImg');
-        if (panImg) {
-            let lastVisible = false;
-            const panImgObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach(entry => {
-                        // 只在图片实际可见且宽度大于0时才处理动画
-                        const isActuallyVisible = entry.isIntersecting && panImg.offsetParent !== null && panImg.getBoundingClientRect().width > 0;
-                        if (isActuallyVisible && !lastVisible) {
-                            panImg.classList.remove('animate__fadeOutLeft', 'opacity-0');
-                            panImg.classList.add('animate__animated', 'animate__fadeInRight', 'opacity-100');
-                            lastVisible = true;
-                        } else if (!isActuallyVisible && lastVisible) {
-                            panImg.classList.remove('animate__fadeInRight', 'opacity-100');
-                            panImg.classList.add('animate__animated', 'animate__fadeOutLeft', 'opacity-0');
-                            lastVisible = false;
-                        }
-                    });
-                },
-                { threshold: 0.5 }
-            );
-            panImgObserver.observe(panImg);
-        }
-    </script>
 </html>

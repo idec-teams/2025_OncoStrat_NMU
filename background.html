@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Background</title>
+
+    <style>
+        :root {
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #eeedb4;
+            --text-color: #e6f1ff;
+            --text-secondary: #8892b0;
+            --font-main: 'Arial', sans-serif;
+        }
+        
+        .Chapter {
+            font-weight: bold;
+            color: #f37704ef;
+            font-size: 60px;
+            font-family: 'Times New Roman', Times, serif;
+        
+           }
+        .nomal-style{
+            color: #000000; 
+            position: relative; 
+            font-size: 20px;
+            font-weight: 200;
+            padding-left: 5vh;;
+            padding-right: 5vh;
+            text-align: justify;
+            line-height: 1.8; 
+
+            
+        }
+         .title-style{
+            color: #000000; 
+            position: relative; 
+            font-size: 40px;
+            font-weight: bold;
+            padding-left: 5vh;;
+            padding-right: 5vh;
+            text-align: left;
+            line-height: 1.8; 
+            padding-top: 70px; /* 导航栏高度 */
+            margin-top: -70px; /* 抵消padding对布局的影响 */
+
+        }
+        .vertical-line {
+    position: absolute;
+    top: -2vw;
+    left: 50%;
+    bottom: 0;
+    width: 2px;
+    height: calc(100%+2vw);
+    background-color: #000;
+}
+
+.horizontal-line {
+    position: absolute;
+    top: 50%;
+    left: -2vw;
+    right: -2vw;
+
+    width: calc(100%+4vw);
+    height: 2px;
+    background-color: #000;
+    
+}
+            
+        .home1{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: bold; /* font-medium */
+            color: #f0f0f0; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+           
+            white-space: nowrap; /* 防止换行 */
+            overflow: hidden;
+            text-shadow:  -3px -3px 0 #000,  
+                            3px -3px 0  #000, 
+                            -3px  3px 0 #000,  
+                             3px  3px 0  #000;  
+        }
+        .home2{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: lighter; /* font-medium */
+            color: #000000; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+          
+            white-space: nowrap; /* 防止换行 */
+            overflow: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+         /* 侧边栏样式 - 亮红色系 */
+        .sidebar {
+            background: white;
+            width: 15vw;
+            height: 45vh;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(255, 77, 77, 0.15);
+            border: 1px solid rgba(255, 105, 105, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+        
+        .sidebar-header {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 105, 105, 0.3);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 30px;
+            font-weight: 600;
+            color: #ff4757;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sidebar-header h2 i {
+            font-size: 30px;
+        }
+        
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        
+        /* 滚动条样式 */
+        .sidebar-content::-webkit-scrollbar {
+            width: 1vw;
+        }
+        
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 105, 105, 0.5);
+            border-radius: 2vw;
+        }
+        
+        .toc-list {
+            list-style: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .toc-link {
+            color: #ff6b81;
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-size: 20px;
+        }
+        
+        .toc-link:hover {
+            background-color: rgba(255, 107, 129, 0.1);
+            padding-left: 16px;
+            color: #ff4757;
+        }
+        
+        .toc-link.active {
+            background-color: rgba(255, 107, 129, 0.15);
+            font-weight: 500;
+            color: #ff4757;
+        }
+        
+        .toc-item.level-1 > .toc-link {
+            font-weight: 600;
+            font-size: 30px;
+            margin-top: 8px;
+            color: #ff3838;
+        }
+        
+        .toc-item.level-2 {
+            margin-left: 12px;
+            font-size: 20px;
+        }
+        
+        .toc-item.level-2 .toc-link {
+            color: #ff7c8b;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: #000; /* 整个页面背景为黑色 */
+            overflow-x: hidden;
+        }
+
+        
+        /* 导航栏样式 */
+         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to right, rgba(230, 54, 10, 0.9), rgba(200, 40, 5, 0.85));
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav.scrolled {
+            padding: 10px 40px;
+            background: rgba(180, 40, 5, 0.95);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5vh;
+            justify-content: flex-end;
+            flex-grow: 1;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 15%;
+            width: 70%;
+            height: 2px;
+            background: #fff;
+            animation: underline 0.3s ease;
+        }
+        
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 4px;
+            background: #fff;
+            border-radius: 0 2px 2px 0;
+        }
+        
+        .nav-links a i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        .logo {
+            position:fixed ;
+            top: 5px;
+            left: 5px;        
+            background-image: url('/images/白字透明.png');
+            width: 80%;
+            height: 80%; 
+            /* font-size: 24px;
+            font-weight: bold; */
+             
+            background-size: contain;
+            background-position: left center;
+            background-repeat: no-repeat;
+            /* color: var(--accent-color); */
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 5vh;
+            justify-content: flex-end; /* 确保链接靠右对齐 */
+            flex-grow: 1; /* 占据剩余空间 */
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+    .sub-menu {
+    position: absolute; /* 绝对定位 */
+    left: 0%; /* 左侧对齐 */
+    background: white; /* 背景色 */
+    top: 8vh; /* 距离顶部位置 */
+    padding: 0; /* 无内边距 */
+    text-align: left; /* 文本左对齐 */
+    box-shadow: 0px 4px 20px -5px rgba(0, 0, 0, 0.15); /* 阴影效果 */
+    max-height: 1000PX; /* 最大高度 */
+    max-width: 300px; /* 最大宽度 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.45s ease all 0.1s; /* 过渡动画 */
+    z-index: 10; /* 较高层叠顺序 */
+    border-radius: 10px; /* 圆角 */
+    list-style: none;
+}
+.sub-menu .menu-item {
+    display: block; /* 块级显示 */
+}
+.sub-menu .sub-menu-item a {
+    color: #000;
+    font-size: 20px;
+    
+
+}
+.menu-item:nth-child(n+2):nth-child(-n+4) .plus-icon {
+    width: 10px; /* 图标宽度 */
+    height: 10px; /* 图标高度 */
+    stroke: hsl(0, 94%, 52%); /* 图标颜色 */
+    margin-bottom: 1px; /* 底部外边距 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4) .sub-menu-item {
+    list-style-type: none; /* 移除列表标记 */
+    display: block; /* 块级显示 */
+    margin: 15px; /* 外边距 */
+    position: relative; /* 相对定位 */
+    transform: translateY(-10px); /* Y轴位移 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.1s; /* 过渡动画 */
+    visibility: hidden; /* 隐藏元素 */
+    border-radius: 40%; /* 圆角 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu {
+    max-height: 1000px; /* 最大高度 */
+    max-width: 200px; /* 最大宽度 */
+    opacity: 1; /* 完全不透明 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item a {
+    transition: 0.15s ease all; /* 链接过渡动画 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item a:hover {
+    color: #fc1202; /* 链接悬停颜色 */
+    animation: underline 0.3s ease;
+}
+/* 子菜单项动画延迟设置 */
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:first-child {
+    transform: translateY(0px); /* 重置位移 */
+    opacity: 1; /* 完全不透明 */
+    transition-delay: 0.15s; /* 动画延迟 */
+    visibility: visible; /* 显示元素 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(2) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.3s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(3) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(4) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(5) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 太阳背景图片 - 固定在图层底部 */
+        .sun-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            background: url('/images/sun-background.png') bottom/cover no-repeat;
+            z-index: 1;
+            transition: opacity 0.8s ease-out; 
+            /* 添加渐变效果使太阳与黑色背景融合
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); */
+        }
+        
+        /* 山脉前景图片 */
+        .mountains {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('/images/background板块首页.jpg') bottom/cover no-repeat;
+            z-index: 3;
+
+            transition: transform 0.8s ease-out;
+        }
+        
+        /* 英雄内容区域 */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            padding: 30px;
+            background: transparent;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            max-width: 100%;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            /* color: var(--accent-color); */
+            /* border: 1px solid var(--accent-color); */
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background:transparent;
+            transform: translateY(-3px);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            z-index: 4;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+         /* 视频背景容器 */
+        .video-background {
+            position: relative;
+            width: 65vw;
+            min-height: 40vh;
+            padding-top: 2vh;
+            height: auto; 
+            overflow: hidden;
+            overflow: visible;
+        
+        }
+        
+        /* 视频样式 */
+        .video-background video {
+            position: relative; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width:100%; 
+            /* min-height: 40vh; */
+            height: auto;
+            z-index: 3;
+            
+        }
+        
+        /* 遮罩层 */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3;
+        }
+           /* 视频控制按钮 */
+        .video-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 5;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            /* transition: background 0.3s; */
+            margin-left: 10px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /* 备用图像样式 */
+        .fallback-image {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        
+        /* 内容区域 */
+        .content-section {
+            /* padding: 100px 5%; */
+            background-color: #000; /* 黑色背景 */
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            /* width: 100vw; */
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+        }
+        
+        .container {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+        
+        .-card h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        /* 星空背景 */
+        .star-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        .hero-0{
+            /* left: auto; */
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            background-image: url('/images/渐变2.png');
+            background-size: cover;
+            background-position: top;
+            display: flex;
+            justify: center;
+            z-index:10;
+
+        }
+        
+        .text-0{
+            /* left: auto; */
+            top: 0;
+            min-height: 100vh;
+            /* width: 100%; */
+            position: relative;
+            padding: 0;
+            display: flex;
+            justify: center;
+            z-index:5;
+            flex-direction: column
+        }
+
+        .text-{
+            flex: 1;
+            width: 100%;
+            height: auto;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            flex-direction: column
+        }
+        footer {
+            background-position: top;
+            background-color: #000;
+            padding: 40px 5vw; /* 修改为左右对称的padding */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            min-height: 20vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .footer-content {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-contact {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .footer-contact p {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .copyright-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero- h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero- p {
+                font-size: 1.1rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+          /* 文本div的容器 */
+        .text-content0{
+            /* left: auto; */
+            top: 0;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            display: flex;
+            /* justify-content: center; */
+            z-index:10;
+            flex-direction: column
+        }
+        /* 文本的div */
+        .text-content{
+            flex: 1;
+            width: 100%;
+           
+            min-height: 100vh;
+            height: auto;
+            display: flex;
+            /* justify-content: center;  */
+            align-items: center;
+            flex-direction: column
+        }
+        /* 进度条样式 */
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #ff4757;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+        
+        .progress-handle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+        
+        .time-display {
+            color: white;
+            font-size: 14px;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <!-- 星空背景 -->
+    <div class="star-background" id="starBackground"></div>
+        <!-- 导航栏 -->
+        <nav>
+        <div class="logo"> </div>
+        <div class="nav-links">
+
+            <a ><H1>Home</H1></a>
+           <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Project&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            <li class="sub-menu-item"><a href="{{ get_url(path='background.html') }}">Background</a></li>
+                                            <li class="sub-menu-item"><a href="#">Design</a></li>
+                                            <li class="sub-menu-item"><a href="#">Results</a></li>
+                                            <li class="sub-menu-item"><a href="#">Supplement</a></li>
+
+                                            <li class="sub-menu-item"><a href="#">Protocol</a></li>
+                                        </ol>
+            </li>
+            <a class="active"><H1>Background</H1></a>
+            <a href="#"><H1>about</H1></a>
+            <a href="#"><H1>Team</H1></a>
+        </div>
+    </nav>
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="sun-background" style="background-size: cover;" id="sunBackground"></div>
+        <div class="mountains"  style="background-size: cover;" id="mountains"></div>
+    <div id="titletext">
+        <div class="hero-content" style="top: 10vh;">
+            <h class="home1" style="font-size: 160px; ">Background </h>
+           </div>
+        <div class="hero-content" style="margin-top: 5vh; left: 20vw;">
+            <h1 class="home2" style="color:#ff9100;font-size: 50px; 
+              text-shadow:  -2px -2px  0 #000000,  
+                             2px -2px 0 #000000,
+                            -2px  2px  0  #000000,  
+                             2px   2px 0  #000000;
+                             ">——Bladder Cancer and ADCs </h1>
+           </div> 
+            <!-- 调整布局 -->
+        
+</div>
+        <div class="scroll-indicator" style="font-size: 40px;">Explore more &#8681</div>
+    </section>
+
+
+    
+       
+     <!-- 给侧边栏 位置 容纳所有content的div -->
+<div id="sidercontent" style="background-color:transparent;min-height: 100vh; height: auto; width: 100vw; position: relative;margin-top: 5vh;padding-left: 2vw; display: flex;align-items: flex-start;">
+       
+     <!-- 侧边栏 -->
+    <aside class="sidebar" style="top: 15vh; z-index: 9; min-height: 30vh;height: auto;">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-fire"></i> CONTENT</h2>
+        </div>
+        <div class="sidebar-content">
+            <ul class="toc-list" id="toc">
+                <li class="toc-item level-1">
+                    <a href="#Preface" class="toc-link"style="font-size: 18px;" >Preface</a>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#Chapter1" class="toc-link" style="font-size: 17px;">Getting to Know Bladder Cancer</a>
+                    <ul class="toc-list">
+                        <!-- <li class="toc-item level-2">
+                            <a href="#colors" class="toc-link">色彩方案</a>
+                        </li>
+                        <li class="toc-item level-2">
+                            <a href="#typography" class="toc-link">字体选择</a> -->
+                        </li>
+                    </ul>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#Chapter2" class="toc-link" style="font-size: 17px;" >Bladder Cancer Treatment</a>
+                    <ul class="toc-list">
+                <li class="toc-item level-1">
+                    <a href="#Chapter3" class="toc-link" style="font-size: 17px;" >Drug Resistance</a>
+                    <ul class="toc-list">
+        
+                    </ul>
+                </li> 
+                 
+                <li class="toc-item level-1">
+                    <a href="#Epilogue" class="toc-link" style="font-size: 17px;">Hope Marches On</a>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#Reference" class="toc-link" style="font-size: 17px;" >Reference</a>
+                    <ul class="toc-list">
+        
+                    </ul>
+                </li> 
+            </ul>
+        
+    </aside> 
+    
+    <!-- 视频和文字的div  -->
+    <div id="content-omit-sider" style="margin-top: 0;min-height: 100vh;width: 75vw; height: auto; margin-left: 0vw;margin-bottom: 5vh; display: flex;flex-direction:column ;  overflow: visible;  padding-inline: 10vh;">
+        <!-- 视频 -->
+    <div class="video-background" style="z-index: 3;">
+
+        <video id="bg-video" type="video/mp4/webm" src= "videos/video1.webm" muted  playsinline>
+            <!-- 备用内容，如果视频无法加载则显示 -->
+            您的浏览器不支持HTML5视频标签。
+        </video>
+        
+        <!-- 备用图像，当视频无法加载时显示 -->
+        <!-- <img class="fallback-image" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="背景图像">
+         -->
+
+        <!-- 遮罩层 -->
+        <!-- <div class="overlay"></div> -->
+        <!-- 视频控制按钮 -->
+         <div class="video-controls">
+            <div class="progress-container" id="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                    <div class="progress-handle" id="progress-handle"></div>
+                </div>
+            </div>
+            
+            <div class="time-display">
+                <span id="current-time">0:00</span>
+                <span id="total-time">4:55</span>
+            </div>
+            
+            <div class="control-buttons">
+                <button class="control-btn" id="play-pause">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button class="control-btn" id="mute-unmute">
+                    <i class="fas fa-volume-mute"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+ 
+
+    <!-- 内容区域 --> 
+    <section id="content" class="content-section" style="background-color: #f0f0f0; width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative; padding-bottom: 10vh;">
+        
+       <div class="text-content0">
+        <div class="text-content">
+            
+            <H  id="Preface"     class="title-style"   style="position:relative;">
+            Preface: A Hidden Threat to Urinary Health 
+            </H>
+            <p class="nomal-style" style="position:relative;">
+            Bladder cancer, one of the most common malignancies of the urinary system worldwide, is quietly inching its way up the ranks of global health threats. In 2022, it clocked in over 610,000 new cases globally, securing the 9th spot in the cancer hall of fame—or infamy—with over 220,000 lives lost. [1] Projections for 2040 paint a grimmer picture: deaths from bladder cancer could hit 163,000–245,000 in men and 119,000–176,000 in women. [2]
+            In terms of diagnosis and treatment, traditional chemotherapy often leads to drug resistance in advanced patients, and immunotherapy has limited response rates. However, the advent of Antibody-Drug Conjugates (ADCs) has brought a revolutionary breakthrough in global bladder cancer treatment. In particular, enfortumab vedotin and sacituzumab govitecan have rewritten the rulebook, giving patients precious extra time.
+            </p>
+            <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+        
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            "
+            >
+             
+            <div class="picture" 
+                style=" 
+                position: relative;
+                margin-left: 2vw;
+                width:28vw;
+                height: 37vw;  
+                background-image: url('/images/Bg1.1.png') ;
+                background-size: contain;
+                margin-top: 3vh;
+              
+                     ">
+            </div>
+            <div class="picture-small"
+                style=" 
+                position: relative;
+                width:28vw;
+                height: 37vw;        
+                display: flex;
+                flex-direction: column; 
+                margin-left: 5vw;   
+                  " >
+                <div class="picture" style="display: flex; background-size: contain;  height:16vw ;width: 22vw; margin-top: 3vh; background-image: url('/images/Bg1.2.png'); ">
+                </div>
+                <div class="picture" style="display: flex;  background-size: contain; height: 17vw;width: 22vw;  margin-top: auto; margin-bottom: 0.5vh; background-image: url('/images/Bg1.3.png');">
+                </div>
+            </div>
+            <div class="img-text" style="border-top: 2px solid #333; margin-left: -2vw; margin-right: -2vw; width: calc(100% + 4vw); ; height: auto; display: flex; margin-top: 0 ; position: relative;text-align: center;justify-content: center; ">
+            <h style="position: center; text-align: center; color: #000 ;font-size: 25px; ">Global mortality rate projection for 2040.</h>
+            </div >
+            </div>
+
+            <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+        
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            margin-top: 10vh;
+            "
+            >
+            <div class="picture" 
+                style=" 
+                position: relative;
+                width:100%;
+                height: 16vw;  
+                background-image: url('/images/Bg2.png') ;
+                background-size: contain;
+                     ">
+            </div>
+            <div class="img-text" style="border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">Mechanism of antibody drug conjugates (ADCs) used in urothelial cancer.</h>
+            </div >
+            </div>
+            <p  id="Chapter1"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
+            Chapter 1: Getting to Know Bladder Cancer
+            </p>
+           <p class="nomal-style" style="position:relative; ">
+            <span  id="Chapter1.1" style="font-size: 30px; font-weight: bold;">
+            1. What Exactly Is Bladder Cancer?
+            </span>
+            <br>
+            Think of bladder cancer as a mutiny in your bladder: cells lining the organ, tired of following the rules, start multiplying like uninvited party crashers. The bladder, our body’s "urine storage unit", exposes these cells to all sorts of chemicals in urine, making them prone to rebellions (mutations).
+            Doctors split it into two main types:
+            Non-muscle-invasive: The rebels stay near the surface—easier to squelch, better prognosis.
+            Muscle-invasive: The mutiny spreads deep into the bladder wall—tougher to contain, needs heavier firepower.
+            </p>
+             <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            
+            
+            "
+            >
+             
+            <div class="picture" 
+                style=" 
+                position: relative;
+                margin-left: 2vw;
+                width:24.8vw;
+                height: 33.1vw;  
+                background-image: url('/images/Bg3.1.png') ;
+                background-size: contain;
+                margin-top: 3vh;
+              
+                     ">
+            </div>
+            <div class="picture-small"
+                style=" 
+                position: relative;
+                width:20vw;
+                height: 35.1vw;        
+                display: flex;
+                flex-direction: column; 
+                margin-left: 8vw;   
+                  " >
+                <div class="picture" style="display: flex; background-size: contain;  height:12.5vw ;margin-top: 3vh; background-image: url('/images/Bg3.2.png'); ">
+                </div>
+                <div class="picture" style="display: flex;  background-size: contain; height: 20vw; margin-top: auto; margin-bottom: 0.5vh; background-image: url('/images/Bg3.3.png');">
+                </div>
+            </div>
+            <div class="img-text" style=" border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="position: center; text-align: center; color: #000 ;font-size: 25px; ">
+               Diagrams of the location of bladder cancer and bladder cancer stages.
+            </h>
+            </div >
+            </div>
+
+            <p class="nomal-style" style="position:relative; margin-top: 5vh;">
+            <span  id="Chapter1.1" style="font-size: 30px; font-weight: bold;">
+            2. Who’s on Bladder Cancer’s Radar?
+            </span>
+            <br>
+            Smokers: Lighting up doubles to quadruples your risk. Cigarette smoke is basically a cocktail of bladder cell troublemakers. [3]
+            Chemistry buffs (unwillingly)[4]:  Workers exposed to dyes, rubber, or plastics (think benzidine) are sitting ducks.
+            Chronic trouble: Long-term bladder infections, stones, or catheters keep cells in a bad mood, upping mutation chances.
+            Dodgy meds: Pills with aristolochic acid?  They’re like throwing gasoline on a fire for urinary cells.
+            </p>
+
+             <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+        
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            "
+            >
+            <div class="img-only"
+            style="
+            width: calc(100% + 4vw);
+            height: auto;
+            position: relative;
+            display: flex;
+             flex-direction:row;
+            flex-wrap: wrap;
+
+            "
+            >
+            <div class="vertical-line"></div>
+            <div class="horizontal-line"></div>
+             
+            <div class="picture-small"
+                style=" 
+                position: relative;
+                width:20vw;
+                height: 35.1vw;        
+                display: flex;
+                flex-direction: column; 
+                margin-left: 3vw;   
+                  " >
+                <div class="picture" style="display: flex; background-size: contain;  height:13.3vw ;margin-top: 3vh; background-image: url('/images/Bg4.1.png'); ">
+                </div>
+                <div class="picture" style="display: flex;  background-size: contain; height: 15vw; margin-top: 8vh; margin-bottom: 0.5vh; background-image: url('/images/Bg4.2.png');">
+                </div>
+            </div>
+            <div class="picture-small"
+                style=" 
+                position: relative;
+                width:20vw;
+                height: 35.1vw;        
+                display: flex;
+                flex-direction: column; 
+                margin-left: 14vw;   
+                
+                  " >
+                <div class="picture" style="display: flex; background-size: contain;  height:13.3vw ;margin-top: 3vh; background-image: url('/images/Bg4.3.png'); ">
+                </div>
+                <div class="picture" style="display: flex;  background-size: contain; height: 13.3vw; margin-top: 8vh; margin-bottom: 0.5vh; background-image: url('/images/Bg4.4.png');">
+                </div>
+            </div>
+            </div>
+            <div class="img-text" style=" border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="position: center; text-align: center; color: #000 ;font-size: 25px; ">
+               1.Cigarette smoker.&nbsp;&nbsp;2.Bladder stones.&nbsp;&nbsp;3.Chemistry buffs.&nbsp;&nbsp;4.Pills with aristolochic acid.
+            </h>
+            </div >
+            </div>
+            <p class="nomal-style" style="position:relative; margin-top: 5vh;">
+            <span  id="Chapter1.1" style="font-size: 30px; font-weight: bold;">
+            3. Warning Signs: <br>
+            When Your Bladder Sends an S.O.S.
+            </span>
+            <br>
+            Early red flag: Painless blood in urine (like a burglar leaving a calling card without making a sound).
+            </p>
+            <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+            justify-content: center;
+            align-content: center;
+
+        
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            margin-top: 10vh;
+            "
+            >
+            <div class="picture" 
+                style=" 
+                position: relative;
+                width:36vw;
+                height: 26vw;  
+                background-image: url('/images/Bg5.png') ;
+                background-size: contain;
+                margin-bottom: 5vh;
+                     ">
+            </div>
+            <div class="img-text" style="border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">Blood in urine.</h>
+            </div >
+            </div>
+
+
+            <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            min-height: 50vh;
+            border: 2px solid #333; 
+            padding: 2vw;
+            padding-bottom: 0;
+            display: flex;
+            margin-top: 15vh;   
+        
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            "
+            >
+             
+            <div class="picture" 
+                style=" 
+                position: relative;
+                margin-left: 2vw;
+
+                margin-top: -2vw;
+                width:30vw;
+                min-height: 50vw;
+                height:auto;  
+                border-right: 2px solid #000;
+        
+              ">
+
+            <p  id="explanation"class="nomal-style" style="position:relative; margin-top: 5vh;  text-align: left;
+            text-align-last: left; font-size: 30px;">
+            Late-stage chaos: Frequent urination, urgent urination, and painful urination—collectively called "bladder irritation symptoms"along with backaches or unexplained weight loss—your bladder’s way of yelling, “Help!” These often indicate advanced disease or spread..
+            </p>
+             </div>
+          
+            <div class="picture-small"
+                style=" 
+                position: relative;
+                width:15vw;
+                min-height: 45vw;
+                height: auto;        
+                display: flex;
+                flex-direction: column; 
+                margin-left: 3vw;   
+                gap: 3vh;
+                  " >
+                <div class="picture" style="display: flex; background-size: contain;  height:10vw ;margin-top: 3vh; background-image: url('/images/Bg5.1.png'); ">
+                </div>
+                <div class="img-text" style="border-top: 2px solid #333; margin-left: -2vw; margin-right: -2vw; width: calc(100% + 4vw); ; height: auto; display: flex; margin-top: 0 ; position: relative;text-align: center;justify-content: center; ">
+                    <h style="position: center; text-align: center; color: #000 ;font-size: 25px; ">Bladder irritation symptoms.</h>
+                    </div >
+                <div class="picture" style="display: flex;  background-size: contain; height: 10vw; margin-top: auto; margin-bottom: 0.5vh; background-image: url('/images/Bg5.2.png');">
+                </div>
+                 <div class="img-text" style="border-top: 2px solid #333; margin-left: -2vw; margin-right: -2vw; width: calc(100% + 4vw); ; height: auto; display: flex; margin-top: 0 ; position: relative;text-align: center;justify-content: center; ">
+                    <h style="position: center; text-align: center; color: #000 ;font-size: 25px; ">Bladder irritation symptoms.</h>
+                    </div >
+                <div class="picture" style="display: flex;  background-size: contain; height: 10vw; margin-top: auto; margin-bottom: 0.5vh; background-image: url('/images/Bg5.3.png');">
+                </div>
+                <div class="img-text" style="border-top: 2px solid #333; margin-left: -2vw; margin-right: -2vw; width: calc(100% + 4vw); ; height: auto; display: flex; margin-top: 0 ; position: relative;text-align: center;justify-content: center; ">
+            <h style="position: center; text-align: center; color: #000 ;font-size: 25px; ">Unexplained weight loss</h>
+            </div >
+            </div>
+            </div>
+            
+
+            <p class="nomal-style" style="position:relative; margin-top: 10vh;">
+            <span  id="Chapter1.1" style="font-size: 30px; font-weight: bold; font-style: italic;">
+           Pro tip: Blood in urine? Don’t brush it off. Bladder scopes and ultrasounds are way better than guessing games.
+            </span>
+            <br>
+               
+            </p>
+              
+
+             <div style="margin-top: 5vh; position: relative; height: 53vh; width: 80vh; ;background-image: url('/images/Bg6.png');background-size: contain;">
+
+            </div>
+               <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Bladder scope.</h>
+
+            <p class="nomal-style" style="position:relative; margin-top: 5vh;">
+            <span  id="Chapter1.1" style="font-size: 30px; font-weight: bold;">
+           4.Outsmarting Bladder Cancer: Prevention 101
+            </span>
+            <br>
+            Quit smoking: This single move slashes risk by 70%--your lungs (and bladder) will throw a parade.
+            Hydrate like it’s your job: Chug 2 liters of water daily. More peeing = less time for baddies to linger in your bladder.
+            Mask up (if you must): If your job involves chemicals, gear up with gloves and respirators.
+            Check-ups for high-risk folks: Smokers or industrial workers? Annual bladder ultrasounds could catch trouble early.
+            </p>
+
+            <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #000; 
+            padding: 2vw;
+            display: flex;   
+        
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            "
+            >
+            <div class="img-only"
+            style="
+            width: calc(100% + 4vw);
+            height: auto;
+            position: relative;
+            display: flex;
+             flex-direction:row;
+            flex-wrap: wrap;
+
+            "
+            >
+            <div class="vertical-line"></div>
+            <div class="horizontal-line"></div>
+             
+            <div class="picture-small"
+                style=" 
+                position: relative;
+                width:20vw;
+                height: 35.1vw;        
+                display: flex;
+                flex-direction: column; 
+                margin-left: 3vw;   
+                  " >
+                <div class="picture" style="display: flex; background-size: contain;  height:13.3vw ;margin-top: 3vh; background-image: url('/images/Bg7.1.png'); ">
+                </div>
+                <div class="picture" style="display: flex;  background-size: contain; height: 15vw; margin-top: 8vh; margin-bottom: 0.5vh; background-image: url('/images/Bg7.2.png');">
+                </div>
+            </div>
+            <div class="picture-small"
+                style=" 
+                position: relative;
+                width:20vw;
+                height: 35.1vw;        
+                display: flex;
+                flex-direction: column; 
+                margin-left: 14vw;   
+                
+                  " >
+                <div class="picture" style="display: flex; background-size: contain;  height:13.3vw ;margin-top: 3vh; background-image: url('/images/Bg7.3.png'); ">
+                </div>
+                <div class="picture" style="display: flex;  background-size: contain; height: 13.3vw; margin-top: 8vh; margin-bottom: 0.5vh; background-image: url('/images/Bg4.png');">
+                </div>
+            </div>
+            </div>
+            <div class="img-text" style=" border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="position: center; text-align: center; color: #000 ;font-size: 25px; ">
+               1.Quit smoking.&nbsp;&nbsp;2.Mask up.&nbsp;&nbsp;3.Drink plenty of water.&nbsp;&nbsp;4.Bladder ultrasound.
+            </h>
+            </div >
+            </div>
+           
+           <p  id="Chapter2"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
+            Chapter 2: Bladder Cancer Treatment———<br>From Old School to Cutting-Edge
+            </p>
+           <p class="nomal-style" style="position:relative; ">
+            Clinically, bladder cancer treatment has long relied on traditional methods: "surger+ radiotherapy/chemotherapy + immunotherapy." Then, the ADCs was approved, [5]"disitamab vedotin (RC48)" was one of them, offering new hope to bladder cancer patients. It’s like a "precision missile"--composed of a "navigation system (antibody)", a "warhead (cytotoxic drug)", and a "Linker"--capable of accurately targeting cancer cells. [6]
+            Disitamab vedotin specifically targets bladder cancer with overexpressed HER2 protein and has been designated a "breakthrough therapy" by both the U.S. FDA and China’s NMPA. Clinical trials show it can extend the survival of advanced patients with fewer side effects than traditional chemotherapy. [7]
+            </p>
+
+              <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+            background-color: #fff;
+            position: relative;
+            flex-direction:column;
+            margin-top: 10vh;
+            "
+            >
+            <div class="picture" 
+                style=" 
+                position: relative;
+                width:100%;
+                padding-left: 5vw;
+                padding-right: 5vw;
+                height: 28vw;  
+                background-image: url('/images/Bg8.1.png') ;
+                background-size: contain;
+                     ">
+            </div>
+            <div class="picture" 
+                style=" 
+                position: relative;
+                left: 12vw;
+                top: -5vh;
+                width:60%;
+                height: 28vw;  
+                background-image: url('/images/Bg8.2.png') ;
+                background-size: contain;
+                     ">
+            </div>
+            <div class="img-text" style="border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">Structure of disitamab vedotin (RC48).</h>
+            </div >
+            </div>   
+              
+            <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+            background-color: #fff;
+        
+            position: relative;
+            flex-direction:row;
+            flex-wrap: wrap;
+            margin-top: 10vh;
+            "
+            >
+            <div class="picture" 
+                style=" 
+                position: relative;
+                width:100%;
+                height: 35vw;  
+                background-image: url('/images/Bg9.1.png') ;
+                background-size: contain;
+                     ">
+            </div>
+            <div class="img-text" style="border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">Mechanism of action of RC48.</h>
+            </div >
+            </div>
+             
+           <p  id="Chapter3"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
+           Chapter 3: The "Roadblock" for ADC Drugs: Drug Resistance</p>
+           <p class="nomal-style" style="position:relative; ">
+           Just as bacteria "adapt" to antibiotics, cancer cells can also "resist" drugs. ADCs that once worked may become less effective or even completely useless after a period of use--this is "drug resistance." RC48 also faces this issue, which has become a major obstacle to treatment efficacy.
+                        The mechanisms of ADC resistance are not yet fully settled, but preliminary evidence categorizes them into four types:
+                    1&#41;Antibody-mediated resistance: Cancer cells reduce the number of HER2 proteins on their surface or alter their structure, making RC48’s "navigation system" unable to recognize them--like "changing their secret code, leaving the missile lost."
+                    2&#41;Impaired drug transport: After ADCs are internalized, they fail to enter lysosomes or the linker cannot break, so the "warhead" can’t be released--think of it as "the package gets stuck in the warehouse, unable to be unpacked."
+                    3&#41;Functional disruption: Cancer cells activate signaling pathways like Notch to enhance their survival ability, counteracting the killing effect of MMAE--"putting on a bulletproof vest to avoid bullets."
+                    4&#41;Payload efflux: Cancer cells "pump" MMAE out of the cell via ABC transporters, reducing its lethality--"the toxin is promptly drained, failing to deliver a fatal blow." 
+            </p>
+
+                <div class="img-table" 
+            style="
+            width: 90%;
+            height: auto;
+            border: 2px solid #333; 
+            padding: 2vw;
+            display: flex;   
+            background-color: #fff;
+            position: relative;
+            flex-direction:column;
+            margin-top: 10vh;
+            justify-items: center;
+            "
+            >
+            <div class="picture" 
+                style=" 
+                position: relative;
+                width:100%;
+                padding-left: 5vw;
+                padding-right: 5vw;
+                height: 39vw;  
+                background-image: url('/images/Bg10.2.png') ;
+                background-size: contain;
+                margin-bottom: 5vh;
+                     ">
+            </div>
+            <div class="picture" 
+                style=" 
+                position: relative;
+                align-self: center;
+                width:75%;
+                height: 20vw;  
+                padding-left: 5vw;
+                padding-right: 5vw;
+                background-image: url('/images/Bg10.1.png') ;
+                background-size: contain;
+                margin-bottom: 2vh;
+                     ">
+            </div>
+            <div class="img-text" style="border-top: 2px solid #333; width: calc(100% + 4vw);  margin-left: -2vw; margin-right: -2vw;  height: auto; display: flex; position: relative;text-align: center;justify-content: center;align-self: flex-start;">
+            <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">Complex mechanism of ADC offers multiple opportunities for resistance</h>
+            </div >
+            </div>   
+        
+
+            <p  id="Epilogue"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
+           Epilogue:<br>From Lab Benches to Hospital Beds————<br>Hope Marches On
+            </p>
+           <p class="nomal-style" style="position:relative; ">
+            Clinically, bladder cancer treatment has long relied on traditional methods: "surger+ radiotherapy/chemotherapy + immunotherapy." Then, the ADCs was approved, [5]"disitamab vedotin (RC48)" was one of them, offering new hope to bladder cancer patients. It’s like a "precision missile"--composed of a "navigation system (antibody)", a "warhead (cytotoxic drug)", and a "Linker"--capable of accurately targeting cancer cells. [6]
+            Disitamab vedotin specifically targets bladder cancer with overexpressed HER2 protein and has been designated a "breakthrough therapy" by both the U.S. FDA and China’s NMPA. Clinical trials show it can extend the survival of advanced patients with fewer side effects than traditional chemotherapy. [7]
+            </p>
+                </div>
+
+            </div>
+         </section>
+
+    
+            
+    
+ 
+
+    <!-- 内容区域 --> 
+ <section id="content2" class="content-section" style="margin-top: 20vh;  background-color: #f0f0f0; width:65vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative;">
+        
+       <div class="text-content0">
+        <div class="text-content">
+            <H  id="Reference"     class="title-style"   style="position:relative;">
+            Reference
+            </H>
+            <p class="nomal-style" style="position:relative;">
+            [1] Siegel RL, Kratzer TB, Giaquinto AN, Sung H, Jemal A. Cancer statistics, 2025. CA Cancer J Clin. 2025 Jan-Feb;75(1):10-45. doi: 10.3322/caac.21871. Epub 2025 Jan 16. PMID: 39817679; PMCID: PMC11745215.<br>
+            [2] WEBER A, VIGNAT J, SHAH R , et al. Global burden of bladder cancer mortality in 2020 and 2040 according to GLOBOCAN estimates[J]. World J Urol, 2024, 42(1): 237.<br>
+            [3] Carreras G, Possenti I, Malevolti MC, Gorini G, Gallus S, Lugo A. Second-hand smoke and bladder cancer risk among nonsmokers: a systematic review and a meta-analysis. Eur J Cancer Prev. 2025 Jun 18. doi: 10.1097/CEJ.0000000000000979. Epub ahead of print. PMID: 40536077.<br>
+            [4] Alouini S. Risk Factors Associated with Urothelial Bladder Cancer. Int J Environ Res Public Health. 2024 Jul 22;21(7):954. doi: 10.3390/ijerph21070954. PMID: 39063530; PMCID: PMC11277468.<br>
+            [5] Colombo R, Tarantino P, Rich JR, LoRusso PM, de Vries EGE. The Journey of Antibody-Drug Conjugates: Lessons Learned from 40 Years of Development. Cancer Discov. 2024 Nov 1;14(11):2089-2108. doi: 10.1158/2159-8290.CD-24-0708. PMID: 39439290.<br>
+            [6] Vlachou E, Johnson BA, Hoffman-Censits J. The Role of Antibody-Drug Conjugates in Urothelial Cancer: A Review of Recent Advances in the Treatment of Locally Advanced and Metastatic Urothelial Cancer. Clin Med Insights Oncol. 2024 Dec 15;18:11795549241290787.<br> doi: 10.1177/11795549241290787. PMID: 39686979; PMCID: PMC11648052.<br>
+            [7] Sheng X, Yan X, Wang L, Shi Y, Yao X, Luo H, Shi B, Liu J, He Z, Yu G, Ying J, Han W, Hu C, Ling Y, Chi Z, Cui C, Si L, Fang J, Zhou A, Guo J. Open-label, Multicenter, Phase II Study of RC48-ADC, a HER2-Targeting Antibody-Drug Conjugate, in Patients with Locally Advanced or Metastatic Urothelial Carcinoma. Clin Cancer Res. 2021 Jan 1;27(1):43-51. doi: 10.1158/1078-0432.CCR-20-2488. Epub 2020 Oct 27. PMID: 33109737.<br>
+            [8] Díaz-Rodríguez E, Gandullo-Sánchez L, Ocaña A, Pandiella A. Novel ADCs and Strategies to Overcome Resistance to Anti-HER2 ADCs. Cancers (Basel). 2021 Dec 29;14(1):154. doi: 10.3390/cancers14010154. PMID: 35008318; PMCID: PMC8750930.<br>
+            [9] Nguyen TD, Bordeau BM, Balthasar JP. Mechanisms of ADC Toxicity and Strategies to Increase ADC Tolerability. Cancers (Basel). 2023 Jan 24;15(3):713. doi: 10.3390/cancers15030713. PMID: 36765668; PMCID: PMC9913659.<br>
+            [10] Grairi M, Le Borgne M. Antibody-drug conjugates: prospects for the next generation. Drug Discov Today. 2024 Dec;29(12):104241. doi: 10.1016/j.drudis.2024.104241. Epub 2024 Nov 13. PMID: 39542204.<br>
+            
+        </div>
+        </div>
+    </section>
+  </div>  
+</div>
+    <div class="text-content-last" style="margin-top: 15vh; z-index: 3; height: 30vh; width: 100vw;text-align: center; ">
+        
+       
+        <h2 style="color: #f0a70b; position: relative; top:-10vh;font-size: 40px;">"In war, the way is to avoid what is strong and strike at what is weak."</h2>
+        <h3 style="color: #f0a70b; position: relative; top:-5vh; left: 70vh;font-size: 40px;font-weight:100;">—— Sun Tzu</h3>
+        <!-- <p class="nomal-style"style="color: #ffffff; position: relative; bottom:-320px;;font-size: 40px;font-weight: 200;padding-left: 150px;padding-right: 150px;text-align: justify;">" </p> -->
+     </div> 
+
+
+      <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>Contect us by</p>
+                <p>Email : 1402418580@qq.com | Phone: 86-13566087400</p>
+                <p>Address : 800 Xiangyin Road, Yangpu District, Shanghai, China, 200433.</p>
+            </div>
+            
+            <div class="copyright-container">
+                <div class="copyright">&copy; 2025 Onco_Strat</div>
+            </div>
+        </div>
+    </footer>
+    <script>
+         document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('bg-video');
+            const playPauseBtn = document.getElementById('play-pause');
+            const muteUnmuteBtn = document.getElementById('mute-unmute');
+            const progress = document.getElementById('progress');
+            const progressHandle = document.getElementById('progress-handle');
+            const progressContainer = document.getElementById('progress-container');
+            const currentTimeEl = document.getElementById('current-time');
+            const totalTimeEl = document.getElementById('total-time');
+
+    // 播放/暂停按钮功能
+    playPauseBtn.addEventListener('click', function() {
+        if (video.paused) {
+            video.play();
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            video.pause();
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    });
+
+    // 静音/取消静音按钮功能
+    muteUnmuteBtn.addEventListener('click', function() {
+        if (video.muted) {
+            video.muted = false;
+            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; // 取消静音，显示音量图标
+        } else {
+            video.muted = true;
+            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'; // 静音，显示静音图标
+        }
+    });
+
+    // 更新进度条
+    video.addEventListener('timeupdate', function() {
+        const percent = (video.currentTime / video.duration) * 100;
+        progress.style.width = percent + '%';
+        progressHandle.style.left = percent + '%';
+
+        // 更新时间显示
+        currentTimeEl.textContent = formatTime(video.currentTime);
+    });
+
+    // 视频加载完成后显示总时长
+    video.addEventListener('loadedmetadata', function() {
+        totalTimeEl.textContent = formatTime(video.duration);
+    });
+
+    // 点击进度条跳转
+    progressContainer.addEventListener('click', function(e) {
+        if (video.duration) {
+            const rect = progressContainer.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+                video.currentTime = percent * video.duration;
+            }
+    });
+
+    // 拖动进度条
+    let isDragging = false;
+            
+            progressHandle.addEventListener('mousedown', function(e) {
+                e.preventDefault();
+                isDragging = true;
+            });
+            
+            document.addEventListener('mousemove', function(e) {
+                if (isDragging) {
+                    const rect = progressContainer.getBoundingClientRect();
+                    let percent = (e.clientX - rect.left) / rect.width;
+                    
+                    // 限制在0-100%之间
+                    percent = Math.max(0, Math.min(1, percent));
+                    
+                    video.currentTime = percent * video.duration;
+                }
+            });
+            
+            document.addEventListener('mouseup', function() {
+                isDragging = false;
+            });
+            
+    // 格式化时间显示 (秒 -> 分:秒)
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return mins + ':' + (secs < 10 ? '0' + secs : secs);
+    }
+ })    
+            
+        // 创建星空背景
+        function createStars() {
+            const starBackground = document.getElementById('starBackground');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${animationDelay}s`;
+                
+                starBackground.appendChild(star);
+            }
+        }
+        
+        // 处理滚动效果
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const mountains = document.getElementById('mountains');
+            const sunBackground = document.getElementById('sunBackground');
+            
+            // 调整太阳透明度 - 随滚动逐渐消失
+            if (scrollPosition <= heroHeight * 0.8) {
+                const opacity = 1 - (scrollPosition / (heroHeight * 0.5));
+                sunBackground.style.opacity = opacity;
+                sunBackground.style.display = 'block';
+                
+               } 
+            else {
+            sunBackground.style.opacity = 0;
+            sunBackground.style.display = 'none';
+               }
+            
+            // 山脉和内容区域一起向上移动
+        //     if (scrollPosition <= heroHeight) {
+        //         const moveY = scrollPosition * 0.5;
+        //         mountains.style.transform = `translateY(${moveY}px)`;
+        //         document.querySelector('.hero-content').style.transform = `translateY(${moveY * 0.7}px)`;
+        //     }
+         }
+        
+        // 初始化
+        window.addEventListener('load', () => {
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+             document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('section');
+            
+            // 为导航链接添加点击事件
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有active类
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // 添加active类到当前链接
+                    this.classList.add('active');
+                    
+                    // 滚动到对应部分
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // 监听滚动事件，高亮当前部分
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+     </script>
+</body>
+</html>

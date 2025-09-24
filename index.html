@@ -286,6 +286,81 @@
     transition-delay: 0.4s;
     visibility: visible;
 }
+       .background-image-content.loading {
+         background-color: #f0f0f0; /* 加载时的背景色 */
+         background-image: none !important; /* 强制移除背景图片 */
+
+
+       }
+
+
+       .background-image-content.loading::before {
+          content: ''; /* 伪元素内容为空 */
+    position: absolute; /* 绝对定位 */
+    top: 0; /* 顶部对齐 */
+    left: 0; /* 左侧对齐 */
+    width: 100%; /* 宽度100% */
+    height: 100%; /* 高度100% */
+    background: rgba(0, 0, 0, 0.4); /* 半透明黑色背景 */
+    z-index: 1; /* 层级 */
+
+
+       }
+
+
+       /* 脉冲圆点加载器容器样式 */
+.pulse-dots {
+    position: absolute; /* 绝对定位 */
+    top: 50%; /* 顶部定位到50% */
+    left: 50%; /* 左侧定位到50% */
+    transform: translate(-50%, -50%); /* 居中偏移 */
+    display: flex; /* 使用flex布局 */
+    z-index: 10; /* 层级 */
+}
+
+/* 单个圆点样式 */
+.pulse-dots div {
+    width: 15px; /* 宽度 */
+    height: 15px; /* 高度 */
+    background-color: white; /* 背景色 */
+    border-radius: 50%; /* 圆形 */
+    margin: 0 5px; /* 外边距 */
+    animation: pulse 1.4s infinite ease-in-out both; /* 动画效果 */
+}
+
+/* 第一个圆点的动画延迟 */
+.pulse-dots div:nth-child(1) { animation-delay: -0.32s; }
+
+/* 第二个圆点的动画延迟 */
+.pulse-dots div:nth-child(2) { animation-delay: -0.16s; }
+
+/* 脉冲动画关键帧定义 */
+@keyframes pulse {
+    0%, 80%, 100% { 
+        transform: scale(0); /* 缩放为0 */
+        opacity: 0.5; /* 透明度 */
+    } 
+    40% { 
+        transform: scale(1); /* 缩放为1 */
+        opacity: 1; /* 完全不透明 */
+    }
+}
+
+/* 加载文字样式 */
+.loading-text {
+    position: absolute; /* 绝对定位 */
+    top: 60%; /* 顶部定位到60% */
+    left: 50%; /* 左侧定位到50% */
+    transform: translateX(-50%); /* 水平居中 */
+    color: white; /* 文字颜色 */
+    font-size: 16px; /* 字体大小 */
+    z-index: 10; /* 层级 */
+    text-align: center; /* 文字居中 */
+    width: 100%; /* 宽度100% */
+    font-weight: 600; /* 字体粗细 */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* 文字阴影 */
+}
+
         
         /* 英雄区域 */
         .hero {
@@ -676,9 +751,16 @@
             timeless.
             </p>
             <div style="height: 35vh; width: 100%;margin-top: 5vh; padding-left: 15%;padding-right: 10%;">
-            <div style=" position: relative; height: 35vh; width: 35vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg');  background-size: cover; margin-right: 5%; float: left;">
+            <div  class="background-image-content" style=" position: relative; height: 35vh; width: 35vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg');  background-size: cover; margin-right: 5%; float: left;">
             </div>
-            <div style=" position: relative; height: 35vh; width: 90vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1-2.png');background-size: cover; float: left;">
+            <div  class="background-image-content"  style=" position: relative; height: 35vh; width: 90vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1-2.png');background-size: cover; float: left;">
+              <div class="pulse-dots">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                        <div class="loading-text">图片加载中...</div>
+    
             </div>
             </div>
             <h class="nomal-style" style="position: relative; margin-top: 5vh;font-size: 30px;">Figure 1 Paul Ehrlich (1854-1915)</h>
@@ -691,7 +773,7 @@
             the cytotoxic payload; and monomethyl auristatin E (MMAE), a potent
             microtubule-binding agent.
             </p>
-            <div style=" position: relative; height: 65vh; width: 120vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure2.png');background-size: cover;">
+            <div class="background-image-content" style=" position: relative; height: 65vh; width: 120vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure2.png');background-size: cover;">
 
             </div>
             <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Figure 2 The structure of RC48</h>
@@ -704,7 +786,7 @@
             in the tumor cells.Figure 3 The mechanism of RC48
         
             </p>
-            <div style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure3.png');background-size: cover;">
+            <div class="background-image-content"  style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure3.png');background-size: cover;">
 
             </div>
             <h class="nomal-style" style="position: relative;top: -30vh; margin: 10vh;;font-size: 30px;">Figure 3 The mechanism of RC48</h>
@@ -721,7 +803,7 @@
             evolve stealth tactics to evade treatment. How do we outmaneuver an
             enemy that rewrites its playbook daily?
             </p>
-            <div style=" position: relative; margin-top:10vh;height: 50vh; width: 97vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure4.jpg');background-size: contain;">
+            <div class="background-image-content"  style=" position: relative; margin-top:10vh;height: 50vh; width: 97vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure4.jpg');background-size: contain;">
 
             </div>
             <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Figure 4 Can Hou Yi shoot down the stronger sun?</h>
@@ -736,7 +818,7 @@
               enemy’s playbook.To know the enemy, we became the enemy. Through iterative RC48exposure (40 → 400 μg/mL over 12 weeks), we forged T24-RC48 — a
               mirror of clinical resistance. Its 10-fold IC<sub>50</sub> surge (P&lt;0.001) echoes
               </p>
-             <div style=" position: relative; margin-top:10vh;height: 60vh; width: 90vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure5.png');background-size: cover;">
+             <div class="background-image-content"    style=" position: relative; margin-top:10vh;height: 60vh; width: 90vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure5.png');background-size: cover;">
 
               </div> 
               <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">&nbsp; &nbsp; &nbsp; &nbsp;  Figure 5 &nbsp;&nbsp;&nbsp;Drug susceptibility test results diagram </h>
@@ -754,17 +836,17 @@
             carried on average 68 frameshift deletions, 61 frameshift insertions, 177
             non-frameshift deletions, and 149 non-frameshift insertions.”
             </p> 
-            <div style="position: relative; margin-top:10vh;min-height: 80vh; height: auto; width: 100vw; display: flex;flex-direction: row;gap: 2vw;flex-wrap: wrap; padding-left: 5vw;">
-                 <div style=" margin-left: 15vw; position: relative; ;height: 40vh; width: 25vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-1.png');background-size: contain;">
+            <div     style="position: relative; margin-top:10vh;min-height: 80vh; height: auto; width: 100vw; display: flex;flex-direction: row;gap: 2vw;flex-wrap: wrap; padding-left: 5vw;">
+                 <div class="background-image-content" style=" margin-left: 15vw; position: relative; ;height: 40vh; width: 25vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-1.png');background-size: contain;">
 
               </div> 
-               <div style=" position: relative; height: 40vh; width: 35vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-2.png');background-size: contain;">
+               <div class="background-image-content" style=" position: relative; height: 40vh; width: 35vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-2.png');background-size: contain;">
 
               </div> 
-               <div style=" margin-left: 2vw;position: relative; ;height: 50vh; width: 39vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-3.jpg');background-size: contain;">
+               <div class="background-image-content"   style=" margin-left: 2vw;position: relative; ;height: 50vh; width: 39vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-3.jpg');background-size: contain;">
 
               </div> 
-               <div style=" position: relative; height: 50vh; width: 46vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-4.jpg');background-size: contain;">
+               <div  class="background-image-content"  style=" position: relative; height: 50vh; width: 46vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-4.jpg');background-size: contain;">
 
              
 
@@ -781,7 +863,7 @@
               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
               Resistance is not failure—it's evolution. And evolution is the catalyst for innovation. By studying how resistance works, we can use it as a blueprint to design better treatments. By dissecting the intricate mechanisms of resistance, we've turned their armor into a blueprint. The next front? Preemptive strategies that leverage our growing understanding of resistance pathways, transforming vulnerabilities into therapeutic opportunities.
               </p>
-            <div style=" width: 100vw; height: 120vh;  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/background板块首页.jpg'); background-size: contain; background-repeat: no-repeat; background-position: bottom;">
+            <div class="background-image-content" style=" width: 100vw; height: 120vh;  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/background板块首页.jpg'); background-size: contain; background-repeat: no-repeat; background-position: bottom;">
               <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 10vh; margin-left: 5vw; margin-right: 5vw;">"He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain.”</h2>
               <h3 style="color: #f0a70b; position: relative; left: 75vw;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
               

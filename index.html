@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/icon.png">
     <title>星空山脉 - 太阳渐变效果</title>
     <style>
         :root {
@@ -38,7 +39,7 @@
             font-weight: bold; /* font-medium */
             color: #f0f0f0; /* text-primary-text-color */
             padding-left: 0.625rem; /* pl-2.5 */
-            border-left: 8px solid  /* border-l-8 border-primary-color */
+           
             white-space: nowrap; /* 防止换行 */
             overflow: hidden;
         }
@@ -48,7 +49,7 @@
             font-weight: lighter; /* font-medium */
             color: #000000; /* text-primary-text-color */
             padding-left: 0.625rem; /* pl-2.5 */
-            border-left: 8px solid  /* border-l-8 border-primary-color */
+        
             white-space: nowrap; /* 防止换行 */
             overflow: hidden;
         }
@@ -72,7 +73,7 @@
             width: 100%;
             padding: 15px 60px;
             display: flex;
-            justify-content: space-between;
+            /* justify-content: space-between; */
             align-items: center;
             background: linear-gradient(to right, rgba(230, 54, 10, 0.7), rgba(200, 40, 5, 0.85));
             z-index: 1000;
@@ -86,10 +87,10 @@
             background: rgba(180, 40, 5, 0.95);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
-        nav-links {
+        .nav-links {
             display: flex;
-            gap: 2.5vh;
-            justify-content: flex-end;
+            /* justify-content: flex-end; */
+            margin-left: 15vh;
             flex-grow: 1;
         }
         
@@ -148,7 +149,7 @@
             position:fixed ;
             top: 5px;
             left: 5px;        
-            background-image: url('/images/白字透明.png');
+            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png");
             width: 80%;
             height: 80%; 
             /* font-size: 24px;
@@ -162,7 +163,7 @@
         
         .nav-links {
             display: flex;
-            gap: 5vh;
+            gap: 1.5vh;
             justify-content: flex-end; /* 确保链接靠右对齐 */
             flex-grow: 1; /* 占据剩余空间 */
         }
@@ -175,9 +176,11 @@
         }
         
         .nav-links a:hover {
-            color: var(--accent-color);
+            color:  #eeedb4;
         }
         .sub-menu {
+    max-height: 0;
+    overflow: hidden;
     position: absolute; /* 绝对定位 */
     left: 0%; /* 左侧对齐 */
     background: white; /* 背景色 */
@@ -187,7 +190,6 @@
     text-align: left; /* 文本左对齐 */
     font-weight: bold;
     box-shadow: 0px 4px 20px -5px rgba(0, 0, 0, 0.15); /* 阴影效果 */
-    max-height: 1000PX; /* 最大高度 */
     max-width: 300px; /* 最大宽度 */
     opacity: 0; /* 完全透明 */
     transition: 0.45s ease all 0.1s; /* 过渡动画 */
@@ -202,67 +204,83 @@
 }
 .sub-menu .sub-menu-item a {
     color: #000;
+    height: 30px;
     font-size: 20px;
     
 
 }
-.menu-item:nth-child(n+2):nth-child(-n+4) .plus-icon {
+.menu-item:nth-child(n+2):nth-child(-n+5) .plus-icon {
     width: 10px; /* 图标宽度 */
     height: 10px; /* 图标高度 */
     stroke: hsl(0, 94%, 52%); /* 图标颜色 */
     margin-bottom: 1px; /* 底部外边距 */
 }
-.menu-item:nth-child(n+2):nth-child(-n+4) .sub-menu-item {
+.menu-item:nth-child(n+2):nth-child(-n+5) .sub-menu-item {
     list-style-type: none; /* 移除列表标记 */
     display: block; /* 块级显示 */
     margin: 15px; /* 外边距 */
     position: relative; /* 相对定位 */
-    transform: translateY(-10px); /* Y轴位移 */
+    transform: translateY(-15px); /* Y轴位移 */
     opacity: 0; /* 完全透明 */
     transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.1s; /* 过渡动画 */
     visibility: hidden; /* 隐藏元素 */
     border-radius: 40%; /* 圆角 */
 }
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu {
-    max-height: 1000px; /* 最大高度 */
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu {
+    max-height: 800px; /* 最大高度 */
     max-width: 200px; /* 最大宽度 */
     opacity: 1; /* 完全不透明 */
 }
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item a {
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a {
     transition: 0.15s ease all; /* 链接过渡动画 */
 }
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item a:hover {
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a:hover {
     color: #fc1202; /* 链接悬停颜色 */
-    animation: underline #fc1202 0.3s ease;
+    text-decoration: underline #fc1202;
+    text-underline-offset: 8px;
+     text-decoration-thickness: 2px;
+
 
 }
 
 /* 子菜单项动画延迟设置 */
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:first-child {
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:first-child {
     transform: translateY(0px); /* 重置位移 */
     opacity: 1; /* 完全不透明 */
     transition-delay: 0.15s; /* 动画延迟 */
     visibility: visible; /* 显示元素 */
 }
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(2) {
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(2) {
     transform: translateY(0px);
     opacity: 1;
     transition-delay: 0.3s;
     visibility: visible;
 }
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(3) {
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(3) {
     transform: translateY(0px);
     opacity: 1;
     transition-delay: 0.4s;
     visibility: visible;
 }
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(4) {
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(4) {
     transform: translateY(0px);
     opacity: 1;
     transition-delay: 0.4s;
     visibility: visible;
 }
-.menu-item:nth-child(n+2):nth-child(-n+4):hover .sub-menu-item:nth-child(5) {
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(5) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(6) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(7) {
     transform: translateY(0px);
     opacity: 1;
     transition-delay: 0.4s;
@@ -286,7 +304,7 @@
             left: 0;
             width: 100%;
             height: 100%; 
-            background: url('/images/sun-background.png') bottom/cover no-repeat;
+            background: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/sun-background.png"), bottom/cover no-repeat;
             z-index: 1;
             transition: opacity 0.8s ease-out; 
             /* 添加渐变效果使太阳与黑色背景融合
@@ -301,7 +319,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('/images/山脉2.png') bottom/cover no-repeat;
+            background: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/山脉2.png") bottom/cover no-repeat;
             z-index: 3;
 
             transition: transform 0.8s ease-out;
@@ -438,7 +456,7 @@
             width: 100%;
             position: relative;
             padding: 0;
-            background-image: url('/images/渐变2.png');
+            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png");
             background-size: cover;
             background-position: top;
             display: flex;
@@ -576,20 +594,40 @@
         <div class="logo"> </div>
         <div class="nav-links">
 
-            <a ><H1>Home</H1></a>
+            <a class="active"><H1>Home</H1></a>
            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Project&nbsp;&#9660</H1></a>
                 <ol class="sub-menu">
                                             <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/background.html">Background</a></li>
+                                             <li class="sub-menu-item"><a href="#">Design</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Results</a></li>
+                                                     <li class="sub-menu-item"><a href="#">Report</a></li>
+                                                         <li class="sub-menu-item"><a href="#">Poster</a></li>
+                                                                <li class="sub-menu-item"><a href="#">Supplement</a></li>
                                             <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/safety.html">Safety</a></li>
-                                            <li class="sub-menu-item"><a href="#">Results</a></li>
-                                            <li class="sub-menu-item"><a href="#">Supplement</a></li>
+                                           
+                                        
 
-                                            <li class="sub-menu-item"><a href="#">Protocol</a></li>
                                         </ol>
             </li>
-            <a class="active"><H1>Background</H1></a>
-            <a href="#"><H1>about</H1></a>
-            <a href="#"><H1>Team</H1></a>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Document&nbsp;&#9660</H1></a>
+                  <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="#">Protocols</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Lab notebook</a></li>
+                                                     
+                                                         
+                                        </ol>
+            </li>
+            <a href="#"><H1>ML-Model</H1></a>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Team&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="#">Member</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Community </a></li>
+                                                     <li class="sub-menu-item"><a href="#">Collaboration</a></li>
+                                                         
+                                        </ol>
+            </li>
         </div>
     </nav>
     <!-- 星空背景 -->
@@ -638,9 +676,9 @@
             timeless.
             </p>
             <div style="height: 35vh; width: 100%;margin-top: 5vh; padding-left: 15%;padding-right: 10%;">
-            <div style=" position: relative; height: 35vh; width: 35vh; ;background-image: url('/images/figure1.jpg');background-size: cover; margin-right: 5%; float: left;">
+            <div style=" position: relative; height: 35vh; width: 35vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg');  background-size: cover; margin-right: 5%; float: left;">
             </div>
-            <div style=" position: relative; height: 35vh; width: 90vh; ;background-image: url('/images/figure1-2.png');background-size: cover; float: left;">
+            <div style=" position: relative; height: 35vh; width: 90vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1-2.png');background-size: cover; float: left;">
             </div>
             </div>
             <h class="nomal-style" style="position: relative; margin-top: 5vh;font-size: 30px;">Figure 1 Paul Ehrlich (1854-1915)</h>
@@ -653,19 +691,20 @@
             the cytotoxic payload; and monomethyl auristatin E (MMAE), a potent
             microtubule-binding agent.
             </p>
-            <div style=" position: relative; height: 65vh; width: 120vh; ;background-image: url('/images/Figure2.png');background-size: cover;">
+            <div style=" position: relative; height: 65vh; width: 120vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure2.png');background-size: cover;">
 
             </div>
             <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Figure 2 The structure of RC48</h>
             <p class="nomal-style" style="position:relative; margin-top: 10vh;">
-            Disitamab Vedotin (RC48) is an innovative antibody-drug conjugate
-            (ADC) composed of three key components: a novel monoclonal
-            antibody (disitamab) that binds with high affinity to different epitopes
-            of HER2 on tumor cells; a stable linker that connects the antibody to
-            the cytotoxic payload; and monomethyl auristatin E (MMAE), a potent
-            microtubule-binding agent.
+            Upon binding to HER2 on the tumor cell surface, the ADC-HER2
+            complex is internalized via endocytosis. Within the cell, the linker
+            connecting the antibody and MMAE is cleaved by lysosomal proteases,
+            releasing MMAE into the cytoplasm. MMAE then binds to microtubules,
+            inhibiting their polymerization and triggering programmed cell death
+            in the tumor cells.Figure 3 The mechanism of RC48
+        
             </p>
-            <div style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('/images/Figure3.png');background-size: cover;">
+            <div style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure3.png');background-size: cover;">
 
             </div>
             <h class="nomal-style" style="position: relative;top: -30vh; margin: 10vh;;font-size: 30px;">Figure 3 The mechanism of RC48</h>
@@ -682,11 +721,11 @@
             evolve stealth tactics to evade treatment. How do we outmaneuver an
             enemy that rewrites its playbook daily?
             </p>
-            <div style=" position: relative; margin-top:10vh;height: 50vh; width: 97vh; background-image: url('/images/Figure4.jpg');background-size: contain;">
+            <div style=" position: relative; margin-top:10vh;height: 50vh; width: 97vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure4.jpg');background-size: contain;">
 
             </div>
             <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">Figure 4 Can Hou Yi shoot down the stronger sun?</h>
-            <h class="Chapter" style="position: relative;margin-top: 10vh;">Chapter4&nbsp; &nbsp;&nbsp;&nbsp;Evove to Counter Evove"</h> 
+            <h class="Chapter" style="position: relative;margin-top: 10vh;">Chapter4&nbsp; &nbsp;&nbsp;&nbsp;Evolve to Counter Evolve</h> 
              <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20px;">“Know thy enemy and know yourself; in a hundred battles, never peril.”</h2>
               <h3 style="color: #f0a70b; position: relative; left: 75vh;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
                 <div class="button0" style="position: relative ; left: 75vh; height: 5vh; width: 15vh; margin-top: 2vh;">
@@ -694,10 +733,10 @@
                 </div>
               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
               Resistance is no accident but an arms race. To conquer, we must map the
-              enemy’s playbook.To know the enemy, we became the enemy. Through iterative RC48exposure (40 →400 μ g/mL over 12 weeks), we forged T24-RC48 — a
-              mirror of clinical resistance. Its 10-fold IC50 surge (P&lt;0.001) echoes
+              enemy’s playbook.To know the enemy, we became the enemy. Through iterative RC48exposure (40 → 400 μg/mL over 12 weeks), we forged T24-RC48 — a
+              mirror of clinical resistance. Its 10-fold IC<sub>50</sub> surge (P&lt;0.001) echoes
               </p>
-             <div style=" position: relative; margin-top:10vh;height: 60vh; width: 90vh; background-image: url('/images/Figure5.png');background-size: cover;">
+             <div style=" position: relative; margin-top:10vh;height: 60vh; width: 90vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure5.png');background-size: cover;">
 
               </div> 
               <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 30px;">&nbsp; &nbsp; &nbsp; &nbsp;  Figure 5 &nbsp;&nbsp;&nbsp;Drug susceptibility test results diagram </h>
@@ -716,16 +755,16 @@
             non-frameshift deletions, and 149 non-frameshift insertions.”
             </p> 
             <div style="position: relative; margin-top:10vh;min-height: 80vh; height: auto; width: 100vw; display: flex;flex-direction: row;gap: 2vw;flex-wrap: wrap; padding-left: 5vw;">
-                 <div style=" margin-left: 15vw; position: relative; ;height: 40vh; width: 25vw; background-image: url('/images/Figure6-1.png');background-size: contain;">
+                 <div style=" margin-left: 15vw; position: relative; ;height: 40vh; width: 25vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-1.png');background-size: contain;">
 
               </div> 
-               <div style=" position: relative; height: 40vh; width: 35vw; background-image: url('/images/Figure6-2.png');background-size: contain;">
+               <div style=" position: relative; height: 40vh; width: 35vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-2.png');background-size: contain;">
 
               </div> 
-               <div style=" margin-left: 2vw;position: relative; ;height: 50vh; width: 39vw; background-image: url('/images/Figure6-3.jpg');background-size: contain;">
+               <div style=" margin-left: 2vw;position: relative; ;height: 50vh; width: 39vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-3.jpg');background-size: contain;">
 
               </div> 
-               <div style=" position: relative; height: 50vh; width: 46vw; background-image: url('/images/Figure6-4.jpg');background-size: contain;">
+               <div style=" position: relative; height: 50vh; width: 46vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-4.jpg');background-size: contain;">
 
              
 
@@ -742,8 +781,8 @@
               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
               Resistance is not failure—it's evolution. And evolution is the catalyst for innovation. By studying how resistance works, we can use it as a blueprint to design better treatments. By dissecting the intricate mechanisms of resistance, we've turned their armor into a blueprint. The next front? Preemptive strategies that leverage our growing understanding of resistance pathways, transforming vulnerabilities into therapeutic opportunities.
               </p>
-            <div style=" width: 100vw; height: 120vh;  background-image: url('/images/background板块首页.jpg'); background-size: contain; background-repeat: no-repeat;">
-              <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 20vh; margin-left: 5vw; margin-right: 5vw;">"He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain.”</h2>
+            <div style=" width: 100vw; height: 120vh;  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/background板块首页.jpg'); background-size: contain; background-repeat: no-repeat; background-position: bottom;">
+              <h2 style="color: #f0a70b; position: relative;font-size: 40px;margin-top: 10vh; margin-left: 5vw; margin-right: 5vw;">"He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain.”</h2>
               <h3 style="color: #f0a70b; position: relative; left: 75vw;font-size: 40px;font-weight:100;margin-top: 5vh;">—— Sun Tzu</h3>
               
                 <div class="button0" style="position: relative ; left: 80vw; height: 5vh; width: 15vh; margin-top: 2vh;">
@@ -776,13 +815,13 @@
    <footer>
         <div class="footer-content">
             <div class="footer-contact">
-                <p>Contect us by</p>
+                <p>Contact us by</p>
                 <p>Email : 1402418580@qq.com | Phone: 86-13566087400</p>
                 <p>Address : 800 Xiangyin Road, Yangpu District, Shanghai, China, 200433.</p>
             </div>
             
             <div class="copyright-container">
-                <div class="copyright">&copy; 2025 Onco_Strat</div>
+                <div class="copyright">&copy; 2025_OncoStrat_NMU</div>
             </div>
         </div>
     </footer>

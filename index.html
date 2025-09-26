@@ -40,17 +40,24 @@
             color: #f0f0f0; /* text-primary-text-color */
             padding-left: 0.625rem; /* pl-2.5 */
            
-            white-space: nowrap; /* 防止换行 */
+            /* white-space: nowrap;  */
+            word-wrap: normal;
+            overflow-wrap: normal;
+            white-space: normal;
             overflow: hidden;
         }
         .home2{
             font-family: "Fira Sans", sans-serif;
             font-size: 1.5rem; /* text-2xl */
-            font-weight: lighter; /* font-medium */
+            /* font-weight: lighter;  */
             color: #000000; /* text-primary-text-color */
             padding-left: 0.625rem; /* pl-2.5 */
         
-            white-space: nowrap; /* 防止换行 */
+            /* white-space: nowrap;  */
+            word-wrap: normal;
+            overflow-wrap: normal;
+            white-space: normal;
+           
             overflow: hidden;
         }
         * {
@@ -71,8 +78,10 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 15px 60px;
+            padding: 5px 50px;
+            padding-left: 1vw;
             display: flex;
+            
             /* justify-content: space-between; */
             align-items: center;
             background: linear-gradient(to right, rgba(230, 54, 10, 0.7), rgba(200, 40, 5, 0.85));
@@ -146,14 +155,15 @@
             font-size: 1.1rem;
         }
         .logo {
-            position:fixed ;
+            position:relative;
             top: 5px;
             left: 5px;        
             background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png");
-            width: 80%;
-            height: 80%; 
+            width: 100%;
+            height: 100%; 
             /* font-size: 24px;
             font-weight: bold; */
+
              
             background-size: contain;
             background-position: left center;
@@ -666,7 +676,9 @@
 <body>
       <!-- 导航栏 -->
         <nav>
-        <div class="logo"> </div>
+            <div class="logo-container" style="width: 20vw; height: 3vw;">
+        <div class="logo"></div>
+            </div>
         <div class="nav-links">
 
             <a class="active"><H1>Home</H1></a>
@@ -783,7 +795,7 @@
             connecting the antibody and MMAE is cleaved by lysosomal proteases,
             releasing MMAE into the cytoplasm. MMAE then binds to microtubules,
             inhibiting their polymerization and triggering programmed cell death
-            in the tumor cells.Figure 3 The mechanism of RC48.
+            in the tumor cells.
         
             </p>
             <div class="background-image-content"  style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure3.png');background-size: cover;">
@@ -838,16 +850,16 @@
             non-frameshift deletions, and 149 non-frameshift insertions.”
             </p> 
             <div     style="position: relative; margin-top:10vh;min-height: 80vh; height: auto; width: 100vw; display: flex;flex-direction: row;gap: 2vw;flex-wrap: wrap; padding-left: 5vw;">
-                 <div class="background-image-content" style=" margin-left: 15vw; position: relative; ;height: 40vh; width: 25vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-1.png');background-size: contain;">
+                 <div class="background-image-content" style=" margin-left: 15vw; position: relative; ;height: 40vh; width: 25vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-1.png');background-size: contain; background-repeat: no-repeat;">
 
               </div> 
-               <div class="background-image-content" style=" position: relative; height: 40vh; width: 35vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-2.png');background-size: contain;">
+               <div class="background-image-content" style=" position: relative; height: 40vh; width: 35vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-2.png');background-size: contain;background-repeat: no-repeat;">
 
               </div> 
-               <div class="background-image-content"   style=" margin-left: 2vw;position: relative; ;height: 50vh; width: 39vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-3.jpg');background-size: contain;">
+               <div class="background-image-content"   style=" margin-left: 2vw;position: relative; ;height: 50vh; width: 39vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-3.jpg');background-size: contain;background-repeat: no-repeat;">
 
               </div> 
-               <div  class="background-image-content"  style=" position: relative; height: 50vh; width: 46vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-4.jpg');background-size: contain;">
+               <div  class="background-image-content"  style=" position: relative; height: 50vh; width: 46vw; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-4.jpg');background-size: contain;background-repeat: no-repeat;">
 
              
 

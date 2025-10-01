@@ -39,7 +39,8 @@
              /* 脉冲球容器：让多个球垂直/水平排列或重叠 */
         .pulse-container {
             display: flex;
-            gap: 12px; /* 球之间的间距（水平排列时使用） */
+            flex-direction: row;
+            gap: 12px; 
             /* 或使用绝对定位重叠（波浪从中心扩散时使用）：
                position: relative;
                width: 80px;
@@ -48,8 +49,8 @@
 
         /* 单个脉冲球基础样式 */
         .pulse-ball {
-            width: 50px;
-            height: 50px;
+            width: 5rem;
+            height: 5rem;
             border-radius: 50%;
             background: #ffffff; /* 主色 */
             opacity: 0.8; /* 初始透明度 */
@@ -57,11 +58,11 @@
         }
 
         
-        /* .pulse-container { gap: 15px; } */
-        /* .pulse-ball { margin: 0 5px; } */
+        .pulse-container { gap: 15px; } 
+        .pulse-ball { margin: 0 5px; } 
 
     
-        .pulse-container {
+        /* .pulse-container {
             position: relative;
             width: 80px;
             height: 80px;
@@ -73,13 +74,13 @@
             width: 100%;
             height: 100%;
             margin: 0;
-        }
+        } */
 
        
         .pulse-ball:nth-child(1) { animation-delay: 0s; }
         .pulse-ball:nth-child(2) { animation-delay: 0.4s; }
         .pulse-ball:nth-child(3) { animation-delay: 0.8s; }
-        /* ：nth-child(4) { animation-delay: 1.2s; } */
+        .pulse-ball:nth-child(4) { animation-delay: 1.2s; }
 
         /* 脉冲动画 */
         @keyframes pulse {
@@ -379,7 +380,7 @@
     visibility: visible;
 }
        .background-image-content.loading {
-         background-color: #f0f0f0; /* 加载时的背景色 */
+         background-color: #f0f0f0; 
          background-image: none !important; /* 强制移除背景图片 */
 
 
@@ -763,7 +764,7 @@
             <div class="pulse-ball"></div>
             <div class="pulse-ball"></div>
             <div class="pulse-ball"></div>
-            <!-- <div class="pulse-ball"></div> -->
+            <div class="pulse-ball"></div> 
         </div>
     </div>
       <!-- 导航栏 -->

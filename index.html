@@ -15,6 +15,51 @@
             --font-main: 'Arial', sans-serif;
              font-size: 62.5%; 
         }
+         /* 加载层样式 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #f0f2f5; /* 半透明白色背景 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* 确保在最上层 */
+            transition: opacity 0.5s ease-out; /* 消失时的过渡效果 */
+        }
+
+        /* 隐藏状态 */
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none; /* 避免遮挡交互 */
+        }
+
+        /* 脉冲动画核心元素 */
+        .pulse-loader {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #1890ff; /* 主色（可自定义） */
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+
+        /* 脉冲动画关键帧 */
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.2);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
         
         .Chapter {
             font-weight: bold;
@@ -923,6 +968,16 @@
     </footer>
 
     <script>
+         // 监听所有资源加载完成事件
+        window.addEventListener('load', () => {
+            const overlay = document.getElementById('loadingOverlay');
+            // 添加隐藏类触发过渡效果
+            overlay.classList.add('hidden');
+            
+            // 可选：完全移除元素（如果不需要保留DOM）
+            // setTimeout(() => overlay.remove(), 500); 
+        });
+
         // 创建星空背景
         function createStars() {
             const starBackground = document.getElementById('starBackground');

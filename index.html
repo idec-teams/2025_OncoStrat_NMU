@@ -743,6 +743,18 @@
             0%, 100% { opacity: 0.2; }
             50% { opacity: 1; }
         }
+        @keyframes rotate{
+           from{
+            transform: rotate(0deg);
+           }
+           to{
+            transform: rotate(360deg);
+           }
+
+         
+
+
+        }
         
         /* 响应式设计 */
         @media (max-width: 768px) {
@@ -765,7 +777,7 @@
      <div class="loading-overlay" id="loadingOverlay" style="display: flex; flex-wrap: wrap; flex-direction:row;">
         <div id="load-image-container"style="height: 30vh;width: 100%; margin-bottom: 5vh; margin-top: 10vh ">
         <div id="loadingimage"  style="height: 30vh; width: 30vh; justify-self: center; align-self: center; align-self: flex-end;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png'); background-size: contain; z-index: 10000;
-        transform: rotate(360);
+       animation: rotate 10s linear infinite;
         " > 
         </div>
         </div>

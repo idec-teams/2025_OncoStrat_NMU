@@ -22,7 +22,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #000000; /* 半透明白色背景 */
+            background: #000000; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -761,9 +761,10 @@
 </head>
 <body>
       <!-- 加载动画层 -->
-     <div class="loading-overlay" id="loadingOverlay">
+     <div class="loading-overlay" id="loadingOverlay" style="display: flex; flex-wrap: wrap;">
+        <div id="loadingimage"  style="align-self: flex-start; margin-bottom: 5vh;;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg'); background-size: contain; " ></div>
         
-        <div class="pulse-container">
+        <div class="pulse-container" style="align-self: flex-start;">
             <div class="pulse-ball"></div>
             <div class="pulse-ball"></div>
             <div class="pulse-ball"></div>
@@ -972,7 +973,7 @@
               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
               Resistance is not failure—it's evolution. And evolution is the catalyst for innovation. By studying how resistance works, we can use it as a blueprint to design better treatments. By dissecting the intricate mechanisms of resistance, we've turned their armor into a blueprint. The next front? Preemptive strategies that leverage our growing understanding of resistance pathways, transforming vulnerabilities into therapeutic opportunities.
               </p>
-            <div class="background-image-content" style=" width: 100vw; height: 120vh;  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/background板块首页.jpg'); background-size: contain; background-repeat: no-repeat; background-position: bottom;">
+            <div class="background-image-content" style=" width: 100vw; height: 120vh;  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg-home.png'); background-size: contain; background-repeat: no-repeat; background-position: bottom;">
               <h2 style="color: #f0a70b; position: relative;font-size: 4rem;margin-top: 10vh; margin-left: 5vw; margin-right: 5vw;">"He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain.”</h2>
                <h3 style="color: #f0a70b; position: relative; top:-5vh; width: 90%;font-size: 4rem;font-weight:100;margin-left: 1vh;text-align: right; margin-top: 5vh;">—— Sun Tzu</h3>
               <div style="position: relative;   width: 100%; height: auto;margin-top: 2vh; display: flex;justify-content: flex-end;">

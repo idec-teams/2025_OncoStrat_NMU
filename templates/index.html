@@ -761,9 +761,10 @@
 </head>
 <body>
       <!-- 加载动画层 -->
-     <div class="loading-overlay" id="loadingOverlay" style="display: flex; flex-wrap: wrap;">
-        <div id="loadingimage"  style="align-self: flex-start; margin-bottom: 5vh;;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg'); background-size: contain; " ></div>
-        
+     <div class="loading-overlay" id="loadingOverlay" style="display: flex; flex-wrap: wrap; flex-direction:row;">
+        <div id="load-image-container"style="height: 20vh;width: 100%; margin-bottom: 5vh; margin-top: 10vh ">
+        <div id="loadingimage"  style="height: 20vh; justify-self: center; align-self: center; align-self: flex-end;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg'); background-size: cover; " ></div>
+        </div>
         <div class="pulse-container" style="align-self: flex-start;">
             <div class="pulse-ball"></div>
             <div class="pulse-ball"></div>
@@ -1019,14 +1020,41 @@
     </footer>
 
     <script>
-         // 监听所有资源加载完成事件
-        window.addEventListener('load', () => {
-            const overlay = document.getElementById('loadingOverlay');
-            // 添加隐藏类触发过渡效果
-            overlay.classList.add('hidden');
+               // 尝试加载图片，如果失败则显示备用文本
+        function loadLoadingImage() {
+            const loadingImage = document.getElementById('loadingImage');
+            const img = new Image();
             
-            // 可选：完全移除元素（如果不需要保留DOM）
-            // setTimeout(() => overlay.remove(), 500); 
+            // 使用备用图片URL
+            const imageUrl = 'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg';
+            
+            img.onload = function() {
+                // 图片加载成功，设置为背景
+                loadingImage.style.backgroundImage = `url('${imageUrl}')`;
+                loadingImage.innerHTML = ''; // 移除备用文本
+            };
+            
+            img.onerror = function() {
+                // 图片加载失败，保留备用文本
+                console.log('Loading image failed, using fallback text');
+            };
+            
+            img.src = imageUrl;
+        }
+
+        // 页面加载完成后隐藏加载层
+        document.addEventListener('DOMContentLoaded', () => {
+            const overlay = document.getElementById('loadingOverlay');
+            
+            // 过渡效果
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                
+                // 可选：完全移除元素（如果不保留DOM）
+                setTimeout(() => {
+                    overlay.style.display = 'none';
+                }, 500);
+            }, 1500); // 最小显示时间1.5秒
         });
 
         // 创建星空背景

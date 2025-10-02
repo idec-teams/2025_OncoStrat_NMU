@@ -1057,21 +1057,38 @@
             
             img.src = imageUrl;
         }
+            let loaded = false;
+        const overlay = document.getElementById('loadingOverlay');
 
-        // 页面加载完成后隐藏加载层
-        document.addEventListener('DOMContentLoaded', () => {
+        function hideLoadingOverlay() {
+            if (!loaded) {
+                    loaded = true;
+                    overlay.classList.add('hidden');
+                        setTimeout(() => {
+                        overlay.style.display = 'none';
+                        }, 500);
+                        }
+                    }
+
+       // 使用window.onload确保所有资源加载完成
+        window.onload = function() {
+            // 所有资源加载完成后隐藏加载动画
             const overlay = document.getElementById('loadingOverlay');
+            const progressElement = document.getElementById('loadingProgress');
             
-            // 过渡效果
+            // 更新进度显示
+            progressElement.textContent = "All resources loaded!";
+            
+            // 添加一个短暂延迟，让用户看到加载完成的消息
             setTimeout(() => {
                 overlay.classList.add('hidden');
                 
-                // 可选：完全移除元素（如果不保留DOM）
+                // 完全移除元素
                 setTimeout(() => {
                     overlay.style.display = 'none';
                 }, 500);
-            }, 1500); // 最小显示时间1.5秒
-        });
+            }, 1000);
+        };
 
         // 创建星空背景
         function createStars() {
@@ -1124,10 +1141,24 @@
         //     }
          }
         
-        // 初始化
-        window.addEventListener('load', () => {
+       // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
             createStars();
             window.addEventListener('scroll', handleScroll);
+            
+            // 添加加载进度模拟（在实际应用中，您可能需要更精确的进度跟踪）
+            const progressElement = document.getElementById('loadingProgress');
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += 5;
+                if (progress <= 95) {
+                    progressElement.textContent = `Loading resources... ${progress}%`;
+                } else {
+                    clearInterval(progressInterval);
+                }
+            }, 200);
+
+             hideLoadingOverlay();
         });
     </script>
 </body>

@@ -1036,65 +1036,92 @@
     </footer>
 
     <script>
-               // 尝试加载图片，如果失败则显示备用文本
-        function loadLoadingImage() {
-            const loadingImage = document.getElementById('loadingImage');
-            const img = new Image();
-            
-            // 使用备用图片URL
-            const imageUrl = 'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg';
-            
-            img.onload = function() {
-                // 图片加载成功，设置为背景
-                loadingImage.style.backgroundImage = `url('${imageUrl}')`;
-                loadingImage.innerHTML = ''; // 移除备用文本
-            };
-            
-            img.onerror = function() {
-                // 图片加载失败，保留备用文本
-                console.log('Loading image failed, using fallback text');
-            };
-            
-            img.src = imageUrl;
+    // 关键资源URL列表
+        const criticalResources = [
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/sun-backgrounda.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/山脉2.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1-2.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure2.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure3.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure4.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure5.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-1.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-2.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-3.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure6-4.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg-home.png'
+        ];
+
+        // 预加载图片资源
+        function preloadImages(urls) {
+            return Promise.all(
+                urls.map(url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            updateProgress();
+                            resolve(url);
+                        };
+                        img.onerror = () => {
+                            console.warn(`Failed to load image: ${url}`);
+                            updateProgress();
+                            resolve(url); // 即使加载失败也继续
+                        };
+                        img.src = url;
+                    });
+                })
+            );
         }
-            let loaded = false;
-        const overlay = document.getElementById('loadingOverlay');
 
+        // 更新加载进度
+        let loadedResources = 0;
+        function updateProgress() {
+            loadedResources++;
+            const progress = Math.min(100, Math.round((loadedResources / criticalResources.length) * 100));
+            document.getElementById('loadingBar').style.width = `${progress}%`;
+            document.getElementById('loadingText').textContent = `正在加载资源... ${progress}%`;
+        }
+
+        // 隐藏加载动画
         function hideLoadingOverlay() {
-            if (!loaded) {
-                    loaded = true;
-                    setTimeout(() => {
-                overlay.classList.add('hidden');
-                
-                // 可选：完全移除元素（如果不保留DOM）
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                }, 500);
-            }, 1500); // 最小显示时间1.5秒
-        };
-    };
-
-       // 使用window.onload确保所有资源加载完成
-        window.onload = function() {
-            // 所有资源加载完成后隐藏加载动画
             const overlay = document.getElementById('loadingOverlay');
-            const progressElement = document.getElementById('loadingProgress');
+            overlay.classList.add('hidden');
             
-            // 更新进度显示
-            progressElement.textContent = "All resources loaded!";
-            
-            // 添加一个短暂延迟，让用户看到加载完成的消息
+            // 可选：完全移除元素
             setTimeout(() => {
-                overlay.classList.add('hidden');
-                
-                // 完全移除元素
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                }, 500);
-            }, 1000);
-        };
+                overlay.style.display = 'none';
+            }, 500);
+        }
 
-        // 创建星空背景
+        // 初始化加载过程
+        document.addEventListener('DOMContentLoaded', () => {
+            const startTime = Date.now();
+            const minDisplayTime = 1500; // 最小显示时间1.5秒
+            
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    // 即使出错也要确保显示至少1.5秒
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                });
+        // 创建星空背景等其他初始化代码
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+
+        // 原有的星空和滚动处理函数
         function createStars() {
             const starBackground = document.getElementById('starBackground');
             const starCount = 200;
@@ -1118,52 +1145,21 @@
             }
         }
         
-        // 处理滚动效果
         function handleScroll() {
             const scrollPosition = window.scrollY;
             const heroHeight = document.querySelector('.hero').offsetHeight;
             const mountains = document.getElementById('mountains');
             const sunBackground = document.getElementById('sunBackground');
             
-            // 调整太阳透明度 - 随滚动逐渐消失
             if (scrollPosition <= heroHeight * 1.2) {
                 const opacity = 1 - (scrollPosition / (heroHeight * 0.8));
                 sunBackground.style.opacity = opacity;
                 sunBackground.style.display = 'block';
-                
-               } 
-            else {
-            sunBackground.style.opacity = 0;
-            sunBackground.style.display = 'none';
-               }
-            
-            // 山脉和内容区域一起向上移动
-        //     if (scrollPosition <= heroHeight) {
-        //         const moveY = scrollPosition * 0.5;
-        //         mountains.style.transform = `translateY(${moveY}px)`;
-        //         document.querySelector('.hero-content').style.transform = `translateY(${moveY * 0.7}px)`;
-        //     }
-         }
-        
-       // 初始化
-        document.addEventListener('DOMContentLoaded', () => {
-            createStars();
-            window.addEventListener('scroll', handleScroll);
-            
-            // 添加加载进度模拟（在实际应用中，您可能需要更精确的进度跟踪）
-            const progressElement = document.getElementById('loadingProgress');
-            let progress = 0;
-            const progressInterval = setInterval(() => {
-                progress += 5;
-                if (progress <= 95) {
-                    progressElement.textContent = `Loading resources... ${progress}%`;
-                } else {
-                    clearInterval(progressInterval);
-                }
-            }, 200);
-
-             hideLoadingOverlay();
-        });
+            } else {
+                sunBackground.style.opacity = 0;
+                sunBackground.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>

@@ -50,69 +50,66 @@
             margin-top: -70px; /* 抵消padding对布局的影响 */
 
         }
-          /* 加载层样式 */
+            /* 加载层样式 */
         .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #000000; /* 半透明白色背景 */
+            background: #000000; 
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* 确保在最上层 */
-            transition: opacity 0.5s ease-out; /* 消失时的过渡效果 */
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
         }
 
-        /* 隐藏状态 */
         .loading-overlay.hidden {
             opacity: 0;
-            pointer-events: none; /* 避免遮挡交互 */
+            pointer-events: none;
         }
 
-             /* 脉冲球容器：让多个球垂直/水平排列或重叠 */
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-logo {
+            height: 30vh;
+            width: 30vh;
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: rotate 10s linear infinite;
+            margin-bottom: 5vh;
+        }
+
         .pulse-container {
             display: flex;
             flex-direction: row;
+            gap: 15px;
+            margin-bottom: 3vh;
         }
 
-        /* 单个脉冲球基础样式 */
         .pulse-ball {
             width: 5rem;
             height: 5rem;
             border-radius: 50%;
-            background: #ffffff; /* 主色 */
-            opacity: 0.8; /* 初始透明度 */
+            background: #ffffff;
+            opacity: 0.8;
             animation: pulse 1.2s infinite ease-in-out;
         }
 
-        
-        .pulse-container { gap: 15px; } 
-        .pulse-ball { margin: 0 5px; } 
-
-    
-        /* .pulse-container {
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-        .pulse-ball {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-        } */
-
-       
         .pulse-ball:nth-child(1) { animation-delay: 0s; }
         .pulse-ball:nth-child(2) { animation-delay: 0.4s; }
         .pulse-ball:nth-child(3) { animation-delay: 0.8s; }
         .pulse-ball:nth-child(4) { animation-delay: 1.2s; }
 
-        /* 脉冲动画 */
         @keyframes pulse {
             0% {
                 transform: scale(0.8);
@@ -126,6 +123,36 @@
                 transform: scale(1.4);
                 opacity: 0;
             }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2vh;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #f8f8f8;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.6rem;
+            margin-top: 2vh;
+            text-align: center;
+            font-weight: 500;
         }
         
  .vertical-line {
@@ -303,7 +330,7 @@
         }
 
         .sidebar-btn {
-            background-image: url('/images/1.png');
+            /* background-image: url('/images/1.png'); */
             background-size: contain;
             width: 16vh;
             height: 27vh;
@@ -956,14 +983,20 @@
     </style>
 </head>
 <body>
-     <!-- 加载动画层 -->
-     <div class="loading-overlay" id="loadingOverlay">
-        
-        <div class="pulse-container">
-            <div class="pulse-ball"></div>
-            <div class="pulse-ball"></div>
-            <div class="pulse-ball"></div>
-            <div class="pulse-ball"></div> 
+    <!-- 加载动画层 -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-logo"></div>
+            <div class="pulse-container">
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+            </div>
+            <div class="loading-progress" >
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="loading-text" style="margin-top: 20vh ;" id="loadingText">loading...</div>
         </div>
     </div>
     
@@ -1095,7 +1128,7 @@
         <!-- 视频 -->
     <div class="video-background" style="z-index: 3;">
 
-        <video id="bg-video" type="video/mp4/webm" src= "https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/videos/video1.webm" muted  playsinline>
+        <video id="video" type="video/mp4/webm" src= "https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/videos/video1.webm" muted  playsinline>
             <!-- 备用内容，如果视频无法加载则显示 -->
             您的浏览器不支持HTML5视频标签。
         </video>
@@ -1121,10 +1154,10 @@
             </div>
             
             <div class="control-buttons">
-                <button class="control-btn" id="play-pause">
+                <button class="control-btn" id="playPause">
                     <i class="fas fa-pause"></i>
                 </button>
-                <button class="control-btn" id="mute-unmute">
+                <button class="control-btn" id="muteUnmute">
                     <i class="fas fa-volume-mute"></i>
                 </button>
             </div>
@@ -1747,27 +1780,193 @@
         </div>
     </footer>
     <script>
-         // 监听所有资源加载完成事件
-        window.addEventListener('load', () => {
+        // 关键资源URL列表
+        const criticalResources = [
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg-home.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg1.1.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg1.2.png',
+             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg1.3.png',
+             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg2.png', 
+              'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg3.1.png',
+               'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg3.2.png',
+                'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg3.3.png',
+                 'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg4.1.png',
+                  'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg4.2.png',
+                   'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg4.3.png',
+                    'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg4.4.png',
+                     'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg5.png',
+                      'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg5.1.png',
+                       'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg5.2.png',
+                        'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg5.3.png',
+                         'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg6.png',
+                          'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg7.1.png',
+                           'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg7.2.png',
+                            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg7.3.png',
+                             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg4.png', 
+                              'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg8.1.png',
+                               'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg8.2.png',
+                                'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg9.1.png',
+                                 'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg10.2.png',
+                                  'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg10.1.png',
+                                  ];  
+        // 预加载图片资源
+        function preloadImages(urls) {
+            return Promise.all(
+                urls.map(url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            updateProgress();
+                            resolve(url);
+                        };
+                        img.onerror = () => {
+                            console.warn(`Failed to load image: ${url}`);
+                            updateProgress();
+                            resolve(url); // 即使加载失败也继续
+                        };
+                        img.src = url;
+                    });
+                })
+            );
+        }
+
+        // 更新加载进度
+        let loadedResources = 0;
+        function updateProgress() {
+            loadedResources++;
+            const progress = Math.min(100, Math.round((loadedResources / criticalResources.length) * 100));
+            document.getElementById('loadingBar').style.width = `${progress}%`;
+            document.getElementById('loadingText').textContent = `loading... ${progress}%`;
+        }
+
+        // 隐藏加载动画
+        function hideLoadingOverlay() {
             const overlay = document.getElementById('loadingOverlay');
-            // 添加隐藏类触发过渡效果
             overlay.classList.add('hidden');
             
-            // 可选：完全移除元素（如果不需要保留DOM）
-            // setTimeout(() => overlay.remove(), 500); 
+            // 可选：完全移除元素
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        }
+
+        // 初始化加载过程
+        document.addEventListener('DOMContentLoaded', () => {
+            const startTime = Date.now();
+            const minDisplayTime = 1500; // 最小显示时间1.5秒
+            
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    // 即使出错也要确保显示至少1.5秒
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                });
+        // 创建星空背景等其他初始化代码
+            createStars();
+            window.addEventListener('scroll', handleScroll);
         });
-         document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('bg-video');
-            const playPauseBtn = document.getElementById('play-pause');
-            const muteUnmuteBtn = document.getElementById('mute-unmute');
-            const progress = document.getElementById('progress');
-            const progressHandle = document.getElementById('progress-handle');
-            const progressContainer = document.getElementById('progress-container');
-            const currentTimeEl = document.getElementById('current-time');
-            const totalTimeEl = document.getElementById('total-time');
+
+        // 原有的星空和滚动处理函数
+        function createStars() {
+            const starBackground = document.getElementById('starBackground');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${animationDelay}s`;
+                
+                starBackground.appendChild(star);
+            }
+        }
+        
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const mountains = document.getElementById('mountains');
+            const sunBackground = document.getElementById('sunBackground');
+            
+            if (scrollPosition <= heroHeight * 1.2) {
+                const opacity = 1 - (scrollPosition / (heroHeight * 0.8));
+                sunBackground.style.opacity = opacity;
+                sunBackground.style.display = 'block';
+            } else {
+                sunBackground.style.opacity = 0;
+                sunBackground.style.display = 'none';
+            }
+        }
+        // 初始化
+        window.addEventListener('load', () => {
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+             document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('section');
+            
+            // 为导航链接添加点击事件
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有active类
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // 添加active类到当前链接
+                    this.classList.add('active');
+                    
+                    // 滚动到对应部分
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // 监听滚动事件，高亮当前部分
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
 
     // 播放/暂停按钮功能
-    playPauseBtn.addEventListener('click', function() {
+    playPause.addEventListener('click', function() {
         if (video.paused) {
             video.play();
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1778,7 +1977,7 @@
     });
 
     // 静音/取消静音按钮功能
-    muteUnmuteBtn.addEventListener('click', function() {
+    muteUnmute.addEventListener('click', function() {
         if (video.muted) {
             video.muted = false;
             muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; // 取消静音，显示音量图标
@@ -1842,7 +2041,7 @@
         const secs = Math.floor(seconds % 60);
         return mins + ':' + (secs < 10 ? '0' + secs : secs);
     }
- })    
+     
             
         // 创建星空背景
         function createStars() {

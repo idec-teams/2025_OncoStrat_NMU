@@ -133,8 +133,8 @@
             position: relative; 
             font-size: 2rem;
             font-weight: 200;
-            padding-left: 10vh;;
-            padding-right: 10vh;
+            padding-left: 5vh;;
+            padding-right: 5vh;
             text-align: justify;
             line-height: 1.8; 
 
@@ -202,6 +202,18 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+         .sider {
+            background:transparent;
+            min-width: 20vw;
+            height: 90vh;
+            border-radius: 1.2rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
         }
         
           /* 侧边栏样式 - 亮红色系 */
@@ -278,7 +290,13 @@
             background-color: rgba(255, 107, 129, 0.1);
             padding-left: 1.6rem;
             color: #ff4757;
+        } 
+        #top.toc-link:hover{
+            background-color:transparent !important;
+            padding-top: 2rem !important ;
+            color: #ff4757!important ;
         }
+
         
         .toc-link.active {
             background-color: rgba(255, 107, 129, 0.15);
@@ -308,6 +326,18 @@
             color: var(--text-color);
             background-color: #000; /* 整个页面背景为黑色 */
             overflow-x: hidden;
+        }
+
+        .sidebar-btn {
+            background-image: url('/images/1.png');
+            background-size: contain;
+            width: 16vh;
+            height: 27vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            align-self: flex-start;
+            top:7vh
         }
         /* 导航栏样式 */
          nav {
@@ -1027,7 +1057,7 @@
         </div>
     </nav>
     <!-- 英雄区域 -->
-    <section class="hero" style="display: flex;">
+    <section class="hero" style="display: flex;" id="hero">
         <div class="sun-background" style="background-size: cover;" id="sunBackground"></div>
         <div class="mountains"  style="background-size: cover;" id="mountains"></div>
          <div class="hero-content">
@@ -1049,18 +1079,19 @@
      <!-- 给侧边栏 位置 容纳所有content的div -->
 <div id="sidercontent" style="background-color:transparent; min-height: 100vh; height: auto; width: 100vw; position: relative;margin-top: 5vh;padding-left: 2vw; display: flex;align-items: flex-start;">
        
-     <!-- 侧边栏 -->
-    <aside class="sidebar" style="top: 15vh; z-index: 9; min-height: 30vh;height: auto;min-width: 23rem;">
+    <!-- 侧边栏 -->
+      <div class="sider">
+    <aside class="sidebar" style="top:5vh; z-index: 9; min-height: 30vh;height: auto;  min-width: 23rem;">
         <div class="sidebar-header">
             <h2><i class="fas fa-fire"></i> CONTENT</h2>
         </div>
         <div class="sidebar-content">
             <ul class="toc-list" id="toc">
                 <li class="toc-item level-1">
-                    <a href="#Foreword" class="toc-link"style="font-size: 18px;" >Foreword</a>
+                    <a href="#Preface" class="toc-link"style="font-size: 1.8rem ;" >Preface</a>
                 </li>
                 <li class="toc-item level-1">
-                    <a href="#Chapter1" class="toc-link" style="font-size: 17px;">Getting to Know Bladder Cancer</a>
+                    <a href="#Chapter1" class="toc-link" style="font-size: 1.7rem;">Getting to Know Bladder Cancer</a>
                     <ul class="toc-list">
                         <!-- <li class="toc-item level-2">
                             <a href="#colors" class="toc-link">色彩方案</a>
@@ -1071,20 +1102,20 @@
                     </ul>
                 </li>
                 <li class="toc-item level-1">
-                    <a href="#Chapter2" class="toc-link" style="font-size: 17px;" >Bladder Cancer Treatment</a>
+                    <a href="#Chapter2" class="toc-link" style="font-size: 1.7rem;" >Bladder Cancer Treatment</a>
                     <ul class="toc-list">
                 <li class="toc-item level-1">
-                    <a href="#Chapter3" class="toc-link" style="font-size: 17px;" >Drug Resistance</a>
+                    <a href="#Chapter3" class="toc-link" style="font-size: 1.7rem;" >Drug Resistance</a>
                     <ul class="toc-list">
         
                     </ul>
                 </li> 
                  
                 <li class="toc-item level-1">
-                    <a href="#Epilogue" class="toc-link" style="font-size: 17px;">Hope Marches On</a>
+                    <a href="#Epilogue" class="toc-link" style="font-size: 1.7rem;">Hope Marches On</a>
                 </li>
                 <li class="toc-item level-1">
-                    <a href="#Reference" class="toc-link" style="font-size: 17px;" >Reference</a>
+                    <a href="#Reference" class="toc-link" style="font-size: 1.7rem;" >Reference</a>
                     <ul class="toc-list">
         
                     </ul>
@@ -1092,11 +1123,14 @@
             </ul>
         
     </aside> 
-    
+    <a id="top" href="#hero" class="toc-link">
+    <aside class="sidebar-btn" style=" background-image:url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/top.png');  display: flex;  z-index: 9; min-width: 23rem;"></aside>
+    </a>
+    </div>
     <!-- 视频和文字的div  -->
-    <div id="content-omit-sider" style="margin-top: 0;min-height: 100vh;width: 75vw; height: auto; margin-left: 5vw;margin-bottom: 5vh; display: flex;flex-direction:column ;  overflow: visible;  padding-inline: 5vh;">
+    <div id="content-omit-sider" style="margin-top: 0;min-height: 100vh;width: 75vw; height: auto; margin-left: 2vw;margin-bottom: 5vh; display: flex;flex-direction:column ;  overflow: visible;  padding-inline: 5vh;">
     <!-- 内容区域 --> 
-    <section id="content" class="content-section" style="background-color: #f0f0f0; width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative; padding-bottom: 10vh;">
+    <section id="content" class="content-section" style="background-color: #f0f0f0; max-width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative; padding-bottom: 10vh;">
         
        <div class="text-content0">
         <div class="text-content">
@@ -1378,7 +1412,7 @@
  
 
     <!-- 内容区域 --> 
-        <section id="content2" class="content-section" style="margin-top: 20vh;  background-color: #f0f0f0; width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative;">
+        <section id="content2" class="content-section" style="margin-top: 20vh;  background-color: #f0f0f0;max-width: 75vw; width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative;">
         
        <div class="text-content0">
         <div class="text-content">
@@ -1433,7 +1467,7 @@
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.1.png',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.jpg',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.1.jpg',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.jpg',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.3.png',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-3.png',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-5.jpg',

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preload" href="{{ get_url(path='/images/load.png') }}" as="image">
-    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/icon.png">
+    <link rel="icon" type="image/png" href="{{ get_url(path='/images/icon.png')}}">
     <title>Home</title>
     <style>
              :root {
@@ -48,7 +48,7 @@
         .loading-logo {
             height: 30vh;
             width: 30vh;
-            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png');
+            background-image: url("{{ get_url(path='/images/load.png')}}");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -263,7 +263,7 @@
         }
         .logo {
             position:relative;  
-            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png");
+            background-image: url("{{ get_url(path='/images/白字透明.png') }}");
             width: 100%;
             height: 100%; 
             /* font-size: 24px;
@@ -499,7 +499,7 @@
             left: 0;
             width: 100%;
             height: 100%; 
-            background: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/sun-backgrounda.png"), bottom/cover no-repeat;
+            background: url("{{ get_url(path='/images/sun-backgrounda.png')}}"), bottom/cover no-repeat;
             z-index: 1;
             transition: opacity 0.8s ease-out; 
             /* 添加渐变效果使太阳与黑色背景融合
@@ -514,7 +514,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/山脉2.png") bottom/cover no-repeat;
+            background: url("{{ get_url(path='/images/山脉2.png')}}") bottom/cover no-repeat;
             z-index: 3;
 
             transition: transform 0.8s ease-out;
@@ -651,7 +651,7 @@
             width: 100%;
             position: relative;
             padding: 0;
-            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png");
+            background-image: url("{{ get_url(path='/images/渐变2.png')}}");
             background-size: cover;
             background-position: top;
             display: flex;
@@ -901,9 +901,9 @@
             timeless.
             </p>
             <div style="height: 35vh; width: 100%;margin-top: 5vh; padding-left: 15%;padding-right: 5%;">
-            <div  class="background-image-content" style=" position: relative; height: 35vh; width: 15vw; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg'); background-size: cover; margin-right: 5%; float: left;">
+            <div  class="background-image-content" style=" position: relative; height: 35vh; width: 15vw; ;background-image: url('{{ get_url(path="/images/figure1.jpg")}}'); background-size: cover; margin-right: 5%; float: left;">
             </div>
-            <div  class="background-image-content"  style=" position: relative; height: 35vh; width: 50vw; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1-2.png');background-size: cover; float: left;">
+            <div  class="background-image-content"  style=" position: relative; height: 35vh; width: 50vw; ;background-image: url('{{ get_url(path="/images/figure1-2.png")}}');background-size: cover; float: left;">
               <div class="pulse-dots">
                             <div></div>
                             <div></div>
@@ -923,7 +923,7 @@
             the cytotoxic payload; and monomethyl auristatin E (MMAE), a potent
             microtubule-binding agent.
             </p>
-            <div class="background-image-content" style=" position: relative; height: 65vh; width: 120vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure2.png');background-size: cover;">
+            <div class="background-image-content" style=" position: relative; height: 65vh; width: 120vh; ;background-image: url('{{ get_url(path="/images/Figure2.png")}}');background-size: cover;">
 
             </div>
             <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 3rem;">Figure 2 The structure of RC48</h>
@@ -936,7 +936,7 @@
             in the tumor cells.
         
             </p>
-            <div class="background-image-content"  style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure3.png');background-size: cover;">
+            <div class="background-image-content"  style=" position: relative; height: 120vh;top: -10vh; width: 170vh; ;background-image: url('{{ get_url(path="/images/Figure3.png")}}');background-size: cover;">
 
             </div>
             <h class="nomal-style" style="position: relative;top: -30vh; margin: 10vh;;font-size: 3rem;">Figure 3 The mechanism of RC48</h>
@@ -953,7 +953,7 @@
             evolve stealth tactics to evade treatment. How do we outmaneuver an
             enemy that rewrites its playbook daily?
             </p>
-            <div class="background-image-content"  style=" position: relative; margin-top:10vh;height: 50vh; width: 97vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure4.jpg');background-size: contain; background-size: contain;">
+            <div class="background-image-content"  style=" position: relative; margin-top:10vh;height: 50vh; width: 97vh; background-image: url('{{ get_url(path="/images/Figure4.jpg")}}');background-size: contain; background-size: contain;">
 
             </div>
             <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 3rem;">Figure 4 Can Hou Yi shoot down the stronger sun?</h>
@@ -969,7 +969,7 @@
               To know the enemy, we became the enemy. Through iterative RC48 exposure (40 → 500 μg/mL over 20 weeks), we forged T24-RC48 — a
               mirror of clinical resistance. Its 10-fold IC<sub>50</sub> surge (P&lt;0.001) echoes.
               </p>
-             <div class="background-image-content"    style=" position: relative; margin-top:10vh;height: 60vh; width: 90vh; background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure5.png');background-size: cover;">
+             <div class="background-image-content"    style=" position: relative; margin-top:10vh;height: 60vh; width: 90vh; background-image: url('{{ get_url(path="/images/Figure5.png")}}');background-size: cover;">
 
               </div> 
               <h class="nomal-style" style="position: relative;margin-top: 5vh;font-size: 3rem;">&nbsp; &nbsp; &nbsp; &nbsp;  Figure 5 &nbsp;&nbsp;&nbsp;Drug susceptibility test results diagram </h>
@@ -986,7 +986,7 @@
             carried on average 68 frameshift deletions, 61 frameshift insertions, 177
             non-frameshift deletions, and 149 non-frameshift insertions.”
             </p> 
-            <div class="background-image-content"    style="position: relative; margin-top:10vh; height:50vw; width: 68vw; display: flex;flex-direction: row;gap: 2vw;flex-wrap: wrap; padding-left: 5vw;background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/1.png'); background-size: contain;">
+            <div class="background-image-content"    style="position: relative; margin-top:10vh; height:50vw; width: 68vw; display: flex;flex-direction: row;gap: 2vw;flex-wrap: wrap; padding-left: 5vw;background-image: url('{{ get_url(path="/images/1.png")}}'); background-size: contain;">
     
             </div> 
         
@@ -1000,7 +1000,7 @@
               <p class="nomal-style" style="position:relative; margin-top: 10vh;">
               Resistance is not failure—it's evolution. And evolution is the catalyst for innovation. By studying how resistance works, we can use it as a blueprint to design better treatments. By dissecting the intricate mechanisms of resistance, we've turned their armor into a blueprint. The next front? Preemptive strategies that leverage our growing understanding of resistance pathways, transforming vulnerabilities into therapeutic opportunities.
               </p>
-            <div class="background-image-content" style=" width: 100vw; height: 120vh;  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg-home.png'); background-size: contain; background-repeat: no-repeat; background-position: bottom;">
+            <div class="background-image-content" style=" width: 100vw; height: 120vh;  background-image: url'{{ get_url(path="/images/Bg-home.png")}}'); background-size: contain; background-repeat: no-repeat; background-position: bottom;">
               <h2 style="color: #f0a70b; position: relative;font-size: 4rem;margin-top: 10vh; margin-left: 5vw; margin-right: 5vw;">"He who can modify his tactics in relation to his opponent and thereby succeed in winning, may be called a heaven-born captain.”</h2>
                <h3 style="color: #f0a70b; position: relative; top:-5vh; width: 90%;font-size: 4rem;font-weight:100;margin-left: 1vh;text-align: right; margin-top: 5vh;">—— Sun Tzu</h3>
               <div style="position: relative;   width: 100%; height: auto;margin-top: 2vh; display: flex;justify-content: flex-end;">
@@ -1028,19 +1028,19 @@
     </footer>
 
     <script>
-    // 关键资源URL列表
+    关键资源URL列表
         const criticalResources = [
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/sun-backgrounda.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/山脉2.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1.jpg',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/figure1-2.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure2.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure3.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure4.jpg',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Figure5.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/1.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/Bg-home.png'
+            "{{ get_url(path='/images/sun-backgrounda.png')}}",
+           "{{ get_url(path='/images/山脉2.png')}}",
+            "{{ get_url(path='/images/渐变2.png')}}",
+            "{{ get_url(path='/images/figure1.jpg')}}",
+           "{{ get_url(path='/images/figure1-2.png')}}",
+           "{{ get_url(path='/images/Figure2.png')}}",
+            "{{ get_url(path='/images/Figure3.png')}}",
+            "{{ get_url(path='/images/Figure4.jpg')}}",
+            "{{ get_url(path='/images/Figure5.png')}}",
+           "{{ get_url(path='/images/1.png')}}",
+            "{{ get_url(path='/images/Bg-home.png')}}"
         ];
 
         // 预加载图片资源

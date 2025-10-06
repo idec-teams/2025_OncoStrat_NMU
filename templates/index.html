@@ -1051,11 +1051,13 @@
                         const img = new Image();
                         img.onload = () => {
                             updateProgress();
+                            // FIXME, 你下面的闭包(见tag1)没有取出这个变量，所以应该不回传任何东西，即resolve()
                             resolve(url);
                         };
                         img.onerror = () => {
                             console.warn(`Failed to load image: ${url}`);
                             updateProgress();
+                            // FIXME, Promise回传错误应该用reject(err)，你这里应该回传reject(url)
                             resolve(url); // 即使加载失败也继续
                         };
                         img.src = url;
@@ -1091,7 +1093,7 @@
             
             // 开始预加载关键资源
             preloadImages(criticalResources)
-                .then(() => {
+                .then(() => {// tag1
                     const elapsed = Date.now() - startTime;
                     const remainingTime = Math.max(0, minDisplayTime - elapsed);
                     

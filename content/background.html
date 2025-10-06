@@ -1965,8 +1965,25 @@
             });
         });
 
+  // 视频控制功能
+function initVideoControls() {
+    const video = document.getElementById('video');
+    const playPauseBtn = document.getElementById('playPause');
+    const muteUnmuteBtn = document.getElementById('muteUnmute');
+    const progress = document.getElementById('progress');
+    const progressHandle = document.getElementById('progress-handle');
+    const currentTimeEl = document.getElementById('current-time');
+    const totalTimeEl = document.getElementById('total-time');
+    const progressContainer = document.getElementById('progress-container');
+
+    // 检查元素是否存在
+    if (!video || !playPauseBtn) {
+        console.warn('视频控制元素未找到');
+        return;
+    }
+
     // 播放/暂停按钮功能
-    playPause.addEventListener('click', function() {
+    playPauseBtn.addEventListener('click', function() {
         if (video.paused) {
             video.play();
             playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
@@ -1977,24 +1994,28 @@
     });
 
     // 静音/取消静音按钮功能
-    muteUnmute.addEventListener('click', function() {
+    muteUnmuteBtn.addEventListener('click', function() {
         if (video.muted) {
             video.muted = false;
-            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-up"></i>'; // 取消静音，显示音量图标
+            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
         } else {
             video.muted = true;
-            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>'; // 静音，显示静音图标
+            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
         }
     });
 
     // 更新进度条
     video.addEventListener('timeupdate', function() {
-        const percent = (video.currentTime / video.duration) * 100;
-        progress.style.width = percent + '%';
-        progressHandle.style.left = percent + '%';
+        if (video.duration) {
+            const percent = (video.currentTime / video.duration) * 100;
+            progress.style.width = percent + '%';
+            if (progressHandle) {
+                progressHandle.style.left = percent + '%';
+            }
 
-        // 更新时间显示
-        currentTimeEl.textContent = formatTime(video.currentTime);
+            // 更新时间显示
+            currentTimeEl.textContent = formatTime(video.currentTime);
+        }
     });
 
     // 视频加载完成后显示总时长
@@ -2007,42 +2028,51 @@
         if (video.duration) {
             const rect = progressContainer.getBoundingClientRect();
             const percent = (e.clientX - rect.left) / rect.width;
-                video.currentTime = percent * video.duration;
-            }
+            video.currentTime = percent * video.duration;
+        }
     });
 
-    // 拖动进度条
+    // 拖动进度条功能
     let isDragging = false;
-            
-            progressHandle.addEventListener('mousedown', function(e) {
-                e.preventDefault();
-                isDragging = true;
-            });
-            
-            document.addEventListener('mousemove', function(e) {
-                if (isDragging) {
-                    const rect = progressContainer.getBoundingClientRect();
-                    let percent = (e.clientX - rect.left) / rect.width;
-                    
-                    // 限制在0-100%之间
-                    percent = Math.max(0, Math.min(1, percent));
-                    
-                    video.currentTime = percent * video.duration;
-                }
-            });
-            
-            document.addEventListener('mouseup', function() {
-                isDragging = false;
-            });
-            
-    // 格式化时间显示 (秒 -> 分:秒)
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return mins + ':' + (secs < 10 ? '0' + secs : secs);
+    
+    if (progressHandle) {
+        progressHandle.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            isDragging = true;
+        });
     }
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging && video.duration) {
+            const rect = progressContainer.getBoundingClientRect();
+            let percent = (e.clientX - rect.left) / rect.width;
+            percent = Math.max(0, Math.min(1, percent));
+            video.currentTime = percent * video.duration;
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+    // 视频结束时重置按钮
+    video.addEventListener('ended', function() {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+    });
+}
+
+// 格式化时间显示
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return mins + ':' + (secs < 10 ? '0' + secs : secs);
+}
+
+// 在DOM加载完成后初始化视频控制
+document.addEventListener('DOMContentLoaded', function() {
      
-            
+     setTimeout(initVideoControls, 1000); // 延迟1秒确保所有元素已加载
+});       
         // 创建星空背景
         function createStars() {
             const starBackground = document.getElementById('starBackground');

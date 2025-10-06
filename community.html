@@ -678,7 +678,7 @@
             width:100%; 
             /* min-height: 40vh; */
             height: auto;
-            z-index: 3;
+            z-index: 4;
             
         }
         
@@ -1206,6 +1206,47 @@
             </p>
 
 
+               <!-- 视频 -->
+    <div class="video-background" style="z-index: 3;">
+
+        <video id="video" type="video/mp4/webm" src= "https://arxiv.idec.io/2_hevc.mp4" muted  playsinline>
+            <!-- 备用内容，如果视频无法加载则显示 -->
+            您的浏览器不支持HTML5视频标签。
+        </video>
+        
+        <!-- 备用图像，当视频无法加载时显示 -->
+        <!-- <img class="fallback-image" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="背景图像">
+         -->
+
+        <!-- 遮罩层 -->
+        <!-- <div class="overlay"></div> -->
+        <!-- 视频控制按钮 -->
+         <div class="video-controls">
+            <div class="progress-container" id="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                    <div class="progress-handle" id="progress-handle"></div>
+                </div>
+            </div>
+            
+            <div class="time-display">
+                <span id="current-time">0:00</span>
+                <span id="total-time"></span>
+            </div>
+            
+            <div class="control-buttons">
+                <button class="control-btn" id="playPause">
+                    <i class="fas fa-pause"></i>
+                </button>
+                <button class="control-btn" id="muteUnmute">
+                    <i class="fas fa-volume-mute"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+
+
 
             
 
@@ -1417,6 +1458,7 @@
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.jpg',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-3.jpg',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-5.jpg',
+           
         ];
 
         // 预加载图片资源
@@ -1525,6 +1567,117 @@
                 sunBackground.style.display = 'none';
             }
         }
+
+
+        // 视频控制功能
+        function initVideoControls() {
+    const video = document.getElementById('video');
+    const playPauseBtn = document.getElementById('playPause');
+    const muteUnmuteBtn = document.getElementById('muteUnmute');
+    const progress = document.getElementById('progress');
+    const progressHandle = document.getElementById('progress-handle');
+    const currentTimeEl = document.getElementById('current-time');
+    const totalTimeEl = document.getElementById('total-time');
+    const progressContainer = document.getElementById('progress-container');
+
+    // 检查元素是否存在
+    if (!video || !playPauseBtn) {
+        console.warn('视频控制元素未找到');
+        return;
+    }
+
+    // 播放/暂停按钮功能
+    playPauseBtn.addEventListener('click', function() {
+        if (video.paused) {
+            video.play();
+            playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        } else {
+            video.pause();
+            playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+        }
+    });
+
+    // 静音/取消静音按钮功能
+    muteUnmuteBtn.addEventListener('click', function() {
+        if (video.muted) {
+            video.muted = false;
+            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-up"></i>';
+        } else {
+            video.muted = true;
+            muteUnmuteBtn.innerHTML = '<i class="fas fa-volume-mute"></i>';
+        }
+    });
+
+    // 更新进度条
+    video.addEventListener('timeupdate', function() {
+        if (video.duration) {
+            const percent = (video.currentTime / video.duration) * 100;
+            progress.style.width = percent + '%';
+            if (progressHandle) {
+                progressHandle.style.left = percent + '%';
+            }
+
+            // 更新时间显示
+            currentTimeEl.textContent = formatTime(video.currentTime);
+        }
+    });
+
+    // 视频加载完成后显示总时长
+    video.addEventListener('loadedmetadata', function() {
+        totalTimeEl.textContent = formatTime(video.duration);
+    });
+
+    // 点击进度条跳转
+    progressContainer.addEventListener('click', function(e) {
+        if (video.duration) {
+            const rect = progressContainer.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            video.currentTime = percent * video.duration;
+        }
+    });
+
+    // 拖动进度条功能
+    let isDragging = false;
+    
+    if (progressHandle) {
+        progressHandle.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            isDragging = true;
+        });
+    }
+
+    document.addEventListener('mousemove', function(e) {
+        if (isDragging && video.duration) {
+            const rect = progressContainer.getBoundingClientRect();
+            let percent = (e.clientX - rect.left) / rect.width;
+            percent = Math.max(0, Math.min(1, percent));
+            video.currentTime = percent * video.duration;
+        }
+    });
+
+    document.addEventListener('mouseup', function() {
+        isDragging = false;
+    });
+
+    // 视频结束时重置按钮
+    video.addEventListener('ended', function() {
+        playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+    });
+}
+
+// 格式化时间显示
+function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return mins + ':' + (secs < 10 ? '0' + secs : secs);
+}
+
+// 在DOM加载完成后初始化视频控制
+document.addEventListener('DOMContentLoaded', function() {
+     
+     setTimeout(initVideoControls, 1000); // 延迟1秒确保所有元素已加载
+});       
+ 
         // 初始化
         window.addEventListener('load', () => {
             createStars();
@@ -1552,6 +1705,8 @@
                     });
                 });
             });
+
+            
             
             // 监听滚动事件，高亮当前部分
             window.addEventListener('scroll', function() {

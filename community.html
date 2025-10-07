@@ -1009,24 +1009,6 @@
     </style>
 </head>
 <body>
-    
-
-   <!-- 加载动画层 -->
-      <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="loading-logo"></div>
-            <div class="pulse-container">
-                <div class="pulse-ball"></div>
-                <div class="pulse-ball"></div>
-                <div class="pulse-ball"></div>
-                <div class="pulse-ball"></div>
-            </div>
-            <div class="loading-progress" >
-                <div class="loading-bar" id="loadingBar"></div>
-            </div>
-            <div class="loading-text" style="margin-top: 20vh ;" id="loadingText">loading...</div>
-        </div>
-    </div>
    
    
     <!-- 星空背景 -->
@@ -1448,110 +1430,6 @@
         </div>
     </footer>
     <script>
-            
-        // 关键资源URL列表
-        const criticalResources = [
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.1.png',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.jpg',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.1.jpg',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.jpg',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-3.jpg',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-5.jpg',
-           
-        ];
-
-        // 预加载图片资源
-        function preloadImages(urls) {
-            return Promise.all(
-                urls.map(url => {
-                    return new Promise((resolve, reject) => {
-                        const img = new Image();
-                        img.onload = () => {
-                            updateProgress();
-                            resolve(url);
-                        };
-                        img.onerror = () => {
-                            console.warn(`Failed to load image: ${url}`);
-                            updateProgress();
-                            resolve(url); // 即使加载失败也继续
-                        };
-                        img.src = url;
-                    });
-                })
-            );
-        }
-
-        // 更新加载进度
-        let loadedResources = 0;
-        function updateProgress() {
-            loadedResources++;
-            const progress = Math.min(100, Math.round((loadedResources / criticalResources.length) * 100));
-            document.getElementById('loadingBar').style.width = `${progress}%`;
-            document.getElementById('loadingText').textContent = `loading... ${progress}%`;
-        }
-
-        // 隐藏加载动画
-        function hideLoadingOverlay() {
-            const overlay = document.getElementById('loadingOverlay');
-            overlay.classList.add('hidden');
-            
-            // 可选：完全移除元素
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 500);
-        }
-
-        // 初始化加载过程
-        document.addEventListener('DOMContentLoaded', () => {
-            const startTime = Date.now();
-            const minDisplayTime = 1500; // 最小显示时间1.5秒
-            
-            // 开始预加载关键资源
-            preloadImages(criticalResources)
-                .then(() => {
-                    const elapsed = Date.now() - startTime;
-                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
-                    
-                    // 确保加载动画至少显示1.5秒
-                    setTimeout(hideLoadingOverlay, remainingTime);
-                })
-                .catch(error => {
-                    console.error('Error preloading images:', error);
-                    // 即使出错也要确保显示至少1.5秒
-                    const elapsed = Date.now() - startTime;
-                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
-                    setTimeout(hideLoadingOverlay, remainingTime);
-                });
-        // 创建星空背景等其他初始化代码
-            createStars();
-            window.addEventListener('scroll', handleScroll);
-        });
-
-        // 原有的星空和滚动处理函数
-        function createStars() {
-            const starBackground = document.getElementById('starBackground');
-            const starCount = 200;
-            
-            for (let i = 0; i < starCount; i++) {
-                const star = document.createElement('div');
-                star.classList.add('star');
-                
-                const size = Math.random() * 3 + 1;
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                const animationDelay = Math.random() * 5;
-                
-                star.style.width = `${size}px`;
-                star.style.height = `${size}px`;
-                star.style.left = `${left}%`;
-                star.style.top = `${top}%`;
-                star.style.animationDelay = `${animationDelay}s`;
-                
-                starBackground.appendChild(star);
-            }
-        }
-        
         function handleScroll() {
             const scrollPosition = window.scrollY;
             const heroHeight = document.querySelector('.hero').offsetHeight;

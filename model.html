@@ -1,0 +1,1884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/icon.png">
+    <title>ML-model</title>
+
+    <style>
+      :root {
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #eeedb4;
+            --text-color: #e6f1ff;
+            --text-secondary: #8892b0;
+            --font-main: 'Arial', sans-serif;
+             font-size: 62.5%; 
+        }
+        /* 加载层样式 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-logo {
+            height: 30vh;
+            width: 30vh;
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: rotate 10s linear infinite;
+            margin-bottom: 5vh;
+        }
+
+        .pulse-container {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin-bottom: 3vh;
+        }
+
+        .pulse-ball {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.8;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+
+        .pulse-ball:nth-child(1) { animation-delay: 0s; }
+        .pulse-ball:nth-child(2) { animation-delay: 0.4s; }
+        .pulse-ball:nth-child(3) { animation-delay: 0.8s; }
+        .pulse-ball:nth-child(4) { animation-delay: 1.2s; }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2vh;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #f8f8f8;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.6rem;
+            margin-top: 2vh;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .Chapter {
+            font-weight: bold;
+            color: #f37704ef;
+            font-size: 6rem;
+            font-family: 'Times New Roman', Times, serif;
+        
+           }
+        .nomal-style{
+            color: #000000; 
+            position: relative; 
+            font-size: 2rem;
+            font-weight: 200;
+            padding-left: 5vh;;
+            padding-right: 5vh;
+            text-align: justify;
+            line-height: 1.8; 
+
+        }
+         .title-style{
+            color: #000000; 
+            position: relative; 
+            font-size: 2.5rem;
+            font-weight: bold;
+            padding-left: 5vh;;
+            padding-right: 5vh;
+            text-align: left;
+            line-height: 1.8; 
+            padding-top: 70px; /* 导航栏高度 */
+            margin-top: -70px; /* 抵消padding对布局的影响 */
+
+        }
+.vertical-line {
+    position: absolute;
+    top: -2vw;
+    left: 50%;
+    bottom: 0;
+    width: 2px;
+    height: calc(100%+2vw);
+    background-color: #000;
+}
+
+.horizontal-line {
+    position: absolute;
+    top: 50%;
+    left: -2vw;
+    right: -2vw;
+
+    width: calc(100%+4vw);
+    height: 2px;
+    background-color: #000;
+    
+}
+            
+       .home1{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: bold; /* font-medium */
+            color: #f0f0f0; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+           
+            white-space: nowrap; /* 防止换行 */
+            overflow: hidden;
+            text-shadow:  -0.3rem -0.3rem 0 #000,  
+                            0.3rem -0.3rem 0  #000, 
+                            -0.3rem  0.3rem 0 #000,  
+                             0.3rem  0.3rem 0  #000;  
+        }
+        .home2{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            /* font-weight: lighter; */
+            color: #000000; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+          
+            white-space: wrap;
+            overflow: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .sider {
+            background:transparent;
+            min-width: 20vw;
+            height: 90vh;
+            border-radius: 1.2rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+         /* 侧边栏样式 - 亮红色系 */
+        .sidebar {
+            background: white;
+            width: 15vw;
+            height: 45vh;
+            border-radius: 1.2rem;
+            padding: 2rem;
+            box-shadow: 0 0.5rem 2rem rgba(255, 77, 77, 0.15);
+            border: 0.1rem solid rgba(255, 105, 105, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            top: 20px;
+            align-self: flex-start;
+        }
+        
+        .sidebar-header {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 105, 105, 0.3);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #ff4757;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sidebar-header h2 i {
+            font-size: 3rem;
+        }
+        
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        
+        /* 滚动条样式 */
+        .sidebar-content::-webkit-scrollbar {
+            width: 1vw;
+        }
+        
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 105, 105, 0.5);
+            border-radius: 2vw;
+        }
+        
+        .toc-list {
+            list-style: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        .toc-link {
+            color: #ff6b81;
+            text-decoration: none;
+            display: block;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.6rem;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+        }
+        
+        .toc-link:hover {
+            background-color: rgba(255, 107, 129, 0.1);
+            padding-left: 1.6rem;
+            color: #ff4757;
+        }
+        #top.toc-link:hover{
+            background-color:transparent !important;
+            padding-top: 2rem !important ;
+            color: #ff4757!important ;
+        }
+        .toc-link.active {
+            background-color: rgba(255, 107, 129, 0.15);
+            font-weight: 500;
+            color: #ff4757;
+        }
+        
+        .toc-item.level-1 > .toc-link {
+            font-weight: 600;
+            font-size: 3rem;
+            margin-top: 0.8rem;
+            color: #ff3838;
+    
+        }
+        
+        .toc-item.level-2 {
+            margin-left: 1.2rem;
+            font-size: 2rem;
+        }
+        
+        .toc-item.level-2 .toc-link {
+            color: #ff7c8b;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: #000; /* 整个页面背景为黑色 */
+            overflow-x: hidden;
+        }
+
+        .sidebar-btn {
+            /* background-image: url('/images/1.png'); */
+            background-size: contain;
+            width: 16vh;
+            height: 24.5vh !important;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            align-self: flex-start;
+            top:7vh
+        }
+
+       /* 导航栏样式 */
+         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            margin-bottom: 0;
+            padding:0.5rem 0.5rem;
+            padding-right: 2vw;
+            display: flex;
+            
+            /* justify-content: space-between; */
+            align-items: center;
+            background: linear-gradient(to right, rgba(230, 54, 10, 0.7), rgba(200, 40, 5, 0.85));
+            z-index: 1000;
+            backdrop-filter: blur(1rem);
+            transition: all 0.4s ease;
+            border-bottom: 0.1rem solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(180, 40, 5, 0.95);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+        }
+        .nav-links {
+            display: flex;
+            /* justify-content: flex-end; */
+            margin-left: 15vh;
+            flex-grow: 1;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.4rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-0.2rem);
+        }
+        
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 15%;
+            width: 70%;
+            height: 0.2rem;
+            background: #fff;
+            animation: underline 0.3s ease;
+        }
+        
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 0.4rem;
+            background: #fff;
+            border-radius: 0 0.2rem 0.2rem 0;
+        }
+        
+        .nav-links a i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+        .logo {
+            position:relative;    
+            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png");
+            width: 100%;
+            height: 100%; 
+            /* font-size: 24px;
+            font-weight: bold; */
+
+             
+            background-size: contain;
+            background-position: left center;
+            background-repeat: no-repeat;
+            /* color: var(--accent-color); */
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5vh;
+            justify-content: flex-end; /* 确保链接靠右对齐 */
+            flex-grow: 1; /* 占据剩余空间 */
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color:  #eeedb4;
+        }
+        .sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    position: absolute; /* 绝对定位 */
+    left: 0%; /* 左侧对齐 */
+    width:15rem ;
+    background: white; /* 背景色 */
+    border-left: 10px solid #db3434 ;
+    top: 5vh;
+    padding: 0; 
+    text-align: left; /* 文本左对齐 */
+    font-weight: bold;
+    box-shadow: 0rem 0.4rem 2rem -0.5rem rgba(0, 0, 0, 0.15); /* 阴影效果 */
+    max-width: 30rem; /* 最大宽度 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.45s ease all 0.1s; /* 过渡动画 */
+    z-index: 10; /* 较高层叠顺序 */
+    border-radius: 1rem; /* 圆角 */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    list-style: none;
+}
+.sub-menu .menu-item {
+    display: block; /* 块级显示 */
+    padding-left: 0;
+}
+.sub-menu .sub-menu-item a {
+    color: #000;
+    height: 3rem;
+    font-size: 1.5rem;
+    margin-left: 0rem;
+    padding-left: 0;
+
+    
+
+}
+.menu-item:nth-child(n+2):nth-child(-n+5) .plus-icon {
+    width: 1rem; /* 图标宽度 */
+    height: 1rem; /* 图标高度 */
+    stroke: hsl(0, 94%, 52%); /* 图标颜色 */
+    margin-bottom: 0.1rem; /* 底部外边距 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5) .sub-menu-item {
+    list-style-type: none; /* 移除列表标记 */
+    display: block; /* 块级显示 */
+    margin: 1rem; /* 外边距 */
+    position: relative; /* 相对定位 */
+    transform: translateY(-1.5rem); /* Y轴位移 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.1s; /* 过渡动画 */
+    visibility: hidden; /* 隐藏元素 */
+    border-radius: 40%; /* 圆角 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu {
+    max-height: 80rem; /* 最大高度 */
+    max-width: 12rem; /* 最大宽度 */
+    opacity: 1; /* 完全不透明 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a {
+    transition: 0.15s ease all; /* 链接过渡动画 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a:hover {
+    color: #fc1202; /* 链接悬停颜色 */
+    text-decoration: underline #fc1202;
+    text-underline-offset: 0.8rem   ;
+     text-decoration-thickness: 0.2rem  ;
+
+
+}
+
+/* 子菜单项动画延迟设置 */
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:first-child {
+    transform: translateY(0px); /* 重置位移 */
+    opacity: 1; /* 完全不透明 */
+    transition-delay: 0.15s; /* 动画延迟 */
+    visibility: visible; /* 显示元素 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(2) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.3s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(3) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(4) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(5) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(6) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(7) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 太阳背景图片 - 固定在图层底部 */
+        .sun-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            transition: opacity 0.3s ease-out; 
+            /* 添加渐变效果使太阳与黑色背景融合
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); */
+        }
+        
+        /* 山脉前景图片 */
+        .mountains {
+            position: absolute;
+            left: 0;
+            top:0;
+            width: 100%;
+            height: 100%;
+            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png') bottom/cover no-repeat;
+            z-index: 3;
+            transition: transform 0.8s ease-out;
+        }
+        
+        /* 英雄内容区域 */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            padding: 30px;
+            background: transparent;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            max-width: 100%;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            /* color: var(--accent-color); */
+            /* border: 1px solid var(--accent-color); */
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background:transparent;
+            transform: translateY(-3px);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 12vh;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            z-index: 4;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+         /* 视频背景容器 */
+        .video-background {
+            position: relative;
+            width: 65vw;
+            min-height: 40vh;
+            padding-top: 2vh;
+            height: auto; 
+            overflow: hidden;
+            overflow: visible;
+        
+        }
+        
+        /* 视频样式 */
+        .video-background video {
+            position: relative; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width:100%; 
+            /* min-height: 40vh; */
+            height: auto;
+            z-index: 3;
+            
+        }
+        
+        /* 遮罩层 */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3;
+        }
+           /* 视频控制按钮 */
+        .video-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 5;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            /* transition: background 0.3s; */
+            margin-left: 10px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /* 备用图像样式 */
+        .fallback-image {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        
+        /* 内容区域 */
+        .content-section {
+            /* padding: 100px 5%; */
+            background-color: #000; /* 黑色背景 */
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            /* width: 100vw; */
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+        }
+        
+        .container {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+        
+        .-card h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        /* 星空背景 */
+        .star-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        .hero-0{
+            /* left: auto; */
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png');
+            background-size: cover;
+            background-position: top;
+            display: flex;
+            justify: center;
+            z-index:10;
+
+        }
+        
+        .text-0{
+            /* left: auto; */
+            top: 0;
+            min-height: 100vh;
+            /* width: 100%; */
+            position: relative;
+            padding: 0;
+            display: flex;
+            justify: center;
+            z-index:5;
+            flex-direction: column
+        }
+
+        .text-{
+            flex: 1;
+            width: 100%;
+            height: auto;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            flex-direction: column
+        }
+        footer {
+            background-position: top;
+            background-color: #000;
+            padding: 40px 5vw; /* 修改为左右对称的padding */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            min-height: 20vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .footer-content {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-contact {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .footer-contact p {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .copyright-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero- h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero- p {
+                font-size: 1.1rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+          /* 文本div的容器 */
+        .text-content0{
+            /* left: auto; */
+            top: 0;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            display: flex;
+            /* justify-content: center; */
+            z-index:10;
+            flex-direction: column
+        }
+        /* 文本的div */
+        .text-content{
+            flex: 1;
+            width: 100%;
+           
+            min-height: 100vh;
+            height: auto;
+            display: flex;
+            /* justify-content: center;  */
+            align-items: center;
+            flex-direction: column
+        }
+
+        /* 表格的样式 */
+        th, td {
+            border: 0.2rem solid #000000;
+            padding: 8px;
+            text-align: left;
+        }
+        th.col1{
+            width:40vw ;
+        }
+        
+        th.col2{
+            width: 40vw;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #9eb9ec;
+        }
+        
+        tr:hover {
+            background-color: #f3c7c7;
+        }
+        /* 超链接 */
+            a.text-link:hover {
+            text-decoration: underline #0a35f8c5!important;
+          
+        
+        }
+
+            /* 进度条样式 */
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #ff4757;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+        
+        .progress-handle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+        
+        .time-display {
+            color: white;
+            font-size: 14px;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+
+   <!-- 加载动画层 -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-logo"></div>
+            <div class="pulse-container">
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+            </div>
+            <div class="loading-progress" >
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="loading-text" style="margin-top: 20vh ;" id="loadingText">loading...</div>
+        </div>
+    </div>
+   
+   
+    <!-- 星空背景 -->
+
+         <div class="star-background" id="starBackground"></div>
+        <!-- 导航栏 -->
+        <nav>
+            <div class="logo-container" style="width: 20vw; height: 3vw;">
+        <div class="logo"></div>
+            </div>
+        <div class="nav-links">
+
+            <a href="https://idec-teams.github.io/2025_OncoStrat_NMU/"><H1>Home</H1></a>
+           <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Project&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/background.html">Background</a></li>
+                                             <li class="sub-menu-item"><a href="#">Design</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Results</a></li>
+                                                     <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Report.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Report</a></li>
+                                                         <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Poster.pdf" rel="noopener noreferrer" title="click to PDF">Poster</a></li>
+                                                                <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Supplement.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Supplement</a></li>
+                                            <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/safety.html">Safety</a></li>
+                                           
+                                        
+
+                                        </ol>
+            </li>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Document&nbsp;&#9660</H1></a>
+                  <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Protocols.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Protocols</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Lab&nbsp;notebook</a></li>
+                                                     
+                                                         
+                                        </ol>
+            </li>
+            <a href="#"><H1>ML-Model</H1></a>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Team&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="{{ get_url(path='team.html') }}">Member</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Community </a></li>
+                                                     <li class="sub-menu-item"><a href="#">Collaboration</a></li>
+                                                         
+                                        </ol>
+            </li>
+        </div>
+    </nav>
+    <!-- 英雄区域 -->
+    <section class="hero" style="display: flex; top: 0;" id="hero">
+        <div class="sun-background" style="background-size: cover;" id="sunBackground"></div>
+        <div class="mountains"  style="background-size: cover; " id="mountains"></div>
+         <div class="hero-content">
+            <!-- 调整布局 -->
+            <a href="#content" class="btn"> </a>
+        </div> 
+        
+    <div id="titletext">
+        
+            <!-- 调整布局 -->
+        
+    </div>
+            <div class="scroll-indicator" style="font-size: 40px;">Explore more &#8681</div>
+    </section>
+
+
+    
+       
+     <!-- 给侧边栏 位置 容纳所有content的div -->
+ <div id="sidercontent" style="background-color:transparent;min-height: 100vh; height: auto; width: 100vw; position: relative;margin-top: 5vh;padding-left: 2vw; display: flex;align-items: flex-start;"> 
+     <!-- 侧边栏 -->
+      <div class="sider">
+    <aside class="sidebar" style="top:5vh; z-index: 9; min-height: 30vh;height: auto;  min-width: 23rem;">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-fire"></i> CONTENT</h2>
+        </div>
+        <div class="sidebar-content">
+            <ul class="toc-list" id="toc">
+                <li class="toc-item level-1">
+                    <a href="#Foreword" class="toc-link"style="font-size: 1.8rem ;" >Foreword</a>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#Laboratorybiosafety" class="toc-link" style="font-size: 1.7rem;">Laboratory biosafety</a>
+                    <ul class="toc-list">
+                        <!-- <li class="toc-item level-2">
+                            <a href="#colors" class="toc-link">色彩方案</a>
+                        </li>
+                        <li class="toc-item level-2">
+                            <a href="#typography" class="toc-link">字体选择</a> -->
+                        </li>
+                    </ul>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#Experimentalsafety" class="toc-link" style="font-size: 1.7rem;" >Experimental safety</a>
+                    <ul class="toc-list">
+                <li class="toc-item level-1">
+                    <a href="#HP" class="toc-link" style="font-size: 1.7rem;" >HP Safety in & Dual-use analysis</a>
+                    <ul class="toc-list">
+        
+                    </ul>
+                </li> 
+                 
+                <!-- <li class="toc-item level-1">
+                    <a href="#Epilogue" class="toc-link" style="font-size: 1.7rem;">Hope Marches On</a>
+                </li> -->
+                <li class="toc-item level-1">
+                    <a href="#Reference" class="toc-link" style="font-size: 1.7rem;" >Reference</a>
+                    <ul class="toc-list">
+        
+                    </ul>
+                </li> 
+            </ul>
+        
+    </aside> 
+    <a id="top" href="#hero" class="toc-link">
+    <aside class="sidebar-btn" style=" background-image:url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/top.png');  display: flex;  z-index: 9; min-width: 23rem;background-repeat: no-repeat;"></aside>
+    </a>
+    </div>
+    <!-- 视频和文字的div  -->
+<div id="content-omit-sider" style="margin-top: 0;min-height: 100vh;width: 75vw; height: auto; margin-left: 2vw;margin-bottom: 5vh; display: flex;flex-direction:column ;  overflow: visible;  padding-inline: 5vh;">
+    <!-- 内容区域 --> 
+    <section id="content" class="content-section" style="background-color: #f0f0f0; max-width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative; padding-bottom: 10vh;">
+        
+       <div class="text-content0">
+        <div class="text-content">
+            
+           <p  id="Part I "     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
+            Part I: Prediction and Analysis of Global Epidemiological Trends in Bladder Cancer
+            </p>
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+             1. Materials and Methods
+            </p>
+              <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            1.1. Data Source
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          The global challenge of bladder cancer necessitates prospective epidemiological data to guide prevention and control efforts. Establishing effective prediction models is therefore crucial for assessing disease trends and formulating interventions. Data for this module were obtained from the Global Burden of Disease (GBD 2021) database, developed by the Institute for Health Metrics and Evaluation (IHME). This platform provides detailed statistics from 1990 to 2021 on diseases, injuries, and risk factors globally and regionally, allowing analysis by age, sex, and region, thus supporting public health research and policy. The general methodology for GBD 2021 data extraction is detailed on the official GBD website (http://www.healthdata.org/gbd/). This study extracted global data on bladder cancer Disability-Adjusted Life Years (DALYs), prevalence, and deaths for the period 1990–2021.
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          Where YLLs denote years of life lost due to premature mortality, and YLDs represent years lived with disability.DALYs are a composite metric quantifying the healthy life years lost due to premature mortality (Years of Life Lost, YLLs) and disability (Years Lived with Disability, YLDs) from various diseases. It combines the loss from premature death (difference between actual age at death and standard life expectancy at that age) and the loss of health due to disability (Formula 1).Where YLLs denote years of life lost due to premature mortality, and YLDs represent years lived with disability.
+            </p>
+          
+              
+            <!-- Formula 1 -->
+             <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 10vh; display: flex; gap: 0.5vw; padding-bottom: 2vh;  flex-wrap: nowrap; margin-top: 2.5vh; margin-bottom: 2.5vh;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/F1.png'); width: 80%; height: 10vh;background-size: contain;background-repeat: no-repeat"></div>
+                 
+                  
+                  <div style="text-align: center;justify-content: center; align-items: center; align-self: flex-start;display: flex; position: relative; width: auto; min-width: 10vw ;height: 10vh;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 2.5rem; ">Formula 1</h>
+                  </div>  
+             </div> 
+
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            1.2. Data Processing
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          A database of global bladder cancer DALYs, prevalence, and death counts and rates (per 100,000 population) from 1990 to 2021 was constructed using Excel 2019 to analyze trends in disease burden. The dataset contained no missing values, and no outliers were identified using the interquartile range (IQR) method (with outliers defined as values beyond Q1-1.5IQR or Q3+1.5IQR). The data were then partitioned into a training set (1990–2016) and a validation set (2017–2021) for assessing and optimizing prediction model performance. To enhance prediction accuracy and stability, three distinct forecasting methods—ARIMA, LSTM, and NNAR—were employed as base models, leveraging their respective strengths and applicability. Model development and comparison were implemented using the "forecast" package in R (v4.3.1) and sklearn (Python v3.11.1), among other tools.
+            </p>
+
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+         1.3. Autoregressive Integrated Moving Average (ARIMA) Model
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          The ARIMA model is suitable for stationary time series data, integrating Autoregressive (AR), Integrated (I - differencing), and Moving Average (MA) components. It effectively captures linear relationships and demonstrates strong capability in modeling trending data, making it appropriate for fitting the rising incidence and mortality trends of bladder cancer[1]. Its basic principle can be expressed as:
+            </p>
+            <!-- Formula 2 字符 -->
+             <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 10vh; display: flex; gap: 0.5vw; padding-bottom: 2vh;  flex-wrap: nowrap; margin-top: 2.5vh; margin-bottom: 2.5vh;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/images/F2.png'); width: 80%; height: 10vh;background-size: contain;background-repeat: no-repeat"></div>
+                 
+                  
+                  <div style="text-align: center;justify-content: center; align-items: center; align-self: flex-start;display: flex; position: relative; width: auto; min-width: 10vw ;height: 10vh;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 2.5rem; ">Formula 2</h>
+                  </div>  
+             </div> 
+
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Where  represents the AR coefficients,  represents the MA coefficients, and  is the error term.
+             </p>
+
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+        1.4. Long Short-Term Memory (LSTM) Network
+            </p>
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+        LSTM is a specialized type of Recurrent Neural Network (RNN). This model learns a function that maps historical data points to future observations. It utilizes sequences derived from the data to predict future values. The model requires a list of features (X), corresponding labels (y), and a window size ##(). This process involves sliding an## -sized window across the data to generate target values ##() and input ##sequences ().  is the value immediately following the##  window, which consists of##  consecutive feature values. LSTM's unique gating mechanism enables it to handle complex nonlinear dynamics and long-term dependencies, making it ideal for processing long sequence data. The fundamental algorithm is:
+              </p>
+
+                <!-- Formula 3 字符多 -->
+
+                  <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+        Where  represents the forget gate,  is a weight coefficient,  is the bias, and  represents the input. Subsequently, the model decides which values to keep () and generates candidate values () via the  function. Combining these results yields the updated cell state .
+                  </p>
+                  <!-- Formula 4,5,6  -->
+                       <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       In Formula (4), ## represents the weight coefficients for the input gate.
+                       </p>
+
+                        <!-- Formula 7,8 -->
+
+                 <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       This process yields the output of the LSTM model, whose basic architecture is shown in Figure 1. The original time series data were normalized to the [0, 1] range using the MinMaxScaler method to eliminate the influence of feature scale differences on model training, as expressed by the formula:
+                    </p>
+
+                    <!-- Formula 9 -->
+
+
+                 <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       Subsequently, the time series was transformed into a supervised learning format using a sliding window mechanism. The model design employed a single-layer LSTM network with 50 hidden units to capture long-term dependencies and nonlinear dynamics within the sequence. A fully connected layer was added after the LSTM layer to map the temporal features to a scalar prediction value. During training, the Adam optimizer and Mean Squared Error (MSE) loss function were used. Training proceeded for 100 epochs with a batch size of 1 (online learning), aiming to minimize the error between predicted and true values.
+                 </p>
+
+             <!-- Figure 1: LSTM algorithm schematic diagram -->
+
+           <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+       1.5. Neural Network Autoregression (NNAR) Model
+            </p>
+          <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       The NNAR model is a nonlinear time series model that utilizes a single-hidden-layer feedforward neural network structure to capture nonlinear relationships within fluctuating sequences. Its default setting of 20 hidden nodes allows it to capture complex nonlinear features in the data. The model uses lagged values of the time series as input features, constructing a specific type of neural network denoted as NNAR(p, k), where p represents the number of lagged inputs and k is the number of nodes in the hidden layer[2]. NNAR can also provide more stable prediction results when combined with other models, showing potential for model improvement[3].
+          </p>
+
+           <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+       1.6. Model Performance Comparison
+            </p>
+
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       In this study, ARIMA, LSTM, and NNAR models were used separately to perform short-term trend predictions for bladder cancer DALYs, prevalence, and death-related data (counts and rates). The reliability of the three models was assessed using data from 2017–2021 as the validation set. Three evaluation metrics—Root Mean Square Error (RMSE), Mean Absolute Error (MAE), and Mean Absolute Percentage Error (MAPE)—were employed to quantify the prediction error of each model. Subsequently, based on the validation results, the optimal model was selected, retrained on the full dataset, and used to forecast trends up to 2035.
+             </p>
+
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       RMSE is the square root of the mean of the squared differences between predicted and actual values. It is sensitive to large errors and can indicate the presence of outliers. MAE is the mean of the absolute differences. It is less sensitive to outliers and intuitively reflects the accuracy of the predicted trend. MAPE is the mean of the absolute percentage differences. It reflects relative error and is suitable for comparing model performance across datasets with different scales. The calculations are as follows:
+             </p>
+             <!-- Formula 10,11,12 字符-->
+
+           <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       Where  is the predicted value,  is the actual value, and n is the number of samples.
+           </p>
+
+
+
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+           2. Results
+            </p>
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            2.1. Overview of Global Bladder Cancer Incidence and Mortality, 1990–2021
+            </p>
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          In 1990, the global number of bladder cancer cases was 1.3291 million, and deaths were 123,100. In 2021, the number of cases reached 3.0256 million, and deaths exceeded 221,900 (Figure 2). Compared to 1990, the global number of cases, deaths, and DALYs increased by 127.65%, 80.21%, and 60.89%, respectively.
+             </p>
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Bladder cancer incidence and mortality rates showed a continuous upward trend globally (Figure 3). Due to difficulties in early diagnosis and treatment resistance, bladder cancer ranked as the 14th leading cause of cancer death globally in 2021.
+             </p>
+             <!-- Figure 2: Global bladder cancer epidemiological data from 1990 to 2021 -->
+
+             <!-- Figure 3: Changes in global bladder cancer mortality rates over 30 years -->
+
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            2.2. Model Performance Comparison
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Comparing the three prediction performance metrics, the ARIMA model outperformed the NNAR and LSTM models in predicting global bladder cancer epidemiological trends, indicated by lower values for all three metrics (Table 1). Particularly for prevalence prediction, the MAPE for the ARIMA model was 0.352%, and its RMSE was only 17.9% of that of the NNAR model. For death data predictions, the performance of ARIMA and NNAR models was similar.
+            </p>
+            <!-- Table 1,2,3 -->
+
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Comparative analysis of the aforementioned models revealed that the ARIMA model holds a significant advantage in capturing the average evolutionary patterns of linear trends but faces limitations in resolving nonlinear dynamics. Conversely, the LSTM model excels at modeling nonlinear patterns. Consequently, this study proposed constructing an ARIMA-LSTM ensemble model to integrate the strengths of both approaches, enabling the identification and characterization of both linear and nonlinear components within the data[4].
+             </p>
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       In integrating the LSTM and ARIMA models, since they handle nonlinear and linear prediction tasks respectively, direct weighted averaging might lead to accumulated prediction errors. To enhance the ensemble model's fitting accuracy, this study employed the LSTM model to process the prediction residuals from the ARIMA model, aiming to eliminate potential nonlinear factors within the residuals and further optimize prediction performance[5]. The construction strategy was as follows:
+              </p>
+                <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       First, the ARIMA model was applied to analyze the linear component of the bladder cancer DALYs, prevalence, and death data (counts and rates). Residual diagnosis via autocorrelation/partial autocorrelation function plots and the Ljung-Box test indicated that the residual series satisfied the white noise property (p > 0.05), suggesting the ARIMA model had sufficiently extracted information from the time series (Figure 4).
+                </p>
+                <!-- Figure 4: Autocorrelation/Partial Autocorrelation Function Plots -->
+
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       Subsequently, the residuals from the ARIMA model, which often contain nonlinear features, were extracted. These residuals were fed into the LSTM model, which can handle complex nonlinear relationships and correct the residuals, thereby enhancing prediction accuracy. The final expression is:
+            </p>
+            <!-- Formula 13 字符-->
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+      Figure 5 illustrates the fitting performance of the ARIMA, LSTM, and ARIMA-LSTM models on the test set data, showing the clear upward trend in global bladder cancer incidence and mortality rates. Compared to the single ARIMA model, the ARIMA-LSTM ensemble model more accurately captured this characteristic. For DALYs prediction on the test set, the MAPE of the ARIMA-LSTM ensemble model was only 0.301%, nearly doubling the prediction accuracy compared to the ARIMA model (Table 4).
+              </p>
+              <!-- Figure 5: Fitting performance of the three models on the test set data -->
+
+              <!-- Table 4: Predictive Model Evaluation Performance (DALYs) - Comparison including Ensemble -->
+          
+
+
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+           2.3. ARIMA-LSTM Ensemble Model Prediction Results
+            </p>
+            <!-- Figure 6: ARIMA-LSTM model prediction results -->
+              
+
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+      The established ARIMA-LSTM model was used to forecast the absolute numbers and incidence rates of global bladder cancer DALYs, prevalence, and deaths for the next decade (Figure 6).
+            </p>
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+      For prevalence, the model results indicate a continuing upward trend in the coming decades. The number of cases is projected to increase from 3.0256 million in 2021 to 3.7955 million in 2035, with the prevalence rate per 100,000 expected to grow by 15.75% over the same period, showing significant average annual increases in both number and rate (Table 5). This growth trend is closely associated with persistent risk factors such as population aging, high smoking rates, and occupational carcinogen exposure.
+             </p>
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+      Simultaneously, predictions from the ARIMA-LSTM ensemble model suggest a stable yet rising trend in the global disease burden attributable to bladder tumors. The DALYs rate per 100,000 is projected to increase by 3.63%, and bladder cancer deaths are expected to exceed 265,000 by 2035. This trend underscores that improving patient outcomes has become a critical issue urgently needing address in global public health. Future efforts must strengthen early diagnosis, standardized treatment, and long-term management to mitigate the health loss and social burden caused by this disease through multi-level interventions.
+             </p>
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+     In summary, bladder cancer constitutes a significant public health challenge worldwide. The prediction results emphasize the necessity for increased investment and attention towards bladder cancer prevention and control to alleviate its potential impact on public health systems and socioeconomic development.
+              </p>
+              <!-- Table 5: Prediction Analysis Data -->
+
+
+                <p  id="Part II "     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
+            Part II: Screening of Diagnostic Genes and Analysis of Immune Cell Infiltration Characteristics in Bladder Cancer
+            </p>
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+             1. Materials and Methods
+            </p>
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            1.1. Data Preparation
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          Microarray datasets GSE13507 (GPL6102, normal tissue=10, tumor tissue=165) and GSE40355 (GPL13497, normal tissue=8, tumor tissue=16) were selected and downloaded from the Gene Expression Omnibus (GEO) database, yielding 18 normal and 181 bladder tumor tissue samples. The GEO data served as the training set. RNA-seq FPKM data for bladder cancer were obtained from The Cancer Genome Atlas (TCGA) database, comprising 19 normal and 411 bladder tumor tissue samples, which served as the validation set. Clinical data for TCGA bladder cancer cases were also downloaded, and survival information was compiled for 404 patients. During data processing, missing values were detected in some samples. To preserve data distribution characteristics and minimize information loss, missing values were imputed using the supervised k-Nearest Neighbors (KNN) algorithm[7]. Compared to deleting samples or using global mean/median imputation, KNN imputes missing values based on the feature values of the k most similar complete samples, calculated via sample similarity[8]. Low-variance genes were filtered out, retaining the top 80% of genes by variance.
+            </p>
+
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            1.2. Screening of Differentially Expressed Genes (DEGs)
+             </p>
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          Batch effects in the training set data were corrected using the "sva" package. Differential expression analysis was performed using the "limma" package. Based on literature precedents[9], the filtering criteria for DEGs were set as## (FC: fold change) and adjusted p-value (adj. P.Val) < 0.05. All R packages in this study were run on the R 4.1.0 platform.
+              </p>
+               <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+           1.3. Gene Function and Pathway Enrichment Analysis
+               </p>
+               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+        Functional annotation of DEGs was performed using the "clusterProfiler" R package against the Kyoto Encyclopedia of Genes and Genomes (KEGG) and Gene Ontology (GO) databases. Gene Set Enrichment Analysis (GSEA) was conducted to analyze functional differences between the experimental (tumor) and control (normal) groups. A p-value < 0.05 indicated significant enrichment.
+               </p>
+                <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+          1.4. Machine Learning Algorithms for Screening Key Bladder Cancer Genes
+                </p>
+                  <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+      Multiple studies advocate using multi-faceted feature selection strategies to construct high-accuracy cancer diagnostic prediction systems[10,11]. To further identify key genes for bladder tumors from the DEGs, we employed a combination of three machine learning algorithms: LASSO regression (Least Absolute Shrinkage and Selection Operator regression), SVM-RFE (Support Vector Machine-Recursive Feature Elimination), and Boruta, for screening diagnostic biomarkers. This approach leverages the complementary strengths of the algorithms to overcome selection bias inherent in single methods and ensures the biological robustness of the feature genes. The "glmnet" package was used for LASSO regression, performing 10-fold cross-validation to find the lambda value corresponding to the minimum error, thus obtaining the feature genes at that point. The SVM-RFE algorithm was implemented using the "e1071", "kernlab", and "caret" packages. The prediction function was set to "caretFuncs", the sampling method was "cv" (cross-validation), and the "svmRadial" method was used for feature selection. The Boruta algorithm allows for all-relevant feature importance assessment; its implementation process is summarized in Figure 7[12,13]. The feature genes identified by all three methods were intersected using the "venn" package to obtain the key diagnostic genes for bladder cancer.
+                  </p>
+
+                  <!-- Figure 7: Flowchart of the Boruta algorithm -->
+                <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+          1.5. Validation of Key Genes
+                </p>
+                <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+     The validation set data were used to verify the identified key genes. Boxplots comparing expression between normal and bladder tumor tissues were generated using the "ggpubr" package, and the Wilcoxon rank-sum test was used to assess statistical significance between groups. Receiver Operating Characteristic (ROC) curves for the key genes were plotted using the "pROC" package.
+                </p>
+                 <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+        1.6. Survival Analysis of Key Genes
+                 </p>
+                  <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+    Based on the median expression value of each key gene, patients were divided into high-expression and low-expression groups. Survival curves were plotted using the "survival" package, and differences between groups were assessed using the Log-Rank test. Results were further validated using the GEPIA database (http://gepia.cancer-pku.cn/).
+                  </p>
+                   <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+       1.7. Correlation Analysis Between Prognostic Genes and Immune Infiltrating Cells
+                   </p>
+                    <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+    The adjusted validation set data were uploaded to the CIBERSORT web portal (http://cibersort.stanford.edu/) for analysis of Tumor Immune Infiltrating Cells (TICs). Using the LM22 signature matrix (22 immune cell types) as a reference, 1000 permutations were run, and results were filtered with a significance threshold of p < 0.05. The "vioplot" package was used to analyze differences in immune cell abundance between normal and tumor tissues. The "limma", "reshape2", and "ggExtra" packages were used to assess the relationships between prognosis-related genes and immune infiltrating cells. Spearman's rank correlation test was used for statistical analysis, and correlation heatmaps were generated using "ggplot2".
+                    </p>
+                    <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+      1.8. Prognostic Analysis of Immune Infiltrating Cells
+                    </p>
+                      <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+  Based on the median abundance of each lymphocyte subset in the Tumor Microenvironment (TME), the 22 lymphocyte types were dichotomized into high and low groups. Survival analysis was performed again using TCGA clinical data to explore the impact of lymphocyte abundance on patient prognosis.
+                      </p>
+
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            2. Results
+            </p>
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+          2.1. Differentially Expressed Genes
+             </p>
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         A total of 176 differentially expressed genes (DEGs) were identified from the GEO database, comprising 21 upregulated and 155 downregulated genes. A volcano plot was generated for the top 50 genes ranked by absolute fold change, as shown in Figure 8.
+              </p>
+
+              <!-- Figure 8: Volcano plot of differentially expressed genes between groups in the training set -->
+
+
+               <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+          2.2. Identification of Biological Processes and Pathways for DEGs
+             </p>
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         GO functional annotation categorizes gene functions into Cellular Component (CC), Molecular Function (MF), and Biological Process (BP). The DEGs were significantly enriched in 46 functional terms, including 19 BPs, 15 CCs, and 12 MFs (Figure 9A). In BP, DEGs were enriched in pathways related to the muscle system process. In CC, DEGs were enriched in functions related to the collagen-containing extracellular matrix. In MF, DEGs were significantly enriched in activities such as actin binding. KEGG pathway enrichment analysis (Figure 9B) showed significant enrichment of DEGs in pathways like MAPK signaling, cell cycle, and focal adhesion. GSEA revealed the top 5 active pathways in the control (normal) group were calcium signaling pathway, MAPK signaling pathway, vascular smooth muscle contraction, etc. (Figure 9C). In contrast, the top 5 active pathways in the tumor group were cell cycle, DNA replication, proteasome, and pathways in cancer, etc. (Figure 9D), showing substantial differences from the control group.
+             </p>
+
+
+             <!-- Figure 9: A: GO functional annotation results for DEGs; B: KEGG enrichment analysis results; C-D: Differences in functions and pathways between tumor and control groups via GSEA -->
+
+              <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+         2.3. Key Genes
+              </p>
+               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+        The linear fit result [from LASSO cross-validation] indicated that the cross-validation error was minimized when 11 genes were selected (Figure 10). LASSO regression identified 11 potential feature genes: CYTL1, SRPX, LIFR, etc (Table 6).
+               </p>
+
+               <!-- Figure 10: LASSO regression cross-validation linear fit result -->
+
+                <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+        The SVM-RFE algorithm result is shown in Figure 11. The x-axis represents the number of features, and the y-axis represents the cross-validation error. The error was minimized when the feature dimension was reduced to 10, indicating optimal model performance. Ten key genes were ultimately selected: PI16, HLF, PMP2, AURKB, CYTL1, etc (Table 6).
+                </p>
+
+                <!-- Figure 11: SVM-RFE cross-validation result -->
+
+                 <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+        The Boruta algorithm finally confirmed 16 genes with significant diagnostic value (Figure 12 and Table 6), including CYTL1, IQGAP3, MOXD1, SRPX and so on.
+                 </p>
+
+                 <!-- Figure 12: Feature gene selection results using the Boruta algorithm -->
+
+
+                  <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+        Intersection analysis of the three algorithms (Figure 13) revealed that five genes—CYTL1, PMP2, IQGAP3, ADH1B, and SRPX—were commonly identified as candidate diagnostic biomarkers for bladder cancer. Except for IQGAP3, which was highly expressed in the tumor group, the other genes showed low expression.
+                  </p>
+
+                  <!-- Figure 13: Intersection of results from the three algorithms -->
+                
+
+                  <!-- Figure 14: A: Boxplot of key gene expression in the validation set, showing significant differences between normal and bladder tumor tissues; B-F: ROC curves for the key genes -->
+                
+
+
+                 <!-- Table 6: List of Potential Genes Identified by Each Machine Learning Algorithm -->
+
+
+            <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+         2.4. Validation of Key Genes
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Boxplots revealed significant differences in the expression levels of the key genes between tumor and normal groups in the validation set, with only IQGAP3 highly expressed in the tumor group (Figure 14A), consistent with the results from the training set. ROC curves for the key genes were plotted using the validation set data (Figure 14B-F). All key genes demonstrated high sensitivity and specificity. Their Area Under the Curve (AUC) values and 95% confidence intervals were: CYTL1 (0.89, 95% CI: 0.82–0.95), PMP2 (0.97, 95% CI: 0.96–0.99), IQGAP3 (0.92, 95% CI: 0.83–0.99), ADH1B (0.98, 95% CI: 0.96–0.99), and SRPX (0.94, 95% CI: 0.90–0.97).
+            </p>
+
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+        2.5. Survival Analysis of Key Genes
+             </p>
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Survival analysis results indicated that patients in the high-expression groups for PMP2 (p = 0.002) and CYTL1 (p = 0.032) had lower survival rates (Figure 15A-B). The same conclusion was reached using the GEPIA database, where high expression of CYTL1 (p = 0.018) and PMP2 (p = 0.044) was associated with worse prognosis (Figure 15C-D).
+              </p>  
+
+              <!-- Figure 15: A-B: Survival curves based on CYTL1 and PMP2 expression levels; C-D: Survival curves validated using the GEPIA database -->
+             
+
+                <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+      2.6. Correlation Analysis Between Key Genes and TICs
+                </p>
+
+                 <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Macrophages M0 (p = 0.008), Macrophages M1 (p = 0.01), and Mast cells resting (p = 0.005) showed significant differences between bladder tumor and normal tissues. Resting mast cells were present at low levels in tumor tissues, while M0 and M1 macrophages were present at high levels. In the TME, the expression levels of CYTL1 and PMP2 were negatively correlated with T follicular helper cells and CD8 T cells, but positively correlated with resting memory CD4 T cells and naive B cells (Figure 16A).
+                 </p>
+
+                  <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+      2.7. Prognostic Analysis of TICs
+                  </p>
+
+                       <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       Survival analysis of TICs found that only activated memory CD4 T cells (p = 0.017) and CD8 T cells (p = 0.049) were significantly associated with patient prognosis (Figure 16B-C). Patients with high infiltration levels of activated memory CD4 and CD8 T cells in the TME had higher survival rates.
+                       </p>
+
+                    
+                       <!-- Figure 16: A: Heatmap of correlations between 22 immune cell types and CYTL1/PMP2 genes; B-C: Survival curves for activated memory CD4 T cells and CD8 T cells -->
+                 
+           
+
+                
+           <p  id="Part I "     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
+            Part Ⅲ: Predicting Key Molecules in Bladder Cancer via Deep Learning
+           </p>  
+           <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          To address the application of deep learning in bladder cancer analysis, we integrated multi-omics data while accounting for interrelationships among different omics types, constructing a heterogeneous network encompassing diseases and genes. To effectively represent both diseases and genes, we developed an unsupervised multi-layer graph neural network model based on a classical graph convolutional network architecture. This model not only predicts key genes involved in the development and progression of bladder cancer but also provides interpretability for the predictions.
+           </p>
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            1. Model Framework
+            </p>
+             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         Graph Neural Network (GNN) apply neural networks to graph-structured data to learn structural information and uncover latent semantic patterns, representing graph nodes or the entire graph as low-dimensional vectors. They are widely used for tasks such as graph clustering, classification, and link prediction. GNNs have demonstrated strong representational power in recommendation systems, drug discovery, molecular generation, and disease-gene prediction. The associations between various genes and diseases naturally form a complex network, and GNNs can efficiently learn features from such networks to predict disease-associated genes.
+             </p>
+               <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+           1.1. Feature Extraction Module
+               </p>
+               <!-- 字符 -->
+
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+         This part introduces improvements to the traditional GCN feature extraction module. The input data form a heterogeneous bipartite graph containing a set of gene nodes  and a set of disease nodes . The initial feature of a gene  is denoted as , and that of a disease  as .
+              </p>
+              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       The updated features after GNN processing should capture structural information from the graph. Therefore, for feature learning of node i, we consider both its own features and those of its neighbors. Traditional GCNs aggregate information from all neighbors, which is computationally inefficient for large-scale disease-gene networks with high node degrees. To improve efficiency, we randomly sample neighbors for each target node and aggregate information only from the sampled set. Each sampling and aggregation operation allows a node to receive information from its one-hop neighbors. In complex networks, however, information propagation occurs not only between directly connected nodes but also indirectly. While traditional GCNs perform two aggregation steps, our improved model conducts L(L=3) rounds of sampling and aggregation.
+              </p>
+                 <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+       This design ensures that nodes receive sufficient structural information from longer paths without excessive aggregation, which could lead to over-smoothing and loss of feature distinctiveness. During each round of sampling and aggregation, node features are updated. Since features at different layers contain different structural information, we employ residual connections. The output of the feature extraction module is the concatenation of features from all L[14].
+                 </p>
+                   <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+          1.2. Prediction Module  
+                   </p>
+                   <!-- 字符 -->
+                    <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+      For a gene g and a disease d, after L layers of sampling and feature aggregation, we obtain feature sets  and . The output of the feature extraction module is:
+                    </p>
+
+                    <!-- Formula 14,15 -->
+
+                     <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+      where || denotes tensor concatenation. This operation enriches the initial features of genes or diseases and allows control over the breadth of information aggregation by adjusting L. Other aggregation methods such as weighted averaging, max pooling, or LSTM could be used, but we choose concatenation for simplicity and to avoid introducing excessive parameters.
+                     </p>
+                     <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+     Finally, the potential relationship between gene g and disease d is evaluated using the inner product of their feature vectors:
+                     </p>
+                       <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+          1.3. Optimization Objective
+                       </p>
+                       <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+     To accurately learn model parameters, we improve the loss function by adopting the Bayesian Personalized Ranking (BPR) loss, widely used in recommendation systems, instead of traditional cross-entropy loss. BPR aims to maximize the score difference between positive and negative samples, ensuring that positive samples receive higher scores than negative ones[15]. The objective function is formulated as:
+                       </p>
+                       <!-- Formula 17 字符-->
+                        <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+     where  represents all possible gene-disease association pairs in the training set,  denotes existing associations, and  denotes non-existing associations;  is the sigmoid function;  is the  regularization term, and W represents all learnable parameters. The Adam optimizer[16] is used for model training.
+                        </p>
+
+
+
+                        <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+           2. Model Training and Prediction
+                        </p>
+                          <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+    Training data were obtained from the Comparative Toxicogenomics Database (CTD, http://ctdbase.org), which integrates extensive data on interactions among genes, diseases, drugs, and functional phenotypes, providing support for disease-gene association prediction and disease target identification[17]. Data included gene-disease associations, disease-pathway associations, and gene-pathway associations. The constructed network contained 53,372 genes, 7,234 diseases, and 93,443,157 edges.
+                          </p>
+                            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+    Since the GNN model requires initial node features, one-hot encoded vectors based on gene-pathway and disease-pathway associations were used as initial features for genes and diseases, respectively, both of dimension 2,547. The first part of the model is a feature mapping layer, where initial features are transformed into 256-dimensional vectors via a multi-layer perceptron, matching the dimension used in GNN feature updates. The mapped features, along with the gene-disease network, are fed into the feature extraction layer. The output—concatenated updated features—is then passed to the prediction module to complete the forward propagation process.
+                            </p>
+                             <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+    The model was trained with a learning rate of 10-5 and a batch size of 512. To demonstrate the necessity of the BPR loss, we compared its performance with cross-entropy loss, as shown in Figure 17. Cross-entropy loss provided very weak supervisory signals and remained stable, whereas BPR loss decreased significantly and stabilized after about 200 iterations, at which point training was terminated.
+                             </p>
+
+
+                             <!-- Figure 17: Loss function values during model training -->
+
+                              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+    Focusing on bladder cancer, we examined the correlation between features of five genes identified in Part II and known bladder cancer marker genes[18] during training. As shown in Figure 18, the horizontal axis represents training iterations, and the vertical axis represents feature correlation between genes and bladder cancer. Genes such as ADH1B, CYTL1, EGFR, and FGFR3 showed increasing correlation with bladder cancer over iterations, indicating the model's strong performance in identifying bladder cancer-associated genes.
+                              </p>
+
+                              <!-- Figure 18: Correlation changes between specific genes and bladder cancer during training -->
+                        
+                         <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            3. Results Analysis  
+            </p>
+
+                         <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+   Section 1 described the model structure and training process, and the model demonstrated strong performance in bladder cancer analysis. However, as a black-box model, deep learning requires interpretability in cancer research. We performed UMAP dimensionality reduction on the features of all 53,372 genes learned by the model, resulting in a 2D scatter plot (Figure 19). Genes with the top 15 highest correlations to bladder cancer are marked in red, and those with the lowest 15 correlations in green.
+                         </p>
+
+                          <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+   Among these, PIK3CA mutation is one of the most widespread mutations in cancer[19] and is significantly associated with poor survival in multiple malignancies[20]. The p110α subunit, encoded by PIK3CA and part of class IA phosphatidylinositol 3-kinase (PI3K), regulates signal transduction related to cell cycle, growth, and metabolism. Disruption of this process is highly oncogenic. In TCGA bladder cancer samples, PIK3CA has a mutation frequency of 22.1%. Mutations in RAS, KRAS, and NRAS are also common oncogenic drivers in human cancers. The variant frequency of KRAS alleles is cancer-specific, involving different oncogenic processes across cancers[21]. In TCGA bladder cancer samples, KRAS and HRAS have mutation frequencies of 3.9% and 1.9%, respectively. Previous studies have shown that ERBB2, MAPK1, and MAPK3 are highly expressed in cancer tissues compared to normal tissues. Silencing ERBB2 may inhibit the activation of the MAPK1/MAPK3 pathway, thereby suppressing cancer cell proliferation, invasion, and migration[22]. Notably, the gene CYTL1, predicted by our model to be highly associated with bladder cancer, has a mutation frequency of 47.3% in TCGA bladder cancer samples, second only to TP53.
+                          </p>
+
+                          <!-- Figure 19: Two-dimensional scatter plot of genes in the network -->
+
+                          <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+   To functionally validate the predictions, we performed KEGG enrichment analysis on three gene sets: genes directly linked to bladder cancer (BLGs), genes not directly linked (NBLGs), and genes predicted to be associated by the model (PBLGs). Results are shown in Figures 20(a), 20(b), and 20(c). The size of points represents the number of genes enriched in each pathway, and significance (FDR) is transformed via -log10. BLGs were significantly enriched in cancer-related pathways, while PBLGs were enriched in immune and inflammation-related pathways. Immune and inflammatory responses are closely related to cancer development and are central to tumor microenvironment research[23]. The predictions suggest strong associations between immune/inflammation-related genes and bladder cancer, potentially offering new insights for immunotherapy target prediction. Many NBLGs were enriched in cancer-related pathways, possibly because NBLGs include potential bladder cancer-related genes, i.e., there is an intersection between NBLGs and PBLGs.
+                          </p>
+
+                          
+                          <!-- Figure 20: KEGG enrichment analysis results for BLGs, NBLGs, and PBLGs -->
+                          
+
+                           <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+   
+                  Using gene-pathway relationships, we designed initial gene features thoughtfully. Visualization analysis of model parameters identified key signaling pathways in bladder cancer gene prediction (Figure 21). Among the top 20 pathways by importance, the metabolic pathway scored highest. Extensive studies have shown that metabolic dysregulation is a hallmark of cancer and may be a root cause of tumor formation. Altered metabolism is widespread across cancer subtypes, and many oncogenes or tumor suppressor genes function to maintain these metabolic states. Research on cancer metabolism may reveal critical diagnostic and therapeutic markers[24]. Immune system, cell cycle, and extracellular matrix (ECM) organization pathways also received high importance scores.
+                           </p>
+
+
+                           <!-- Figure 21: Bar chart of pathway importance scores -->
+                            
+                           <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+   
+                Tumor growth and development are closely related to changes in ECM density and composition. Cancer-associated fibroblasts interact with other cells in the tumor microenvironment, regulating ECM components and promoting carcinogenesis. Under regulatory influences, ECM undergoes stabilization or degradation, directly affecting cancer cell proliferation, migration, invasion, and angiogenesis. ECM stabilization also impedes drug penetration into tumors[25]. Therefore, maintaining ECM stability and promoting chemotherapeutic drug penetration represent potential avenues for future cancer therapy. In Part II, we identified differentially expressed genes from GEO and TCGA bladder cancer samples and recognized functional subtypes, with some genes significantly enriched in ECM organization pathways. Based on clustering and cell subtype annotations from single-cell sequencing data[26], we identified major cell types including endothelial, epithelial, and tissue stem cells. Marker genes for endothelial and tissue stem cells were also enriched in ECM organization pathways. By constructing a heterogeneous network of genes, diseases, and pathways and learning gene representations via GNN, we identified ECM organization as a key feature in predicting bladder cancer-associated genes. Thus, ECM may serve not only as a regulator in bladder cancer treatment but also as a therapeutic target, holding significant value for diagnosis and prognosis. In-depth study of ECM could enhance our understanding of critical factors and mechanisms in bladder cancer development and progression.
+
+                           </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           <p  id="Part I "     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
+            Part I: Prediction and Analysis of Global Epidemiological Trends in Bladder Cancer
+            </p>
+             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
+             1. Materials and Methods
+            </p>
+              <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
+            1.1. Data Source
+            </p>
+            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+          The global challenge of bladder cancer necessitates prospective epidemiological data to guide prevention and control efforts. Establishing effective prediction models is therefore crucial for assessing disease trends and formulating interventions. Data for this module were obtained from the Global Burden of Disease (GBD 2021) database, developed by the Institute for Health Metrics and Evaluation (IHME). This platform provides detailed statistics from 1990 to 2021 on diseases, injuries, and risk factors globally and regionally, allowing analysis by age, sex, and region, thus supporting public health research and policy. The general methodology for GBD 2021 data extraction is detailed on the official GBD website (http://www.healthdata.org/gbd/). This study extracted global data on bladder cancer Disability-Adjusted Life Years (DALYs), prevalence, and deaths for the period 1990–2021.
+            </p>
+
+
+
+
+
+
+
+
+
+
+          
+        </div>
+
+
+
+             
+    
+
+            
+         </section>
+
+    
+            
+    
+ 
+
+    <!-- 内容区域 --> 
+        <section id="content2" class="content-section" style="margin-top: 20vh;  background-color: #f0f0f0; max-width: 75vw; height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative;">
+        
+       <div class="text-content0">
+        <div class="text-content">
+            <H  id="Reference"     class="title-style"   style="position:relative;">
+            Reference
+            </H>
+            <p class="nomal-style" style="position:relative;">
+              [1]	CEYLAN Z. Estimation of COVID-19 prevalence in Italy, Spain, and France[J]. The Science of the total environment, 2020,729: 138817.<br>
+[2]	Maleki, A., Nasseri, S., Aminabad, M. S., & Hadi, M. (2018). Comparison of ARIMA and NNAR Models for Forecasting Water Treatment Plant’s Influent Characteristics. KSCE Journal of Civil Engineering, 22(9), 3233–3245. <br>
+[3]	CHEN Z, LIU X, GUAN J, et al. Impact of COVID-19 Interventions on Respiratory and Intestinal Infectious Disease Notifications — Jiangsu Province, China, 2020–2023[J]. China CDC Weekly, 2024,6(41): 1059-1064.<br>
+[4]	ZHANG G P. Time series forecasting using a hybrid ARIMA and neural network model[J]. Neurocomputing (Amsterdam), 2003,50: 159-175.<br>
+[5]	MU H, ZHU H. Forecasting of hospitalizations for COVID-19: A hybrid intelligence approach for Disease X research[J]. Technology and health care, 2025,33(2): 768-780.<br>
+[6]	JAIN S, AGRAWAL S, MOHAPATRA E, et al. A novel ensemble ARIMA-LSTM approach for evaluating COVID-19 cases and future outbreak preparedness[J]. Health Care Science, 2024,3(6): 409-425.<br>
+[7]	Verma, P., & Shakya, M. (2022). Machine learning model for predicting Major Depressive Disorder using RNA-Seq data: optimization of classification approach. Cognitive Neurodynamics, 16(2), 443–453. <br>
+[8]	HALL P, PARK B U, SAMWORTH R J. Choice of neighbor order in nearest-neighbor classification[J]. The Annals of statistics, 2008,36(5): 2135-2152.<br>
+[9]	LIU J, LIU L, ANTWI P A, et al. Identification and Validation of the Diagnostic Characteristic Genes of Ovarian Cancer by Bioinformatics and Machine Learning[J]. Frontiers in genetics, 2022,13: 858466.
+[10] XIE R, LIU L, LU X, et al. Identification of the diagnostic genes and immune cell infiltration <br> characteristics of gastric cancer using bioinformatics analysis and machine learning[J]. Front Genet, 2022,13: 1067524.<br>
+[11] CAI X, DENG J, ZHOU X, et al. Comprehensive analysis of cuproptosis-related genes involved in immune infiltration and their use in the diagnosis of hepatic ischemia-reperfusion injury: an experimental study[J]. International journal of surgery (London, England), 2025,111(1): 242-256.<br>
+[12] Jiang, Y., Zhang, Y., & Zhao, C. (2022). Integrated gene expression profiling analysis reveals SERPINA3, FCN3, FREM1, MNS1 as candidate biomarkers in heart failure and their correlation with immune infiltration. Journal of Thoracic Disease, 14(4), 1106–1119. <br>
+[13] Jamei, M., Hassan, M., Faroouqe, A. A., Ali, M., Karbasi, M., Randhawa, G. S., … Dwyer, R. (2024). Monitoring of greenhouse gas emission drivers in Atlantic Canadian Potato production: A robust explainable intelligent glass-box. Results in Engineering, 24, 103297. <br>
+[14] XIANG W, XIANGNAN H, MENG W, FULI F, TAT-SENG C, et al. Neural Graph Collaborative Filtering[J]. arXiv: Information Retrieval, 2019, abs/1905.08108(): 165-174.  <br>
+[15] STEFFEN R, CHRISTOPH F, ZENO G, LARS S, et al. BPR: Bayesian personalized ranking from implicit feedback[C], Conference on Uncertainty in Artificial Intelligence, 2012, abs/1205.2618(): 452-461. <br>
+[16] DIEDERIK P. KINGMA, JIMMY LEI BA. Adam: A Method for Stochastic Optimization[C]. 
+International Conference on Learning Representations, 2014, abs/1412.6980().  <br>
+[17] PETER D A, WIEGERS T C, JOHNSON R J, et al. Comparative Toxicogenomics Database 
+(CTD): update 2023[J]. Nucleic Acids Research, 2022(D1): D1. <br>
+[18] SALOMAN J L, ALBERS K M, RHIM A D, et al. Can Stopping Nerves, Stop Cancer?[J]. Trendsin Neurosciences, 2016:880.<br>
+[19] MADSEN R R, VANHAESEBROECK B, Semple R K. Cancer-Associated PIK3CA Mutations in Overgrowth Disorders[J]. Trends in Molecular Medicine, 2018, 24(10):856-870.  <br>
+[20] HALL DCN, BENNDORF RA. Aspirin sensitivity of PIK3CA-mutated Colorectal Cancer: 
+potential mechanisms revisited[J]. Cell Mol Life Sci. 2022 Jul 2;79(7):393.  <br>
+[21] TIMAR J, KASHOFER K. Molecular epidemiology and diagnostics of KRAS mutations in human cancer[J]. Cancer Metastasis Rev. 2020 Dec;39(4):1029-1038. <br>
+[22] YU T T, WANG C Y, TONG R. ERBB2 gene expression silencing involved in ovarian cancer cell migration and invasion through mediating MAPK1/MAPK3 signaling pathway[J]. Eur Rev Med Pharmacol Sci, 2020. 24(10): p. 5267-5280. <br>
+[23] MANTOVANI A, ALLAVENA P, SICA A, et al. Cancer-related inflammation[J]. Nature, 2008. 454(7203): p. 436-44. <br>
+[24] CHOI J. Cancer as a Metabolic Disorder[J]. International Journal of Molecular Sciences, 2022, 23.<br>
+[25] NAJAFI MASOUD, FARHOOD BAGHER, MORTEZAEE KEYWAN. Extracellular matrix 
+(ECM) stiffness and degradation as cancer drivers[J]. Journal of cellular biochemistry,2019,
+120(3):2782-2790. <br>
+[26] Steinmetz, A. R., Pierce, M., Martini, A., Tholomier, C., Manyam, G., Chen, Y., … Mokkapati, S. (2024). Single-cell RNA sequencing analysis identifies acute changes in the tumor microenvironment induced by interferon α gene therapy in a murine bladder cancer model. Frontiers in Immunology, 15, 1387229. <br>
+            
+        </div>
+        </div>
+    </section>
+  </div>  
+</div>
+
+
+      <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>Contact us by</p>
+                <p>Email : 1402418580@qq.com | Phone: 86-13566087400</p>
+                <p>Address : 800 Xiangyin Road, Yangpu District, Shanghai, China, 200433.</p>
+            </div>
+            
+            <div class="copyright-container">
+                <div class="copyright">&copy; 2025 Onco_Strat</div>
+            </div>
+        </div>
+    </footer>
+    <script>
+            
+        // 关键资源URL列表
+        const criticalResources = [
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png',
+            ,
+        ];
+
+        // 预加载图片资源
+        function preloadImages(urls) {
+            return Promise.all(
+                urls.map(url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            updateProgress();
+                            resolve(url);
+                        };
+                        img.onerror = () => {
+                            console.warn(`Failed to load image: ${url}`);
+                            updateProgress();
+                            resolve(url); // 即使加载失败也继续
+                        };
+                        img.src = url;
+                    });
+                })
+            );
+        }
+
+        // 更新加载进度
+        let loadedResources = 0;
+        function updateProgress() {
+            loadedResources++;
+            const progress = Math.min(100, Math.round((loadedResources / criticalResources.length) * 100));
+            document.getElementById('loadingBar').style.width = `${progress}%`;
+            document.getElementById('loadingText').textContent = `loading... ${progress}%`;
+        }
+
+        // 隐藏加载动画
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('hidden');
+            
+            // 可选：完全移除元素
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        }
+
+        // 初始化加载过程
+        document.addEventListener('DOMContentLoaded', () => {
+            const startTime = Date.now();
+            const minDisplayTime = 1500; // 最小显示时间1.5秒
+            
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    // 即使出错也要确保显示至少1.5秒
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                });
+        // 创建星空背景等其他初始化代码
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+
+        // 原有的星空和滚动处理函数
+        function createStars() {
+            const starBackground = document.getElementById('starBackground');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${animationDelay}s`;
+                
+                starBackground.appendChild(star);
+            }
+        }
+        
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const mountains = document.getElementById('mountains');
+            const sunBackground = document.getElementById('sunBackground');
+            
+            if (scrollPosition <= heroHeight * 1.2) {
+                const opacity = 1 - (scrollPosition / (heroHeight * 0.8));
+                sunBackground.style.opacity = opacity;
+                sunBackground.style.display = 'block';
+            } else {
+                sunBackground.style.opacity = 0;
+                sunBackground.style.display = 'none';
+            }
+        }
+        // 初始化
+        window.addEventListener('load', () => {
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+             document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('section');
+            
+            // 为导航链接添加点击事件
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有active类
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // 添加active类到当前链接
+                    this.classList.add('active');
+                    
+                    // 滚动到对应部分
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // 监听滚动事件，高亮当前部分
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+     </script>
+</body>
+</html>

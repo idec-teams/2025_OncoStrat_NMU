@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/icon.png">
+    <title>Collaboration</title>
+
+    <style>
+      :root {
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #eeedb4;
+            --text-color: #e6f1ff;
+            --text-secondary: #8892b0;
+            --font-main: 'Arial', sans-serif;
+             font-size: 62.5%; 
+        }
+        /* 加载层样式 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-logo {
+            height: 30vh;
+            width: 30vh;
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: rotate 10s linear infinite;
+            margin-bottom: 5vh;
+        }
+
+        .pulse-container {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin-bottom: 3vh;
+        }
+
+        .pulse-ball {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.8;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+
+        .pulse-ball:nth-child(1) { animation-delay: 0s; }
+        .pulse-ball:nth-child(2) { animation-delay: 0.4s; }
+        .pulse-ball:nth-child(3) { animation-delay: 0.8s; }
+        .pulse-ball:nth-child(4) { animation-delay: 1.2s; }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2vh;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #f8f8f8;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.6rem;
+            margin-top: 2vh;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .Chapter {
+            font-weight: bold;
+            color: #f37704ef;
+            font-size: 6rem;
+            font-family: 'Times New Roman', Times, serif;
+        
+           }
+        .nomal-style{
+            color: #000000; 
+            position: relative; 
+            font-size: 2rem;
+            font-weight: 200;
+            padding-left: 5vh;;
+            padding-right: 5vh;
+            text-align: justify;
+            line-height: 1.8; 
+
+        }
+         .title-style{
+            color: #000000; 
+            position: relative; 
+            font-size: 4rem;
+            font-weight: bold;
+            padding-left: 5vh;;
+            padding-right: 5vh;
+            text-align: left;
+            line-height: 1.8; 
+            padding-top: 70px; /* 导航栏高度 */
+            margin-top: -70px; /* 抵消padding对布局的影响 */
+
+        }
+.vertical-line {
+    position: absolute;
+    top: -2vw;
+    left: 50%;
+    bottom: 0;
+    width: 2px;
+    height: calc(100%+2vw);
+    background-color: #000;
+}
+
+.horizontal-line {
+    position: absolute;
+    top: 50%;
+    left: -2vw;
+    right: -2vw;
+
+    width: calc(100%+4vw);
+    height: 2px;
+    background-color: #000;
+    
+}
+            
+       .home1{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            font-weight: bold; /* font-medium */
+            color: #f0f0f0; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+           
+            white-space: nowrap; /* 防止换行 */
+            overflow: hidden;
+            text-shadow:  -0.3rem -0.3rem 0 #000,  
+                            0.3rem -0.3rem 0  #000, 
+                            -0.3rem  0.3rem 0 #000,  
+                             0.3rem  0.3rem 0  #000;  
+        }
+        .home2{
+            font-family: "Fira Sans", sans-serif;
+            font-size: 1.5rem; /* text-2xl */
+            /* font-weight: lighter; */
+            color: #000000; /* text-primary-text-color */
+            padding-left: 0.625rem; /* pl-2.5 */
+          
+            white-space: wrap;
+            overflow: hidden;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .sider {
+            background:transparent;
+            min-width: 20vw;
+            height: 90vh;
+            border-radius: 1.2rem;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 20px;
+            align-self: flex-start;
+        }
+         /* 侧边栏样式 - 亮红色系 */
+        .sidebar {
+            background: white;
+            width: 15vw;
+            height: 45vh;
+            border-radius: 1.2rem;
+            padding: 2rem;
+            box-shadow: 0 0.5rem 2rem rgba(255, 77, 77, 0.15);
+            border: 0.1rem solid rgba(255, 105, 105, 0.2);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            top: 20px;
+            align-self: flex-start;
+        }
+        
+        .sidebar-header {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 105, 105, 0.3);
+        }
+        
+        .sidebar-header h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            color: #ff4757;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sidebar-header h2 i {
+            font-size: 3rem;
+        }
+        
+        .sidebar-content {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        
+        /* 滚动条样式 */
+        .sidebar-content::-webkit-scrollbar {
+            width: 1vw;
+        }
+        
+        .sidebar-content::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 105, 105, 0.5);
+            border-radius: 2vw;
+        }
+        
+        .toc-list {
+            list-style: none;
+        }
+        
+        .toc-item {
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+        
+        .toc-link {
+            color: #ff6b81;
+            text-decoration: none;
+            display: block;
+            padding: 0.8rem 1.2rem;
+            border-radius: 0.6rem;
+            transition: all 0.3s ease;
+            font-size: 2rem;
+        }
+        
+        .toc-link:hover {
+            background-color: rgba(255, 107, 129, 0.1);
+            padding-left: 1.6rem;
+            color: #ff4757;
+        }
+        #top.toc-link:hover{
+            background-color:transparent !important;
+            padding-top: 2rem !important ;
+            color: #ff4757!important ;
+        }
+        .toc-link.active {
+            background-color: rgba(255, 107, 129, 0.15);
+            font-weight: 500;
+            color: #ff4757;
+        }
+        
+        .toc-item.level-1 > .toc-link {
+            font-weight: 600;
+            font-size: 3rem;
+            margin-top: 0.8rem;
+            color: #ff3838;
+    
+        }
+        
+        .toc-item.level-2 {
+            margin-left: 1.2rem;
+            font-size: 2rem;
+        }
+        
+        .toc-item.level-2 .toc-link {
+            color: #ff7c8b;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: #000; /* 整个页面背景为黑色 */
+            overflow-x: hidden;
+        }
+
+        .sidebar-btn {
+            /* background-image: url('/images/1.png'); */
+            background-size: contain;
+            width: 16vh;
+            height: 24.5vh !important;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            align-self: flex-start;
+            top:7vh
+        }
+
+       /* 导航栏样式 */
+         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            margin-bottom: 0;
+            padding:0.5rem 0.5rem;
+            padding-right: 2vw;
+            display: flex;
+            
+            /* justify-content: space-between; */
+            align-items: center;
+            background: linear-gradient(to right, rgba(230, 54, 10, 0.7), rgba(200, 40, 5, 0.85));
+            z-index: 1000;
+            backdrop-filter: blur(1rem);
+            transition: all 0.4s ease;
+            border-bottom: 0.1rem solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(180, 40, 5, 0.95);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+        }
+        .nav-links {
+            display: flex;
+            /* justify-content: flex-end; */
+            margin-left: 15vh;
+            flex-grow: 1;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.4rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-0.2rem);
+        }
+        
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 15%;
+            width: 70%;
+            height: 0.2rem;
+            background: #fff;
+            animation: underline 0.3s ease;
+        }
+        
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 0.4rem;
+            background: #fff;
+            border-radius: 0 0.2rem 0.2rem 0;
+        }
+        
+        .nav-links a i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+        .logo {
+            position:relative;    
+            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png");
+            width: 100%;
+            height: 100%; 
+            /* font-size: 24px;
+            font-weight: bold; */
+
+             
+            background-size: contain;
+            background-position: left center;
+            background-repeat: no-repeat;
+            /* color: var(--accent-color); */
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5vh;
+            justify-content: flex-end; /* 确保链接靠右对齐 */
+            flex-grow: 1; /* 占据剩余空间 */
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color:  #eeedb4;
+        }
+        .sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    position: absolute; /* 绝对定位 */
+    left: 0%; /* 左侧对齐 */
+    width:15rem ;
+    background: white; /* 背景色 */
+    border-left: 10px solid #db3434 ;
+    top: 5vh;
+    padding: 0; 
+    text-align: left; /* 文本左对齐 */
+    font-weight: bold;
+    box-shadow: 0rem 0.4rem 2rem -0.5rem rgba(0, 0, 0, 0.15); /* 阴影效果 */
+    max-width: 30rem; /* 最大宽度 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.45s ease all 0.1s; /* 过渡动画 */
+    z-index: 10; /* 较高层叠顺序 */
+    border-radius: 1rem; /* 圆角 */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    list-style: none;
+}
+.sub-menu .menu-item {
+    display: block; /* 块级显示 */
+    padding-left: 0;
+}
+.sub-menu .sub-menu-item a {
+    color: #000;
+    height: 3rem;
+    font-size: 1.5rem;
+    margin-left: 0rem;
+    padding-left: 0;
+
+    
+
+}
+.menu-item:nth-child(n+2):nth-child(-n+5) .plus-icon {
+    width: 1rem; /* 图标宽度 */
+    height: 1rem; /* 图标高度 */
+    stroke: hsl(0, 94%, 52%); /* 图标颜色 */
+    margin-bottom: 0.1rem; /* 底部外边距 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5) .sub-menu-item {
+    list-style-type: none; /* 移除列表标记 */
+    display: block; /* 块级显示 */
+    margin: 1rem; /* 外边距 */
+    position: relative; /* 相对定位 */
+    transform: translateY(-1.5rem); /* Y轴位移 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.1s; /* 过渡动画 */
+    visibility: hidden; /* 隐藏元素 */
+    border-radius: 40%; /* 圆角 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu {
+    max-height: 80rem; /* 最大高度 */
+    max-width: 12rem; /* 最大宽度 */
+    opacity: 1; /* 完全不透明 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a {
+    transition: 0.15s ease all; /* 链接过渡动画 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a:hover {
+    color: #fc1202; /* 链接悬停颜色 */
+    text-decoration: underline #fc1202;
+    text-underline-offset: 0.8rem   ;
+     text-decoration-thickness: 0.2rem  ;
+
+
+}
+
+/* 子菜单项动画延迟设置 */
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:first-child {
+    transform: translateY(0px); /* 重置位移 */
+    opacity: 1; /* 完全不透明 */
+    transition-delay: 0.15s; /* 动画延迟 */
+    visibility: visible; /* 显示元素 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(2) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.3s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(3) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(4) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(5) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(6) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(7) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* 太阳背景图片 - 固定在图层底部 */
+        .sun-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%; 
+            transition: opacity 0.3s ease-out; 
+            /* 添加渐变效果使太阳与黑色背景融合
+            mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 30%, rgba(0,0,0,0) 70%); */
+        }
+        
+        /* 山脉前景图片 */
+        .mountains {
+            position: absolute;
+            left: 0;
+            top:0;
+            width: 100%;
+            height: 100%;
+            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png') bottom/cover no-repeat;
+            z-index: 3;
+            transition: transform 0.8s ease-out;
+        }
+        
+        /* 英雄内容区域 */
+        .hero-content {
+            position: relative;
+            z-index: 4;
+            text-align: center;
+            padding: 30px;
+            background: transparent;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            max-width: 100%;
+        }
+        
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            color: #f0f0f0;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            background: transparent;
+            /* color: var(--accent-color); */
+            /* border: 1px solid var(--accent-color); */
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+        
+        .btn:hover {
+            background:transparent;
+            transform: translateY(-3px);
+        }
+        
+        .scroll-indicator {
+            position: absolute;
+            bottom: 12vh;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+            z-index: 4;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-20px); }
+            60% { transform: translateX(-50%) translateY(-10px); }
+        }
+         /* 视频背景容器 */
+        .video-background {
+            position: relative;
+            width: 65vw;
+            min-height: 40vh;
+            padding-top: 2vh;
+            height: auto; 
+            overflow: hidden;
+            overflow: visible;
+        
+        }
+        
+        /* 视频样式 */
+        .video-background video {
+            position: relative; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width:100%; 
+            /* min-height: 40vh; */
+            height: auto;
+            z-index: 3;
+            
+        }
+        
+        /* 遮罩层 */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 3;
+        }
+           /* 视频控制按钮 */
+        .video-controls {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            z-index: 5;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            /* transition: background 0.3s; */
+            margin-left: 10px;
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        /* 备用图像样式 */
+        .fallback-image {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        
+        /* 内容区域 */
+        .content-section {
+            /* padding: 100px 5%; */
+            background-color: #000; /* 黑色背景 */
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            /* width: 100vw; */
+            display: flex;
+            flex-direction: column;
+            /* justify-content: center; */
+        }
+        
+        .container {
+            /* max-width: 1200px; */
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: transform 0.3s;
+            border: 1px solid rgba(100, 255, 218, 0.1);
+        }
+        
+        .-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+        }
+        
+        .-card h3 {
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        
+        /* 星空背景 */
+        .star-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+        .hero-0{
+            /* left: auto; */
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png');
+            background-size: cover;
+            background-position: top;
+            display: flex;
+            justify: center;
+            z-index:10;
+
+        }
+        
+        .text-0{
+            /* left: auto; */
+            top: 0;
+            min-height: 100vh;
+            /* width: 100%; */
+            position: relative;
+            padding: 0;
+            display: flex;
+            justify: center;
+            z-index:5;
+            flex-direction: column
+        }
+
+        .text-{
+            flex: 1;
+            width: 100%;
+            height: auto;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            flex-direction: column
+        }
+        footer {
+            background-position: top;
+            background-color: #000;
+            padding: 40px 5vw; /* 修改为左右对称的padding */
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            min-height: 20vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .footer-content {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-contact {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .footer-contact p {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .copyright-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero- h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero- p {
+                font-size: 1.1rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+          /* 文本div的容器 */
+        .text-content0{
+            /* left: auto; */
+            top: 0;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+            padding: 0;
+            display: flex;
+            /* justify-content: center; */
+            z-index:10;
+            flex-direction: column
+        }
+        /* 文本的div */
+        .text-content{
+            flex: 1;
+            width: 100%;
+           
+            min-height: 100vh;
+            height: auto;
+            display: flex;
+            /* justify-content: center;  */
+            align-items: center;
+            flex-direction: column
+        }
+
+        /* 表格的样式 */
+        th, td {
+            border: 0.2rem solid #000000;
+            padding: 8px;
+            text-align: left;
+        }
+        th.col1{
+            width:40vw ;
+        }
+        
+        th.col2{
+            width: 40vw;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #9eb9ec;
+        }
+        
+        tr:hover {
+            background-color: #f3c7c7;
+        }
+        /* 超链接 */
+            a.text-link:hover {
+            text-decoration: underline #0a35f8c5!important;
+          
+        
+        }
+
+            /* 进度条样式 */
+        .progress-container {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            height: 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #ff4757;
+            width: 0%;
+            border-radius: 4px;
+            transition: width 0.1s linear;
+        }
+        
+        .progress-handle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+        
+        .time-display {
+            color: white;
+            font-size: 14px;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+
+   <!-- 加载动画层 -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-logo"></div>
+            <div class="pulse-container">
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+            </div>
+            <div class="loading-progress" >
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="loading-text" style="margin-top: 20vh ;" id="loadingText">loading...</div>
+        </div>
+    </div>
+   
+   
+    <!-- 星空背景 -->
+
+         <div class="star-background" id="starBackground"></div>
+        <!-- 导航栏 -->
+        <nav>
+            <div class="logo-container" style="width: 20vw; height: 3vw;">
+        <div class="logo"></div>
+            </div>
+        <div class="nav-links">
+
+            <a href="https://idec-teams.github.io/2025_OncoStrat_NMU/"><H1>Home</H1></a>
+           <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Project&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/background.html">Background</a></li>
+                                             <li class="sub-menu-item"><a href="#">Design</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Results</a></li>
+                                                     <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Report.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Report</a></li>
+                                                         <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Poster.pdf" rel="noopener noreferrer" title="click to PDF">Poster</a></li>
+                                                                <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Supplement.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Supplement</a></li>
+                                            <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/safety.html">Safety</a></li>
+                                           
+                                        
+
+                                        </ol>
+            </li>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Document&nbsp;&#9660</H1></a>
+                  <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Protocols.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Protocols</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Lab&nbsp;notebook</a></li>
+                                                     
+                                                         
+                                        </ol>
+            </li>
+            <a href="#"><H1>ML-Model</H1></a>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Team&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="{{ get_url(path='team.html') }}">Member</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Community </a></li>
+                                                     <li class="sub-menu-item"><a href="#">Collaboration</a></li>
+                                                         
+                                        </ol>
+            </li>
+        </div>
+    </nav>
+    <!-- 英雄区域 -->
+    <section class="hero" style="display: flex; top: 0;" id="hero">
+        <div class="sun-background" style="background-size: cover;" id="sunBackground"></div>
+        <div class="mountains"  style="background-size: cover; " id="mountains"></div>
+         <div class="hero-content">
+            <!-- 调整布局 -->
+            <a href="#content" class="btn"> </a>
+        </div> 
+        
+    <div id="titletext">
+        
+            <!-- 调整布局 -->
+        
+    </div>
+            <div class="scroll-indicator" style="font-size: 40px;">Explore more &#8681</div>
+    </section>
+
+
+    
+       
+     <!-- 给侧边栏 位置 容纳所有content的div -->
+ <div id="sidercontent" style="background-color:transparent;min-height: 100vh; height: auto; width: 100vw; position: relative;margin-top: 5vh;padding-left: 2vw; display: flex;align-items: flex-start;"> 
+     <!-- 侧边栏 -->
+      <div class="sider">
+    <aside class="sidebar" style="top:5vh; z-index: 9; min-height: 30vh;height: auto;  min-width: 23rem;">
+        <div class="sidebar-header">
+            <h2><i class="fas fa-fire"></i> CONTENT</h2>
+        </div>
+        <div class="sidebar-content">
+            <ul class="toc-list" id="toc">
+                <li class="toc-item level-1">
+                    <a href="#Foreword" class="toc-link"style="font-size: 1.8rem ;" >Foreword</a>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#Laboratorybiosafety" class="toc-link" style="font-size: 1.7rem;">Laboratory biosafety</a>
+                    <ul class="toc-list">
+                        <!-- <li class="toc-item level-2">
+                            <a href="#colors" class="toc-link">色彩方案</a>
+                        </li>
+                        <li class="toc-item level-2">
+                            <a href="#typography" class="toc-link">字体选择</a> -->
+                        </li>
+                    </ul>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#Experimentalsafety" class="toc-link" style="font-size: 1.7rem;" >Experimental safety</a>
+                    <ul class="toc-list">
+                <li class="toc-item level-1">
+                    <a href="#HP" class="toc-link" style="font-size: 1.7rem;" >HP Safety in & Dual-use analysis</a>
+                    <ul class="toc-list">
+        
+                    </ul>
+                </li> 
+                 
+                <!-- <li class="toc-item level-1">
+                    <a href="#Epilogue" class="toc-link" style="font-size: 1.7rem;">Hope Marches On</a>
+                </li> -->
+                <li class="toc-item level-1">
+                    <a href="#Reference" class="toc-link" style="font-size: 1.7rem;" >Reference</a>
+                    <ul class="toc-list">
+        
+                    </ul>
+                </li> 
+            </ul>
+        
+    </aside> 
+    <a id="top" href="#hero" class="toc-link">
+    <aside class="sidebar-btn" style=" background-image:url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/top.png');  display: flex;  z-index: 9; min-width: 23rem;background-repeat: no-repeat;"></aside>
+    </a>
+    </div>
+    <!-- 视频和文字的div  -->
+<div id="content-omit-sider" style="margin-top: 0;min-height: 100vh;width: 75vw; height: auto; margin-left: 2vw;margin-bottom: 5vh; display: flex;flex-direction:column ;  overflow: visible;  padding-inline: 5vh;">
+    <!-- 内容区域 --> 
+    <section id="content" class="content-section" style="background-color: #f0f0f0; max-width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative; padding-bottom: 10vh;">
+        
+       <div class="text-content0">
+        <div class="text-content">
+            
+           <p  id="Foreword"     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
+            NMU-CHINA iDEC Team 2025<br> Annual Record of Collaboration and Exchange
+            </p>
+
+            <p class="nomal-style" style="position:relative;"> The success of our project is indebted to the active collaboration and exchange with academic experts, research institutions, and fellow iDEC teams throughout the year. These interactions have provided us with invaluable guidance, resources, and inspiration.
+            </p>
+
+
+
+             <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;justify-content: center;">
+                <div class="img" style="
+                    background-image: 
+                    url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片9.png'); width: 90%; height: 85vh;background-size: contain;background-repeat: no-repeat">
+
+                </div>
+                
+                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">
+                     October 2025: Interview with Professor Zhang Wei from Changhai Hospital
+                    </h>
+                  </div>  
+             </div> 
+
+
+             <p class="nomal-style" style="position:relative;"> 
+               
+            To deepen our understanding of the challenges in bladder cancer treatment and explore the application of cutting-edge biotechnology in precision medicine, we were honored to invite Professor Zhang Wei, a renowned expert in the Department of Urology at Shanghai Changhai Hospital, for a team interview.<br>
+
+                    Professor Zhang Wei possesses extensive experience in the clinical diagnosis, surgical treatment, and innovative therapy research for bladder cancer. His team is consistently dedicated to translating the latest scientific research findings into clinical practice, bringing more effective treatment options to patients.<br>
+
+                    This interview focused on the pathogenesis of bladder cancer and the current challenges in clinical treatment, such as high postoperative recurrence rates and chemotherapy resistance. Simultaneously, we specifically sought Professor Zhang's insights on the application prospects of directed evolution technology in urological tumor research. We discussed how to utilize this powerful biotechnology tool to simulate the evolution pathways of tumor cells to predict drug resistance, and even to develop new targeted drugs or diagnostic and therapeutic strategies.<br>
+
+                    We believe that the insightful perspectives from Professor Zhang, grounded in frontline clinical practice, will provide crucial guidance for our synthetic biology-based project design, helping our research better align with actual clinical needs, bridging the gap between bench and bedside.
+             </p>
+
+
+              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;justify-content: center;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2a.png'); width: 45%; height: 30vh;background-size: contain;background-repeat: no-repeat"></div>
+                 <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2b.png'); width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
+                
+                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">
+                        Summary of Participation in Online Seminar by Professor Zhang Shuailong from Beijing Institute of Technology</h>
+                  </div>  
+             </div> 
+
+
+              <p class="nomal-style" style="position:relative;"> 
+               
+          To keep pace with the latest technological dynamics in the field of directed evolution and broaden the team's perspective on miniaturized, high-throughput biotechnology platforms, the NMU-CHINA iDEC team actively participated in the 2025 iDEC Summer Symposium. We focused on attending the special lecture titled "Future High-Throughput Technologies Driven by Advanced Micro-Total Analysis Systems (µTAS)" delivered by Professor Zhang Shuailong from the Beijing Institute of Technology.<br>
+
+As a leading scholar in the fields of micro-nano operating systems and lab-on-a-chip, Professor Zhang Shuailong has achieved numerous groundbreaking results in optoelectronic tweezers, digital microfluidic systems, and integrated biomedical detection. In his report, he systematically introduced the latest advances in µTAS technology, particularly how innovative methods such as optoelectrically driven micro-nano robots and reconfigurable microfluidics enable precise manipulation and high-throughput analysis of cells and biomolecules.<br>
+
+This learning experience provided important technical inspiration for the high-throughput screening and biomolecular optimization involved in our project. The micro-nano integrated systems demonstrated by Professor Zhang offered new ideas for exploring the integration of the directed evolution process with miniaturized, automated platforms, showing significant reference value especially in improving experimental efficiency, reducing reagent consumption, and enabling real-time monitoring.<br>
+
+We firmly believe that assimilating the concepts from such cutting-edge engineering technologies will vigorously promote tool innovation and platform construction in our project's direction of targeted therapy for bladder cancer, further enhancing the project's technical integration and translational potential.
+              </p>
+
+
+               <p class="nomal-style" style="position:relative;"> 
+               
+       To gain an in-depth understanding of the latest progress in current genomics sequencing technology and its application potential in the field of synthetic biology, the NMU-CHINA iDEC team invited a senior technical expert from BGI Genomics to conduct an online technical exchange session for all members on the theme "Application and Practice of High-Throughput Sequencing Technology in Directed Evolution Research."<br>
+
+As a globally leading genomics research and development institution, BGI possesses profound accumulation in sequencing platform development, bioinformatics analysis, and multi-omics data integration. During this exchange, the technical expert systematically introduced the basic principles and process optimization of next-generation sequencing technology, focusing on its key roles in mutant library construction, evolutionary trajectory tracking, and functional gene screening. Combined with practical cases, the expert demonstrated how to use sequencing data to deeply mine key mutation sites and evolutionary patterns during protein evolution.<br>
+
+This exchange provided important technical support for the high-throughput mutant screening and evolutionary path analysis involved in our project. The practical experience and solutions shared by the expert helped us further clarify the design of sequencing strategies and data analysis methods, offering significant reference value particularly in improving mutant identification efficiency, reducing sequencing costs, and enabling dynamic monitoring of the evolutionary process.<br>
+
+We are convinced that the deep integration of genomics sequencing technology and directed evolution research will greatly enhance the efficiency and precision of our project in the development and optimization stage of targeted components for bladder cancer, laying a solid data foundation for subsequent functional verification and translational applications.
+               </p>
+
+                <p class="nomal-style" style="position:relative;"> 
+               
+       To further enhance the team's knowledge level in the field of urological tumors and gain a deep understanding of the application status of novel targeted drugs in current clinical practice, the NMU-CHINA iDEC team recently visited the Department of Urology at the Eastern Hepatobiliary Surgery Hospital and held in-depth exchanges with intern Jiang Luoming and attending physician Dr. Gong Wenliang.<br>
+
+Dr. Gong Wenliang has rich experience in drug therapy and personalized diagnosis and treatment of urological tumors, with particular focus on the clinical application and mechanism research of targeted drugs in diseases like bladder cancer and prostate cancer. As a clinical intern, Mr. Jiang Luoming has also accumulated valuable practical perspectives from his clinical clerkship in urological oncology.<br>
+
+During the exchange, we focused on discussing the current development trends in targeted therapy for urological tumors, especially the application effects and challenges of antibody-drug conjugates (ADCs) like Disitamab Vedotin in clinical practice. Dr. Gong Wenliang, combining clinical cases, detailed the drug's mechanism of action, applicable populations, and adverse reaction management strategies, providing an important reference for our understanding of its value in real-world treatment scenarios.<br>
+
+It is worth mentioning that while reviewing the promotional brochure produced by our team, Dr. Gong Wenliang particularly praised: "The images are exquisite, and the content is comprehensive, particularly helpful for everyone to understand Disitamab Vedotin." This evaluation is not only an affirmation of our science communication efforts but also encourages us to continue conveying scientific knowledge in a professional and accessible manner.<br>
+
+This exchange provided valuable clinical input for the design of targeted component screening and drug delivery strategies in our project, further bridging the gap between us and the clinical frontline, and laying a good foundation for subsequent interdisciplinary collaboration.
+                </p>
+
+                 <p class="nomal-style" style="position:relative;"> 
+               
+      To promote the in-depth exploration of our project in the field of bladder cancer treatment and ensure its research direction is closely aligned with actual clinical needs, we were honored to invite Professor Zhang Sheng from Fudan University Shanghai Cancer Center to provide professional guidance for our project competition.<br>
+
+Professor Zhang Sheng has profound expertise in both clinical diagnosis/treatment and basic research of urological tumors, with a particular focus on precision therapy for bladder cancer and research on tumor evolution mechanisms. His team has achieved outstanding results in exploring the biological essence of clinical challenges such as tumor drug resistance and recurrence.<br>
+
+This guidance session will focus on the targeted therapy for bladder cancer involved in our project and the application of directed evolution technology. We anticipate that Professor Zhang, from a clinical perspective, will analyze the core bottlenecks in current bladder cancer treatment and guide us on how to utilize the cutting-edge strategy of directed evolution to simulate the evolution process of tumor cells, thereby designing more forward-looking and effective synthetic biology solutions. Professor Zhang's valuable experience will help us optimize our experimental design and enhance the scientific depth and potential application value of our project.<br>
+
+We firmly believe that Professor Zhang Sheng's professional guidance will inject crucial clinical insights into our participation in top competitions like iDEC, ensuring that our project is not only technologically innovative but also directly addresses clinical pain points, laying a solid foundation for future translational medicine research.
+                 </p>
+
+                   <p class="nomal-style" style="position:relative;"> 
+               
+     To promote the interdisciplinary integration of synthetic biology and preventive medicine, and to broaden the multidisciplinary perspective on frontier bladder cancer research, we sincerely invited students from the Preventive Medicine program at Fudan University to share our project results with them.<br>
+
+As a common malignant tumor worldwide, the occurrence, development, and recurrence of bladder cancer are closely related to risk factors such as environmental exposure and lifestyle, which are the core areas of focus for preventive medicine. Furthermore, the "drug resistance" developed by tumor cells under the pressure of drug treatment is essentially a dynamic micro-evolutionary process.<br>
+
+This sharing session focused on introducing how we use the powerful biotechnology tool of directed evolution to simulate this process in the laboratory. We presented how the project designs and implements evolutionary strategies, aiming to predict the evolution pathways of tumor cells in advance and screen for novel inhibitors, providing new potential strategies for the early intervention of bladder cancer and overcoming drug resistance.<br>
+
+We firmly believe that the macro perspective and population-level thinking of preventive medicine will infuse our micro-technological research with a crucial "big health" concept. We look forward to exchanging ideas and colliding thoughts with fellow students, jointly exploring how to better translate cutting-edge biotechnology achievements into public health solutions covering the entire chain of "prevention-diagnosis-treatment." Let us join hands to explore more innovative possibilities for the prevention and treatment of bladder cancer.
+                   </p>
+                     <p class="nomal-style" style="position:relative;"> 
+               
+   To explore the new possibilities arising from the integration of cutting-edge life sciences and advanced engineering technology, we sincerely invited faculty and students from the Measurement and Control Technology and Instrumentation program at Nanjing University of Aeronautics and Astronautics (NUAA) to participate in a topic discussion with the NMU-CHINA iDEC team.<br>
+
+How to convert biological signals from the micro-world into stable, reliable, and remotely monitorable physical signals is a key bottleneck for achieving their clinical application and even application in special environments.<br>
+
+This is precisely where the expertise of NUAA's Measurement and Control Technology and Instrumentation program comes into play. We look forward to discussing with the engineers and future scientists: how to innovatively apply the high-precision sensing technologies, miniaturized instrument design, and remote signal transmission and processing systems from aerospace engineering to our biological project. For example, developing miniaturized devices for real-time monitoring of live cell dynamics, or designing measurement and control solutions to ensure the stable operation of biosensors in complex environments.<br>
+
+We believe this exchange will be a true instance of "two-way empowerment." We bring pressing biomedical problems and innovative biological tools, while you provide the engineering expertise to turn concepts into real products. Let us join hands to break down disciplinary barriers and jointly explore innovative solutions in the precise diagnosis and treatment of bladder cancer and even broader fields.
+                     </p>
+                     <p class="nomal-style" style="position:relative;"> 
+               
+   Precise treatment of bladder cancer requires not only targeted biological strategies but also high-precision, high-efficiency drug delivery and surgical assistance technologies. The functional transformation of specific biological components screened by directed evolution technology – such as targeting ligands and sensing switches – through miniaturized devices, controlled release systems, or intelligent detection instruments is precisely the key link where mechanical engineering can play a core role.<br>
+
+This sharing session focused on analyzing the potential bladder cancer targeting components obtained through our directed evolution technology and exploring technical pathways for their integration with microfluidic chips, drug-controlled release devices, or image-guided instruments. We look forward to brainstorming with the Jilin University Mechanical Engineering team: how to translate biological characteristics into mechanical design parameters and collaboratively develop the next-generation precision treatment platform for bladder cancer.<br>
+
+We believe that the precise design capability and systematic thinking of mechanical engineering will inject key momentum into the instrumentalization and automation of synthetic biology achievements. We anticipate that through this exchange, we can jointly promote the advancement of bladder cancer treatment from "biological discovery" to "engineering realization," building an innovative paradigm for interdisciplinary collaboration.<br>
+                     </p>
+
+                     <p class="nomal-style" style="position:relative;"> 
+               
+   To promote the deep integration of basic research and clinical perspectives, and ensure our research topic is close to medical reality, our team recently conducted a productive online project exchange with clinical medicine students from Shandong University, Shandong First Medical University, and Changchun University of Chinese Medicine.<br>
+
+This exchange focused on the core challenges of targeted therapy for bladder cancer in our project and the innovative directed evolution technology strategy. Students from different institutions, with backgrounds in clinical clerkships or research, provided valuable insights from diverse clinical perspectives. They shared the real challenges observed for bladder cancer patients during their urology clerkships, particularly regarding clinical pain points like tumor heterogeneity and chemotherapy resistance, which provided crucial real-world context for our research direction.<br>
+
+During the discussion, we deeply explored forward-looking concepts such as how to use directed evolution technology to simulate evolutionary pressures in the tumor microenvironment and predict pathways to drug resistance. Our clinical counterparts offered pertinent advice on the feasibility of our technical approach and potential translational prospects, and inspired us to think about how to more effectively integrate synthetic biology tools with existing clinical diagnosis and treatment frameworks.<br>
+
+This cross-institutional, interdisciplinary exchange greatly broadened our research horizons and effectively helped our project take a solid step from "laboratory conception" towards "solving real clinical problems." We sincerely thank all our clinical medicine counterparts for their generous guidance and look forward to maintaining communication in the future to jointly explore new strategies for bladder cancer treatment.<br>
+                     </p>
+
+                       <p class="nomal-style" style="position:relative;"> 
+               
+  
+
+To promote the deep integration of basic research and clinical perspectives, and ensure our research topic is close to medical reality, our team recently conducted a productive online project exchange with clinical medicine students from Shandong University, Shandong First Medical University, and Changchun University of Chinese Medicine.<br>
+
+This exchange focused on the core challenges of targeted therapy for bladder cancer in our project and the innovative directed evolution technology strategy. Students from different institutions, with backgrounds in clinical clerkships or research, provided valuable insights from diverse clinical perspectives. They shared the real challenges observed for bladder cancer patients during their urology clerkships, particularly regarding clinical pain points like tumor heterogeneity and chemotherapy resistance, which provided crucial real-world context for our research direction.<br>
+
+During the discussion, we deeply explored forward-looking concepts such as how to use directed evolution technology to simulate evolutionary pressures in the tumor microenvironment and predict pathways to drug resistance. Our clinical counterparts offered pertinent advice on the feasibility of our technical approach and potential translational prospects, and inspired us to think about how to more effectively integrate synthetic biology tools with existing clinical diagnosis and treatment frameworks.<br>
+
+This cross-institutional, interdisciplinary exchange greatly broadened our research horizons and effectively helped our project take a solid step from "laboratory conception" towards "solving real clinical problems." We sincerely thank all our clinical medicine counterparts for their generous guidance and look forward to maintaining communication in the future to jointly explore new strategies for bladder cancer treatment.<br>
+                       </p>
+
+                       <p class="nomal-style" style="position:relative;"> 
+               
+  
+
+To deepen the project's research foundation in the intersection of immune regulation and cancer therapy, we conducted multiple in-depth exchanges with SynthImmunol_NMU, a team from our university also participating in the iDEC competition. This team, guided jointly by Lecturer Luo Jianhua and Associate Professor Guo Meng from the Immunology Teaching and Research Section, focuses on the application of synthetic biology in immune engineering.<br>
+
+The two teams shared their respective research results and progress around core topics such as "Characteristics of the Tumor Microenvironment in Bladder Cancer" and "How to Use Directed Evolution Technology to Optimize Immunotherapy Strategies." Through these exchanges, we gained valuable inspiration in areas such as targeted delivery of immune cells and overcoming the immunosuppressive environment, and held productive discussions on the challenges within the technical route.<br>
+
+Based on the depth and mutual trust established through the exchanges, we sincerely invited Professor Luo Jianhua and Professor Guo Meng to serve as professional knowledge advisors for this project. The profound knowledge and research experience of the two Professors in the field of immunology will provide authoritative academic support for our project in key areas such as immune mechanism verification and therapy safety evaluation. Their guidance will ensure our design is more rigorous in biological logic, significantly enhancing the project's scientific quality and competitiveness.<br>
+
+We believe that this cross-team collaboration and the addition of expert advisors represent an important step for the project to deepen and achieve technological breakthroughs.<br>
+                       </p>
+
+
+
+
+
+           
+          
+            <p  id="Laboratorybiosafety"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh;font: size 3rem; ; text-align: left;align-self: flex-start;text-align: left;">
+            Laboratory biosafety
+            </p>
+           <p class="nomal-style" style="position:relative; ">
+            <span  id="General laboratory safety" style="font-size: 3rem; font-weight: bold;">
+            General laboratory safety
+            </span>
+            <br>
+            The iDEC laboratory, located in the Department of Biochemistry and Molecular Biology of the Naval Medical University, is classified as BSL-II and complies with the General Guidelines for Biosafety in Pathogenic Microbiology Laboratories[1] as well as the Regulations on the Safety of Laboratories in Higher Education[2]. The main safety equipment in our laboratory includes:<br>
+            1. Biological safety cabinet.<br>
+            2. Flame retardant and waterproof workbench, which can withstand the corrosion of certain temperatures, acids and alkalis, disinfectants and other chemicals.<br>
+            3. Autoclave and other related sterilization equipment.<br>
+            4. Necessary personal protective equipment, goggles, protective gloves, face shields, etc.<br>
+            5. Fine mechanical ventilation system with filter.<br>
+            6. Registration of entry and exit from the laboratory.
+            </p>
+
+
+             <p class="nomal-style" style="position:relative; ">
+            <span  id="Waste disposal" style="font-size: 3rem; font-weight: bold;">
+             Waste disposal
+            </span>
+            <br>
+           (1) Waste Sterilization and Storage: Laboratory waste, including culture media, must be autoclaved to prevent environmental contamination. Waste liquids should be stored in properly sealed containers and kept in well-ventilated areas.<br>
+            (2) Waste Collection and Segregation: Waste should be collected and stored according to its chemical and hazardous properties. Mixing incompatible hazardous wastes is prohibited, and detailed records (including type, quantity, characteristics, packaging, and transfer dates) must be maintained[3].<br>
+            (3) Waste Reconfirmation and Inspection: Before disposal, waste will be reconfirmed as non-toxic and non-hazardous to ensure environmental and personnel safety. Regular inspections will be conducted to verify the sealing, integrity, labeling, and storage duration of containers.<br>
+            (4) Labeling and Centralized Waste Management: All containers, infectious materials, and waste must be clearly labeled and stored in designated locations. Laboratory waste is centrally managed and treated using appropriate physical or chemical methods. Waste that cannot be disposed of immediately is stored in specialized bins with clear labels.<br>
+            (5) Equipment Maintenance and Sanitation: Equipment is routinely cleaned, maintained, and repaired. In the event of malfunction, immediate thorough cleaning and sterilization will be performed to maintain a hygienic and safe laboratory environment.
+
+            </p>
+
+
+             <p class="nomal-style" style="position:relative; ">
+            <span  id="Laboratory safety regulations" style="font-size: 3rem; font-weight: bold;">
+             Laboratory safety regulations
+            </span>
+            <br>
+           To ensure standardized experimental procedures and personal safety, we adhere to the following safety regulations:
+           <br>
+           (1) Laboratory as an Important Space: The laboratory is a crucial venue for conducting teaching, research, and other experimental activities. Laboratory personnel must voluntarily comply with and uphold laboratory safety management regulations and follow the instructions of laboratory supervisors.
+           <br>
+           (2) Safety Training and Qualification: Personnel must first undergo training in safety knowledge, safety skills, and operational standards. They must master the correct use of equipment, facilities, and protective gear. Only those who pass the assessment are permitted to enter the laboratory and operate equipment.
+           <br>
+           (3) Risk Assessment for Hazardous Experiments: Experimental projects involving toxic or hazardous chemicals, dangerous gases, pathogens, radiation sources, radioactive devices, or special equipment must undergo risk assessment before commencing experimental activities[4].
+           <br>
+           (4) Electrical Safety: The unauthorized installation of high-power electrical appliances is strictly prohibited. Unauthorized wiring or the improper connection of power cables is forbidden, as is the daisy-chaining of multiple power strips. When electrical appliances are not in use for an extended period, the power supply should be disconnected.
+           <br>
+           (5) Gas Cylinder Management: Gas cylinders must be securely fastened and stored in well-ventilated areas, away from heat sources, and on flat, dry surfaces. Combustible gases and oxidizing gases should not be stored together.
+           <br>
+           (6) High-Risk Experiment Supervision: During experiments involving high temperature, high pressure, or high-speed operations, personnel must not leave their posts. Experiments conducted overnight require prior approval and must be supervised by at least two people.
+           <br>
+           (7) Waste Management: Laboratory waste must be sorted, collected, and temporarily stored according to regulations. It should not be discarded, poured out, or discharged indiscriminately, nor should it be mixed with general household waste.
+           <br>
+           (8) Confidentiality of Sensitive Experiments: Materials generated from confidential experimental projects must be managed through proper confidentiality channels, and strict confidentiality responsibilities must be implemented.
+           <br>
+            </p>
+
+            
+            <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.jpg'); width: 40%; height: 72vh;background-size: contain;background-repeat: no-repeat"></div>
+                 <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.1.png'); width: 55%; height: 68vh; background-size: contain;background-repeat: no-repeat"></div>
+
+                 
+                  
+                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">Figure. 1 | Some of laboratory safety regulations</h>
+                  </div>  
+             </div> 
+
+            <p  id="Experimentalsafety"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
+            Experimental safety
+            </p>
+            <p class="nomal-style" style="position:relative;">
+            &nbsp; &nbsp; &nbsp; &nbsp;Prior to starting our lab work, we received thorough safety training from our teachers, covering essential topics such as experimental techniques, waste management, chemical storage, equipment usage, and emergency procedures. Throughout our experiments, an experienced supervisor is on-site to provide guidance and ensure safe operations.
+            </p>
+
+             <p class="nomal-style" style="position:relative; ">
+            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold;text-align: left;">
+             Experimental skills training
+            </span><br>
+            The basic lab skills training encompasses various techniques such as cell culture and RNA extraction. Safety measures include meticulous documentation of equipment use, accurate labeling of samples, and strict compliance with waste disposal protocols 
+            <a  class = "text-link" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Emergency plan for laboratory accidents.pdf" target="_blank" rel="noopener noreferrer" title="click to PDF" style="color: #0a35f8c5; text-decoration: none;"> (for details, refer to Safety of common equipment and chemicals）.</a> In the event of accidents, instructors have outlined emergency evacuation routes and provided training on the use of first aid kits, fire-fighting equipment, and the lab accident emergency plan 
+             <a  class = "text-link" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Safety Regulations for Equipment and Chemicals.pdf" target="_blank" rel="noopener noreferrer" title="click to PDF" style="color: #0a35f8c5; text-decoration: none;">(for details, refer to Emergency plan for laboratory accidents）.</a>
+            Individuals who have not undergone safety training or demonstrated competence in basic lab skills are not permitted to conduct experiments. Throughout the experimental process, we maintain a rigorous and meticulous approach, ensuring every detail meets the required standards. With continuous effort, we are committed to making our lab work more efficient, safe, and reliable.
+            
+             </p>
+
+              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.1.jpg'); width: 35%; height: 55vh;background-size: contain;background-repeat: no-repeat"></div>
+                 <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.jpg'); width: 60%; height: 55vh; background-size: contain;background-repeat: no-repeat"></div>
+              </div>
+                 
+                  
+                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">
+                        Figure. 2 | The details of our laboratory safety
+                    </h>
+                  </div>  
+            <p class="nomal-style" style="position:relative; ">
+            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold;text-align: left;">
+             Personal protection training
+            </span>
+            <br>
+            <span style="font-weight: bold;">Dressing</span>: We always wear a standard long-sleeved lab coat, long pants, gloves, and a mask to ensure proper restraint of hair. Lab coats should reach the knees with sleeves snug at the wrists to prevent direct contact with hazardous materials. Avoid wearing jewelry that could compromise safety. Shoes must fully cover the feet, and high heels are prohibited.
+            <br>
+            <span style="font-weight: bold;">
+            Equipment usage:
+            </span>
+            <br>
+            (1) All equipment usage must be logged, and operating procedures must be strictly adhered to. Before using the equipment, carefully verify that all conditions meet the requirements and check for any abnormalities. During use, monitor the equipment’s status to ensure it operates normally, and make adjustments as needed to maintain optimal performance. After use, complete the required shutdown procedures, including sweeping, purging, or turning off the equipment. 
+            <br>
+            (2) Instrument maintenance is categorized into regular and daily maintenance, both aimed at identifying potential failure risks to implement timely preventive measures. Regular maintenance involves comprehensive servicing of large equipment at fixed intervals, while daily maintenance includes routine checks and inspections of instruments, such as spot check of each shift and the daily inspection[5].
+
+            </p>
+             <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh;height: auto; display: flex;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 2vh; justify-content: center;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-5.jpg'); width: 70vw; height: 88vh;background-size: contain;background-repeat: no-repeat"></div>
+             </div>
+                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;margin-bottom: 5vh;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">
+                     Figure 3 | Safety education
+                    </h>
+                  </div>   
+            <p  id="HP"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
+           HP Safety in & Dual-use analysis
+            </p>
+            <p class="nomal-style" style="position:relative;">
+            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold; text-align: left;">
+            Education    
+            </span>
+            <br>
+            Meanwhile, we attach great importance to "Laboratory safety". After the report of the incidents of "Collective Cancer Attack in a Laboratory Group of the Second Affiliated Hospital of Sun Yat-sen University" in November 2023, our team collectively learned the news and exchanged our own thoughts. On November 8, the Second Affiliated Hospital of Sun Yat-sen University issued an announcement saying that three of the people who have worked and studied in the laboratory of the Breast Tumor Center in recent years have suffered from cancer, and many people suspect that the incident is related to experimental reagents and materials. Although the existing information cannot prove that the cancer of the three students is related to the laboratory, the laboratory safety issue must arouse great public concern.
+            </p>
+            <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh;height: auto; display: flex;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 2vh; justify-content: center;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-3.jpg'); width: 70vw; height: 65vh;background-size: contain;background-repeat: no-repeat"></div>
+             </div>
+                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;margin-bottom: 5vh;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 18px; ">
+                     Figure 4 <br><br> Online Discussion Regarding the Mass Cancer Incident at the Second Affiliated Hospital of Sun Yat-sen University, NetEase News Network, China, 14 November
+                    </h>
+                  </div> 
+                  
+                   <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh;height: auto; display: flex;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 2vh; justify-content: center;">
+                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-4.png'); width: 38vw; height: 60vh;background-size: contain;background-repeat: no-repeat"></div>
+             </div>
+                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;margin-bottom: 5vh;">
+                    <h style="  position: center; text-align: center; color: #000 ;font-size: 18px; ">
+                     Figure 5 <br><br>Official Statement Issued by the Second Affiliated Hospital of Sun Yat-sen University and NetEase News Network, China, 14 November
+
+                    </h>
+                  </div>   
+               <p class="nomal-style" style="position:relative;">
+            &nbsp;&nbsp;&nbsp;This news report prompted us to raise safety awareness by organizing regular training sessions, create a safer laboratory environment through rigorous inspections and maintenance procedures, and strictly regulate experimental operations by implementing a comprehensive set of rules and guidelines.
+            </p>
+
+
+            <p class="nomal-style" style="position:relative; margin-top: 5vh;">
+            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold; text-align: left;">
+            Dual-use analysis 
+            </span>
+            <br>
+            <span style="font-weight: bold; margin-top: 2.5vh;">(1) Possible Benefits of the Project</span>
+            <br>      
+            • Promoting rational drug use: Resistance biomarkers may reduce unnecessary RC48 exposure in non-responders.
+            <br>
+            • Advancing Understanding of Drug Resistance: By constructing a drug-resistant cell model and identifying functional resistance genes[6] and protein biomarkers, this project will provide novel insights into the mechanisms of acquired resistance to ADC drugs like RC48 in bladder cancer.
+             <br>
+            • Facilitating Drug Development: The findings will offer a scientific basis for developing more effective therapeutic strategies and drugs, helping to overcome resistance and improve treatment outcomes for bladder cancer patients.
+    <br>
+            • Enhancing Clinical Applications: A clearer understanding of resistance mechanisms will enable more precise clinical treatment plans, reducing the risk of resistance development and extending the efficacy of existing drugs.
+        <br>
+            <span style="font-weight: bold;">(2) Potential Risks of the Project</span>
+    <br>
+            • Cell Model Safety: During the construction of the drug-resistant cell model, there is a potential risk of cell contamination[7] or unintended mutations, which could lead to inaccurate experimental results and pose a biosecurity risk to laboratory personnel.
+    <br>
+            • Risk of Data Misuse: The data generated on resistance genes and protein biomarkers could be misused for non-medical purposes, such as the development of harmful biological agents.
+    <br>
+            • Spread of Resistance Mechanisms: If the resistance mechanisms are improperly disseminated, they could potentially accelerate the development of resistance in other types of cancer[8].
+    <br>    
+            <span style="font-weight: bold;">(3) Measures to Ensure Safety</span>
+    <br>
+            • Stringent Biosafety Practices: Adhere to strict biosafety protocols during cell experiments to ensure a sterile cell culture environment and prevent contamination.
+    <br>
+            • Data Encryption and Confidentiality: Encrypt research data and restrict access to ensure that it is used solely for scientific purposes.
+    <br>
+            • Ethical Review and Compliance: All experiments are reviewed and approved by an ethics committee to ensure compliance with relevant laws, regulations, and ethical standards[9].
+    <br>
+            • Risk Assessment and Emergency Planning: Conduct regular risk assessments and develop emergency plans to address potential biosecurity incidents.
+    <br>    
+            <span style="font-weight: bold;">(4) Risks and Benefits Comparison</span>
+    <br>
+            • Controllable Risks: With stringent biosafety and data protection measures in place, potential risks can be effectively managed.
+    <br>
+            • Significant Benefits: The project's potential benefits in advancing the understanding of resistance mechanisms, promoting drug development, and improving clinical applications far outweigh the risks.
+    <br>
+            • Overall Evaluation: The project's benefits significantly outweigh the controllable risks, making it both safe and feasible.
+    </div> 
+
+
+
+             
+    
+
+            
+         </section>
+
+    
+            
+    
+ 
+
+    <!-- 内容区域 --> 
+        <section id="content2" class="content-section" style="margin-top: 20vh;  background-color: #f0f0f0; max-width: 75vw; height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative;">
+        
+       <div class="text-content0">
+        <div class="text-content">
+            <H  id="Reference"     class="title-style"   style="position:relative;">
+            Reference
+            </H>
+            <p class="nomal-style" style="position:relative;">
+                [1] General Biosafety Standard for laboratories for causative bacteria of the People's Republic of China, WS 233—2017.
+                <br>
+                [2] Safety Regulations for Higher Education Laboratory, department of Education and Science [2023] No. 5.
+     <br>
+                [3] Collins CH. Treatment and disposal of clinical and laboratory waste. Med Lab Sci. 1991;48(4):324-331.
+     <br>
+                [4] Cheng CA, Ching TC, Tsai SW, Chuang KJ, Chuang HC, Chang TY. Exposure and health risk assessment of indoor volatile organic compounds in a medical university. Environ Res. 2022;213:113644. 
+     <br>
+                [5] Boudreau DA, Scheer WD, Catrou PG. Laboratory equipment maintenance contracts. J Med Syst. 1985;9(5-6):305-313. 
+     <br>
+                [6] Park S, Park S, Kim TM, et al. Resistance mechanisms of EGFR tyrosine kinase inhibitors, in EGFR exon 20 insertion-mutant lung cancer. Eur J Cancer. 2024;208:114206. 
+     <br>
+                [7] Mizuno M, Yori K, Takeuchi T, et al. Cross-contamination risk and decontamination during changeover after cell-product processing. Regen Ther. 2022;22:30-38. Published 2022 Dec 21. 
+     <br>
+                [8] Lim ZF, Ma PC. Emerging insights of tumor heterogeneity and drug resistance mechanisms in lung cancer targeted therapy. J Hematol Oncol. 2019;12(1):134. Published 2019 Dec 9.
+     <br>
+                [9] Portaluppi F, Touitou Y, Smolensky MH. Ethical and methodological standards for laboratory and medical biological rhythm research. Chronobiol Int. 2008;25(6):999-1016. 
+
+            
+        </div>
+        </div>
+    </section>
+  </div>  
+</div>
+
+
+      <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>Contact us by</p>
+                <p>Email : 1402418580@qq.com | Phone: 86-13566087400</p>
+                <p>Address : 800 Xiangyin Road, Yangpu District, Shanghai, China, 200433.</p>
+            </div>
+            
+            <div class="copyright-container">
+                <div class="copyright">&copy; 2025 Onco_Strat</div>
+            </div>
+        </div>
+    </footer>
+    <script>
+            
+        // 关键资源URL列表
+        const criticalResources = [
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.1.png',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.1.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-3.jpg',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-5.jpg',
+        ];
+
+        // 预加载图片资源
+        function preloadImages(urls) {
+            return Promise.all(
+                urls.map(url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            updateProgress();
+                            resolve(url);
+                        };
+                        img.onerror = () => {
+                            console.warn(`Failed to load image: ${url}`);
+                            updateProgress();
+                            resolve(url); // 即使加载失败也继续
+                        };
+                        img.src = url;
+                    });
+                })
+            );
+        }
+
+        // 更新加载进度
+        let loadedResources = 0;
+        function updateProgress() {
+            loadedResources++;
+            const progress = Math.min(100, Math.round((loadedResources / criticalResources.length) * 100));
+            document.getElementById('loadingBar').style.width = `${progress}%`;
+            document.getElementById('loadingText').textContent = `loading... ${progress}%`;
+        }
+
+        // 隐藏加载动画
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('hidden');
+            
+            // 可选：完全移除元素
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        }
+
+        // 初始化加载过程
+        document.addEventListener('DOMContentLoaded', () => {
+            const startTime = Date.now();
+            const minDisplayTime = 1500; // 最小显示时间1.5秒
+            
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    // 即使出错也要确保显示至少1.5秒
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                });
+        // 创建星空背景等其他初始化代码
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+
+        // 原有的星空和滚动处理函数
+        function createStars() {
+            const starBackground = document.getElementById('starBackground');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${animationDelay}s`;
+                
+                starBackground.appendChild(star);
+            }
+        }
+        
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const mountains = document.getElementById('mountains');
+            const sunBackground = document.getElementById('sunBackground');
+            
+            if (scrollPosition <= heroHeight * 1.2) {
+                const opacity = 1 - (scrollPosition / (heroHeight * 0.8));
+                sunBackground.style.opacity = opacity;
+                sunBackground.style.display = 'block';
+            } else {
+                sunBackground.style.opacity = 0;
+                sunBackground.style.display = 'none';
+            }
+        }
+        // 初始化
+        window.addEventListener('load', () => {
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+             document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('section');
+            
+            // 为导航链接添加点击事件
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有active类
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // 添加active类到当前链接
+                    this.classList.add('active');
+                    
+                    // 滚动到对应部分
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // 监听滚动事件，高亮当前部分
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
+     </script>
+</body>
+</html>

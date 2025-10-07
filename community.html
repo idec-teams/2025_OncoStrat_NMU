@@ -1555,7 +1555,46 @@ document.addEventListener('DOMContentLoaded', function() {
      
      setTimeout(initVideoControls, 1000); // 延迟1秒确保所有元素已加载
 });       
- 
+
+// 原有的星空和滚动处理函数
+        function createStars() {
+            const starBackground = document.getElementById('starBackground');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${animationDelay}s`;
+                
+                starBackground.appendChild(star);
+            }
+        }
+        
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const mountains = document.getElementById('mountains');
+            const sunBackground = document.getElementById('sunBackground');
+            
+            if (scrollPosition <= heroHeight * 1.2) {
+                const opacity = 1 - (scrollPosition / (heroHeight * 0.8));
+                sunBackground.style.opacity = opacity;
+                sunBackground.style.display = 'block';
+            } else {
+                sunBackground.style.opacity = 0;
+                sunBackground.style.display = 'none';
+            }
+        }
         // 初始化
         window.addEventListener('load', () => {
             createStars();

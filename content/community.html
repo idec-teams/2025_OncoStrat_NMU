@@ -667,6 +667,7 @@
             height: auto; 
             overflow: hidden;
             overflow: visible;
+            /* background: yellow !important; */
         
         }
         
@@ -1129,7 +1130,7 @@
         
     </aside> 
     <a id="top" href="#hero" class="toc-link" style="width: 27vh; height: 33vh;">
-    <aside class="sidebar-btn" style=" background-image:url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/top.png');  display: flex;  z-index: 9; min-width: 23rem;"></aside>
+    <aside class="sidebar-btn" style=" background-image:url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/top.png');  display: flex;  z-index: 9; min-width: 23rem;background-repeat: no-repeat;"></aside>
     </a>
     </div>
     <!-- 视频和文字的div  -->
@@ -1191,7 +1192,7 @@
                <!-- 视频 -->
     <div class="video-background" style="z-index: 3;">
 
-        <video id="video" type="video/mp4/webm" src= "https://arxiv.idec.io/2_hevc.mp4" muted  playsinline>
+        <video id="video" type="video/mp4/webm" src= "https://arxiv.idec.io/2_hevc.mp4" autoplay muted playsinline preload="auto" >
             <!-- 备用内容，如果视频无法加载则显示 -->
             您的浏览器不支持HTML5视频标签。
         </video>

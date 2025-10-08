@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>摄影作品展示</title>
+    <title>Member</title>
     <style>
         /* 基础样式 */
         * {
@@ -13,19 +12,124 @@
             box-sizing: border-box;
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
+         /* 加载层样式 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
 
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-logo {
+            height: 30vh;
+            width: 30vh;
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: rotate 10s linear infinite;
+            margin-bottom: 5vh;
+        }
+
+        .pulse-container {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin-bottom: 3vh;
+        }
+
+        .pulse-ball {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.8;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+
+        .pulse-ball:nth-child(1) { animation-delay: 0s; }
+        .pulse-ball:nth-child(2) { animation-delay: 0.4s; }
+        .pulse-ball:nth-child(3) { animation-delay: 0.8s; }
+        .pulse-ball:nth-child(4) { animation-delay: 1.2s; }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2vh;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #f8f8f8;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.6rem;
+            margin-top: 2vh;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        
         body {
             background-color: #f9f9f9;
             color: #333;
             line-height: 1.6;
         }
-
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-
+        
         /* Hero 区域样式 */
         .hero {
             height: 80vh;
@@ -36,45 +140,45 @@
             overflow: hidden;
             position: relative;
         }
-
+        
         .hero-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
-
+        
         .hero:hover .hero-image {
             transform: scale(1.05);
         }
-
+        
         .hero-text {
             position: absolute;
             bottom: 50px;
             left: 50px;
             color: white;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
         }
-
+        
         .hero-text h1 {
             font-size: 3rem;
             margin-bottom: 10px;
         }
-
+        
         /* 轮播区域样式 */
         .carousel-section {
-            padding: 80px 0;
+            padding: 5vh 0;
             background-color: #fff;
         }
-
+        
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 5vh;
             font-size: 2.2rem;
             color: #333;
             position: relative;
         }
-
+        
         .section-title::after {
             content: '';
             display: block;
@@ -84,57 +188,55 @@
             margin: 15px auto 0;
             border-radius: 2px;
         }
-
+        
         .carousel {
             position: relative;
             max-width: 900px;
             margin: 0 auto;
             overflow: hidden;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-
+        
         .carousel-track {
             display: flex;
             transition: transform 0.5s ease;
         }
-
+        
         .carousel-slide {
-            /* 确保每个 slide 占据 100% 容器宽度 */
             min-width: 100%;
-            height: 500px;
+            height: 50vh; /* 修改为相对单位 */
+            min-height: 300px; /* 设置最小高度 */
             position: relative;
         }
-
+        
         .carousel-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
+        
         .slide-caption {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0,0,0,0.6);
             color: white;
             padding: 15px 20px;
-            /* 默认隐藏在底部 */
             transform: translateY(100%);
             transition: transform 0.3s ease;
         }
-
+        
         .carousel-slide:hover .slide-caption {
-            /* 鼠标悬停时显示 */
             transform: translateY(0);
         }
-
+        
         .carousel-btn {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255,255,255,0.8);
             border: none;
             width: 50px;
             height: 50px;
@@ -148,83 +250,85 @@
             z-index: 10;
             color: #333;
         }
-
+        
         .carousel-btn:hover {
             background: white;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-
+        
         .carousel-btn.prev {
             left: 20px;
         }
-
+        
         .carousel-btn.next {
             right: 20px;
         }
-
+        
         /* 图片网格区域样式 */
         .gallery-section {
-            padding: 80px 0;
+            padding: 5vh 0;
             background-color: #f5f5f5;
         }
-
+        
         .gallery-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 2vw; /* 使用视口宽度单位 */
             justify-content: center;
         }
-
+        
         .gallery-item {
-            flex: 0 0 calc(20% - 30px);
+            flex: 0 0 calc(20% - 2vw);
             min-width: 200px;
             display: flex;
             flex-direction: column;
             background: white;
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-
+        
         .gallery-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
-
+        
         .image-container {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 20vw; /* 使用视口宽度单位 */
+            max-height: 250px; /* 设置最大高度 */
+            min-height: 180px; /* 设置最小高度 */
             overflow: hidden;
         }
-
+        
         .image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: opacity 0.5s ease;
         }
-
+        
         .image-primary {
             position: absolute;
             top: 0;
             left: 0;
             opacity: 1;
         }
-
+        
         .image-secondary {
             opacity: 0;
         }
-
+        
         .gallery-item:hover .image-primary {
             opacity: 0;
         }
-
+        
         .gallery-item:hover .image-secondary {
             opacity: 1;
         }
-
+        
         .gallery-text {
             padding: 20px;
             flex-grow: 1;
@@ -232,19 +336,19 @@
             flex-direction: column;
             justify-content: center;
         }
-
+        
         .gallery-text h3 {
             margin-bottom: 10px;
             font-size: 1.2rem;
             color: #333;
         }
-
+        
         .gallery-text p {
             color: #666;
             font-size: 0.9rem;
             line-height: 1.5;
         }
-
+        
         /* 页脚样式 */
         footer {
             background-color: #333;
@@ -252,297 +356,454 @@
             text-align: center;
             padding: 30px 0;
         }
-
+        
         /* 响应式设计 */
         @media (max-width: 992px) {
             .gallery-item {
-                flex: 0 0 calc(33.333% - 30px);
+                flex: 0 0 calc(33.333% - 2vw);
             }
-
+            
             .hero-text h1 {
                 font-size: 2.5rem;
             }
+            
+            .image-container {
+                height: 25vw; /* 调整中等屏幕上的高度 */
+            }
         }
-
+        
         @media (max-width: 768px) {
             .gallery-item {
-                flex: 0 0 calc(50% - 30px);
+                flex: 0 0 calc(50% - 2vw);
             }
-
+            
             .carousel-slide {
-                height: 400px;
+                height: 40vh; /* 调整中等屏幕上的高度 */
             }
-
+            
             .hero-text h1 {
                 font-size: 2rem;
             }
+            
+            .image-container {
+                height: 30vw; /* 调整小屏幕上的高度 */
+            }
         }
-
+        
         @media (max-width: 576px) {
             .gallery-item {
                 flex: 0 0 100%;
             }
-
+            
             .carousel-slide {
-                height: 300px;
+                height: 35vh; /* 调整移动设备上的高度 */
             }
-
+            
             .hero-text {
                 left: 20px;
                 bottom: 20px;
             }
-
+            
             .hero-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .image-container {
+                height: 50vw; /* 调整移动设备上的高度 */
+            }
+            
+            .gallery-grid {
+                gap: 4vw; /* 移动设备上增加间距 */
+            }
+        }
+        
+        /* 针对超小屏幕的额外优化 */
+        @media (max-width: 400px) {
+            .carousel-slide {
+                height: 30vh;
+            }
+            
+            .image-container {
+                height: 60vw;
+            }
+            
+            .section-title {
                 font-size: 1.8rem;
             }
         }
     </style>
 </head>
-
 <body>
+     <!-- 加载动画层 -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-logo"></div>
+            <div class="pulse-container">
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+            </div>
+            <div class="loading-progress" >
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="loading-text" style="margin-top: 20vh ;" id="loadingText">loading...</div>
+        </div>
+    </div>
+
+    <!-- Hero 区域 -->
     <section class="hero">
-        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"
-            alt="风景照片" class="hero-image">
+        <img src="/images/St-home.png" alt="风景照片" class="hero-image">
         <div class="hero-text">
-            <h1>自然之美</h1>
-            <p>探索世界各地的壮丽风光</p>
+            <h1>1111</h1>
+            <p>team</p>
         </div>
     </section>
 
     <!-- 轮播区域 -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-8">精选作品</h2>
-
-            <div class="relative overflow-hidden">
-                <!-- 轨道 -->
-                <div id="carousel-track" class="flex snap-x snap-mandatory overflow-x-auto scroll-smooth w-full">
-                    <!-- Slide 1 -->
-                    <div class="flex-shrink-0 w-full snap-center relative">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1350&q=80"
-                            alt="山脉" class="w-full h-96 object-cover" />
-                        <div class="absolute inset-0 bg-black/30 flex flex-col justify-end p-6 text-white">
-                            <h3 class="text-2xl font-semibold">雄伟山脉</h3>
-                            <p class="text-sm">高耸入云的山峰，展现大自然的壮丽</p>
+    <section class="carousel-section">
+        <div class="container">
+            <h2 class="section-title">Pictures</h2>
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="/images/home2.png" alt="1">
+                        <div class="slide-caption">
+                            <h3>1111</h3>
+                            <p></p>
                         </div>
                     </div>
-
-                    <!-- Slide 2 -->
-                    <div class="flex-shrink-0 w-full snap-center relative">
-                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1350&q=80"
-                            alt="森林" class="w-full h-96 object-cover" />
-                        <div class="absolute inset-0 bg-black/30 flex flex-col justify-end p-6 text-white">
-                            <h3 class="text-2xl font-semibold">神秘森林</h3>
-                            <p class="text-sm">阳光透过树叶，营造出神秘氛围</p>
+                    <div class="carousel-slide" >
+                        <img src="/images/figure1-2.png" alt="2">
+                        <div class="slide-caption">
+                            <h3>2222</h3>
+                            <p></p>
                         </div>
                     </div>
-
-                    <!-- Slide 3 -->
-                    <div class="flex-shrink-0 w-full snap-center relative">
-                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=1350&q=80"
-                            alt="湖泊" class="w-full h-96 object-cover" />
-                        <div class="absolute inset-0 bg-black/30 flex flex-col justify-end p-6 text-white">
-                            <h3 class="text-2xl font-semibold">宁静湖泊</h3>
-                            <p class="text-sm">湖面如镜，倒映着周围的山峦</p>
+                    <div class="carousel-slide">
+                        <img src="/images/figure1-2.png" alt="3">
+                        <div class="slide-caption">
+                            <h3>333</h3>
+                            <p></p>
                         </div>
                     </div>
-
-                    <!-- Slide 4 -->
-                    <div class="flex-shrink-0 w-full snap-center relative">
-                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1350&q=80"
-                            alt="日落" class="w-full h-96 object-cover" />
-                        <div class="absolute inset-0 bg-black/30 flex flex-col justify-end p-6 text-white">
-                            <h3 class="text-2xl font-semibold">绚丽日落</h3>
-                            <p class="text-sm">夕阳西下，天空染上绚丽的色彩</p>
+                    <div class="carousel-slide">
+                        <img src="/images/Bg1.1.png" alt="4">
+                        <div class="slide-caption">
+                            <h3>4444</h3>
+                            <p></p>
                         </div>
                     </div>
                 </div>
-
-                <!-- 按钮 -->
-                <button id="prev-btn"
-                    class="absolute top-1/2 -translate-y-1/2 left-3 bg-white/60 hover:bg-white text-gray-800 rounded-full w-10 h-10 flex items-center justify-center shadow-md">
-                    &#10094;
-                </button>
-                <button id="next-btn"
-                    class="absolute top-1/2 -translate-y-1/2 right-3 bg-white/60 hover:bg-white text-gray-800 rounded-full w-10 h-10 flex items-center justify-center shadow-md">
-                    &#10095;
-                </button>
-
-                <!-- 指示器 -->
-                <div id="carousel-indicators" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex space-x-2">
-                    <button class="w-3 h-3 rounded-full bg-white/50 data-[active=true]:bg-white"
-                        data-index="0"></button>
-                    <button class="w-3 h-3 rounded-full bg-white/50 data-[active=true]:bg-white"
-                        data-index="1"></button>
-                    <button class="w-3 h-3 rounded-full bg-white/50 data-[active=true]:bg-white"
-                        data-index="2"></button>
-                    <button class="w-3 h-3 rounded-full bg-white/50 data-[active=true]:bg-white"
-                        data-index="3"></button>
-                </div>
+                <button class="carousel-btn prev">&#10094;</button>
+                <button class="carousel-btn next">&#10095;</button>
             </div>
         </div>
     </section>
 
+    <!-- 图片网格区域 -->
     <section class="gallery-section">
         <div class="container">
             <h2 class="section-title">摄影作品集</h2>
             <div class="gallery-grid">
+                <!-- 图片项 1 -->
                 <div class="gallery-item">
                     <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1554629947-334ff61d85dc?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="雪山" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="雪山另一角度" class="image-secondary">
+                        <img src="/images/Bg1.1.png" alt="A" class="image-primary">
+                        <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>雄伟雪山</h3>
-                        <p>拍摄于阿尔卑斯山脉，展现了雪山的壮丽与宁静。</p>
+                        <h3>0</h3>
+                        <p>000</p>
                     </div>
                 </div>
-
-                <div class="gallery-item">
+                
+                <!-- 图片项 2 -->
+                <!-- <div class="gallery-item">
                     <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="田野" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="山脉田野" class="image-secondary">
+                        <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="田野" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉田野" class="image-secondary">
                     </div>
                     <div class="gallery-text">
                         <h3>金色田野</h3>
                         <p>夕阳下的麦田，金色的光芒洒满大地，温暖而宁静。</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
+                </div> -->
+                
+                <!-- 图片项 3 -->
+                <!-- <div class="gallery-item">
                     <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="城市夜景" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="城市白天" class="image-secondary">
+                        <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="城市夜景" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="城市白天" class="image-secondary">
                     </div>
                     <div class="gallery-text">
                         <h3>都市夜色</h3>
                         <p>繁华都市的夜景，灯火辉煌，展现了现代城市的活力。</p>
                     </div>
-                </div>
-
-                <div class="gallery-item">
+                </div> -->
+                
+                <!-- 图片项 4 -->
+                <!-- <div class="gallery-item">
                     <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="湖泊" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="另一湖泊" class="image-secondary">
+                        <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="湖泊" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="另一湖泊" class="image-secondary">
                     </div>
                     <div class="gallery-text">
                         <h3>宁静湖泊</h3>
                         <p>山间的湖泊，水面如镜，倒映着周围的山峦和天空。</p>
                     </div>
                 </div>
-
-                <div class="gallery-item">
+                 -->
+                <!-- 图片项 5 -->
+                <!-- <div class="gallery-item">
                     <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="森林" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="森林小径" class="image-secondary">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="森林" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="森林小径" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>神秘森林</h3>
-                        <p>阳光透过树叶洒在林间小径上，营造出神秘而宁静的氛围。</p>
+                        <h3>0</h3>
+                        <p>000</p>
+                    </div>
+                </div> -->
+                
+                <!-- 图片项 6 -->
+                <!-- <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="日落" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="日落山脉" class="image-secondary">
+                    </div>
+                    <div class="gallery-text">
+                        <h3>0</h3>
+                        <p>000</p>
                     </div>
                 </div>
-
-                <div class="gallery-item">
+                 -->
+                <!-- 图片项 7 -->
+                <!-- <div class="gallery-item">
                     <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="日落" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="日落山脉" class="image-secondary">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>绚丽日落</h3>
-                        <p>夕阳西下，天空被染成金色，山脉轮廓在余晖中显得格外壮丽。</p>
+                        <h3>0</h3>
+                        <p>000</p>
                     </div>
-                </div>
-
+                </div> -->
+                
+                <!-- 图片项 8 -->
                 <div class="gallery-item">
                     <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="山脉" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="雪山" class="image-secondary">
+                        <img src="" alt="111" class="image-primary">
+                        <img src="" alt="222" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>壮丽山脉</h3>
-                        <p>雄伟的山脉在蓝天白云的映衬下，展现出大自然的磅礴气势。</p>
-                    </div>
-                </div>
-
-                <div class="gallery-item">
-                    <div class="image-container">
-                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="湖泊" class="image-primary">
-                        <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-                            alt="另一湖泊" class="image-secondary">
-                    </div>
-                    <div class="gallery-text">
-                        <h3>山间湖泊</h3>
-                        <p>清澈的湖水倒映着周围的山峦，宁静而美丽。</p>
+                        <h3>0</h3>
+                        <p>000</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 页脚 -->
     <footer>
         <div class="container">
-            <p>&copy; 2023 摄影作品展示 | 探索世界之美</p>
+            <p>&copy; Team</p>
         </div>
     </footer>
 
-
-
     <script>
-        const track = document.getElementById("carousel-track");
-        const slides = Array.from(track.children);
-        const prevBtn = document.getElementById("prev-btn");
-        const nextBtn = document.getElementById("next-btn");
-        const indicators = document.querySelectorAll("#carousel-indicators button");
-        let index = 0;
+        // 关键资源URL列表
+        const criticalResources = [
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png',
+            ,
+        ];
 
-        function update() {
-            const offset = slides[index].offsetLeft;
-            track.scrollTo({ left: offset, behavior: "smooth" });
-            indicators.forEach((btn, i) => btn.dataset.active = (i === index));
+        // 预加载图片资源
+        function preloadImages(urls) {
+            return Promise.all(
+                urls.map(url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            updateProgress();
+                            resolve(url);
+                        };
+                        img.onerror = () => {
+                            console.warn(`Failed to load image: ${url}`);
+                            updateProgress();
+                            resolve(url); // 即使加载失败也继续
+                        };
+                        img.src = url;
+                    });
+                })
+            );
         }
 
-        nextBtn.onclick = () => {
-            index = (index + 1) % slides.length;
-            update();
-        };
+        // 更新加载进度
+        let loadedResources = 0;
+        function updateProgress() {
+            loadedResources++;
+            const progress = Math.min(100, Math.round((loadedResources / criticalResources.length) * 100));
+            document.getElementById('loadingBar').style.width = `${progress}%`;
+            document.getElementById('loadingText').textContent = `loading... ${progress}%`;
+        }
 
-        prevBtn.onclick = () => {
-            index = (index - 1 + slides.length) % slides.length;
-            update();
-        };
+        // 隐藏加载动画
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('hidden');
+            
+            // 可选：完全移除元素
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        }
 
-        indicators.forEach((btn, i) => {
-            btn.onclick = () => {
-                index = i;
-                update();
+        // 初始化加载过程
+        document.addEventListener('DOMContentLoaded', () => {
+            const startTime = Date.now();
+            const minDisplayTime = 1500; // 最小显示时间1.5秒
+            
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    // 即使出错也要确保显示至少1.5秒
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
+            });
+            
+      
+       
+        // 初始化
+
+            
+       document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carousel-btn.next');
+    const prevButton = document.querySelector('.carousel-btn.prev');
+       })
+    
+    // 等待所有内容加载完成
+    window.addEventListener('load', function() {
+        initCarousel();
+    });
+   // 轮播功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.carousel');
+            const track = document.querySelector('.carousel-track');
+            const slides = Array.from(track.children);
+            const nextButton = document.querySelector('.carousel-btn.next');
+            const prevButton = document.querySelector('.carousel-btn.prev');
+            const totalSlides = slides.length;
+            
+            let currentIndex = 0;
+            let autoPlayInterval;
+
+            // 获取幻灯片宽度 (在窗口大小改变时也需要重新计算)
+            const getSlideWidth = () => slides[0].getBoundingClientRect().width;
+            
+            // 根据目标索引移动轨道
+            const moveToSlide = (targetIndex) => {
+                const slideWidth = getSlideWidth();
+                
+                // 计算轨道需要移动的距离： - (索引 * 幻灯片宽度)
+                track.style.transform = 'translateX(-' + (targetIndex * slideWidth) + 'px)';
+                
+                // 更新当前索引
+                currentIndex = targetIndex;
             };
+            
+            // 自动播放函数
+            const startAutoPlay = () => {
+                // 先清除已有的定时器
+                clearInterval(autoPlayInterval);
+                
+                autoPlayInterval = setInterval(function() {
+                    const nextIndex = (currentIndex + 1) % totalSlides;
+                    moveToSlide(nextIndex);
+                }, 5000);
+            };
+            
+            // 初始化：显示第一张幻灯片并启动自动播放
+            moveToSlide(0); 
+            startAutoPlay();
+            
+            // 下一张按钮点击事件
+            nextButton.addEventListener('click', function() {
+                // 停止自动播放
+                clearInterval(autoPlayInterval);
+                
+                const nextIndex = (currentIndex + 1) % totalSlides;
+                moveToSlide(nextIndex);
+                
+                startAutoPlay(); // 重新启动自动播放
+            });
+            
+            // 上一张按钮点击事件
+            prevButton.addEventListener('click', function() {
+                // 停止自动播放
+                clearInterval(autoPlayInterval);
+                
+                // 处理循环逻辑：确保索引不会变成负数
+                const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                moveToSlide(prevIndex);
+                
+                startAutoPlay(); // 重新启动自动播放
+            });
+            
+            // 优化用户体验：鼠标悬停在轮播图上时暂停自动播放
+            carousel.addEventListener('mouseenter', () => clearInterval(autoPlayInterval));
+            carousel.addEventListener('mouseleave', startAutoPlay);
+
+            // 修复响应式问题：窗口大小改变时重新计算和定位
+            window.addEventListener('resize', () => {
+                // 窗口改变时，立即重新定位当前幻灯片
+                moveToSlide(currentIndex);
+            });
         });
+        // 主初始化函数
+        function initializePage() {
+            const startTime = Date.now();
+            const minDisplayTime = 1500;
+            
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(() => {
+                        hideLoadingOverlay();
+                        // 加载完成后初始化轮播
+                        initCarousel();
+                    }, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(() => {
+                        hideLoadingOverlay();
+                        initCarousel();
+                    }, remainingTime);
+                });
+        }
 
-        // 自动播放
-        setInterval(() => {
-            index = (index + 1) % slides.length;
-            update();
-        }, 5000);
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initializePage);
     </script>
-
-
-    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-
 </body>
-
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-     <link rel="icon" type="image/webp" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/icon.png.webp">
+     <link rel="icon" type="image/webp" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/icon.webp">
     <title>Safety</title>
 
     <style>
@@ -48,7 +48,7 @@
         .loading-logo {
             height: 30vh;
             width: 30vh;
-            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png.webp');
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.webp');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -327,7 +327,7 @@
         }
 
         .sidebar-btn {
-            /* background: url('/images/1.png.webp'); */
+            /* background-image: url('/images/1.webp'); */
             background-size: contain;
             width: 16vh;
             height: 24.5vh !important;
@@ -422,7 +422,7 @@
         }
         .logo {
             position:relative;    
-            background: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png.webp");
+            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.webp");
             width: 100%;
             height: 100%; 
             /* font-size: 24px;
@@ -596,7 +596,7 @@
             top:0;
             width: 100%;
             height: 100%;
-            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png.webp') bottom/cover no-repeat;
+            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.webp') bottom/cover no-repeat;
             z-index: 3;
             transition: transform 0.8s ease-out;
         }
@@ -803,7 +803,7 @@
             width: 100%;
             position: relative;
             padding: 0;
-            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png.webp');
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.webp');
             background-size: cover;
             background-position: top;
             display: flex;
@@ -1006,6 +1006,58 @@
             justify-content: space-between;
             width: 100%;
         }
+
+        /* 新增实验按钮样式 */
+        .experiment-section {
+            width: 90%;
+            margin: 3vh auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+        
+        .month-title {
+            font-size: 2.5rem;
+            color: #ff4757;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .experiment-buttons {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .experiment-btn {
+            flex: 0 0 calc(45% - 2rem);
+            min-width: 15rem;
+            padding: 1.5rem 1rem;
+            background: transparent;
+            border: 2px solid #ff4757;
+            border-radius: 0.8rem;
+            color: #ff4757;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .experiment-btn:hover {
+            background: #ff4757;
+            color: white;
+            transform: translateY(-0.3rem);
+            box-shadow: 0 0.5rem 1rem rgba(255, 71, 87, 0.3);
+        }
+        
+        .experiment-btn:active {
+            transform: translateY(-0.1rem);
+        }
     </style>
 </head>
 <body>
@@ -1106,43 +1158,31 @@
         <div class="sidebar-content">
             <ul class="toc-list" id="toc">
                 <li class="toc-item level-1">
-                    <a href="#Foreword" class="toc-link"style="font-size: 1.8rem ;" >Foreword</a>
+                    <a href="#January" class="toc-link"style="font-size: 1.8rem ;" >January</a>
                 </li>
                 <li class="toc-item level-1">
-                    <a href="#Laboratorybiosafety" class="toc-link" style="font-size: 1.7rem;">Laboratory biosafety</a>
-                    <ul class="toc-list">
-                        <!-- <li class="toc-item level-2">
-                            <a href="#colors" class="toc-link">色彩方案</a>
-                        </li>
-                        <li class="toc-item level-2">
-                            <a href="#typography" class="toc-link">字体选择</a> -->
-                        </li>
-                    </ul>
+                    <a href="#February" class="toc-link" style="font-size: 1.7rem;">February</a>
                 </li>
                 <li class="toc-item level-1">
-                    <a href="#Experimentalsafety" class="toc-link" style="font-size: 1.7rem;" >Experimental safety</a>
-                    <ul class="toc-list">
+                    <a href="#March" class="toc-link" style="font-size: 1.7rem;" >March</a>
+                </li>
                 <li class="toc-item level-1">
-                    <a href="#HP" class="toc-link" style="font-size: 1.7rem;" >HP Safety in & Dual-use analysis</a>
-                    <ul class="toc-list">
-        
-                    </ul>
-                </li> 
-                 
-                <!-- <li class="toc-item level-1">
-                    <a href="#Epilogue" class="toc-link" style="font-size: 1.7rem;">Hope Marches On</a>
-                </li> -->
+                    <a href="#April" class="toc-link" style="font-size: 1.7rem;" >April</a>
+                </li>
                 <li class="toc-item level-1">
-                    <a href="#Reference" class="toc-link" style="font-size: 1.7rem;" >Reference</a>
-                    <ul class="toc-list">
-        
-                    </ul>
-                </li> 
+                    <a href="#May" class="toc-link" style="font-size: 1.7rem;" >May</a>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#June" class="toc-link" style="font-size: 1.7rem;" >June</a>
+                </li>
+                <li class="toc-item level-1">
+                    <a href="#July" class="toc-link" style="font-size: 1.7rem;" >July</a>
+                </li>
             </ul>
         
     </aside> 
     <a id="top" href="#hero" class="toc-link">
-    <aside class="sidebar-btn" style=" background-image:url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/top.png.webp');  display: flex;  z-index: 9; min-width: 23rem;background-repeat: no-repeat;"></aside>
+    <aside class="sidebar-btn" style=" background-image:url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/top.webp');  display: flex;  z-index: 9; min-width: 23rem;background-repeat: no-repeat;"></aside>
     </a>
     </div>
     <!-- 视频和文字的div  -->
@@ -1153,276 +1193,72 @@
        <div class="text-content0">
         <div class="text-content">
             
-           <p  id="Foreword"     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
-            Foreword
-            </p>
-             <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 3rem; ; display: inline-block; width: 100%; text-align: left; margin-left: 10vw;">
-             "Safety is not an option
-            </p>
-             <p class="nomal-style"  style="font-weight: bold;   display: inline-block; width: 100%;font-size: 3rem; text-align: right; margin-bottom: 5vh;">——it’s the foundation of transformative science."
-            </p>
-            <p class="nomal-style" style="position:relative;">
-            Safety and security are central to responsible research and innovation at OncoStrat_NMU. We uphold transparency in addressing potential risks and their mitigation as a cornerstone of scientific accountability. Throughout our laboratory work, we rigorously follow standardized protocols and maintain the highest safety standards, even for routine procedures. We proactively identified potential risks in experiments and future applications, and proposed corresponding countermeasures. Our study, focused on drug resistance mechanisms in bladder cancer, incorporates stringent biosafety measures during cell culture and drug exposure experiments to prevent contamination and ensure reproducibility. Notably, we established strict protocols for handling cytotoxic agents (e.g., RC48) and engineered controlled induction of resistance in T-24 cells to minimize unintended biological risks. Aligned with iDEC’s commitment to responsibility, we prioritize the safety of all stakeholders while driving innovation. By proactively identifying risks, adhering to legal frameworks, and promoting safety awareness, we balance creativity with ethical rigor. Our project integrates evolutionary biology with robust biosafety measures to address ADC resistance in a way that is both ethically grounded and globally impactful.
-            </p>
-            <p class="nomal-style" style="position: relative; align-self: center; margin-top: 5vh;">Our self-inspection form regarding our work is presented below. </p>
-              
-            <table style="
-            width: 90%;
-            border-collapse: collapse;
-            color: #000000; 
-            position: relative; 
-            font-size: 15px;
-            font-weight: bold;
-            padding-left: 5vh;;
-            padding-right: 5vh;
-            text-align: justify;
-            line-height: 1.8; 
-            font-family: Arial, Helvetica, sans-serif;
-            ">
-        <thead >
-            <tr >
-                <th class="col1" style="background-color: #2173c0; color: #ffffff;" >Self-checked entry</th>
-                <th class="col2" style="background-color: #2173c0;color: #ffffff;">Answers</th>
-        
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1. Did the team make a contribution to biosafety and/or biosecurity?</td>
-                <td>Yes, our research on RC48 resistance in T-24 cells contributes to biosafety by identifying and validating resistance mechanisms, which can inform safer drug development and handling practices</td>
-               
-            </tr>
-            <tr>
-                <td>2.Is their contribution well-characterized and/or well-validated?</td>
-                <td>Yes, the potential resistance genes and protein markers identified in our study are well-characterized through rigorous experimental validation, ensuring reliable and actionable findings.</td>
-               
-            </tr>
-            <tr>
-                <td>3.Did the team build upon existing knowledge, understanding, tools or approaches?</td>
-                <td>Yes, our project leverages existing knowledge of ADC mechanisms and resistance in cancer cells, while introducing new insights specific to RC48 and T-24 cells.</td>
-                
-            </tr>
-
-            <tr>
-                <td>4.In addition to applied safety work, has the team managed any risks from their project appropriately?</td>
-                <td>Yes, beyond standard safety protocols, we have implemented strict waste management and containment measures to prevent any environmental or health risks associated with our experimental materials</td>
-                
-            </tr>
-
-            <tr>
-                <td>5.Has the team addressed the use of synthetic biology beyond the iDEC competition?</td>
-                <td>Yes, while our primary focus is on RC48 resistance, the methodologies and insights gained can be applied to broader synthetic biology applications, such as designing more effective and safer ADCs</td>
-                
-            </tr>
-        </tbody>
-            
-
-            </table>
-          
-            <p  id="Laboratorybiosafety"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh;font: size 3rem; ; text-align: left;align-self: flex-start;text-align: left;">
-            Laboratory biosafety
-            </p>
-           <p class="nomal-style" style="position:relative; ">
-            <span  id="General laboratory safety" style="font-size: 3rem; font-weight: bold;">
-            General laboratory safety
-            </span>
-            <br>
-            The iDEC laboratory, located in the Department of Biochemistry and Molecular Biology of the Naval Medical University, is classified as BSL-II and complies with the General Guidelines for Biosafety in Pathogenic Microbiology Laboratories[1] as well as the Regulations on the Safety of Laboratories in Higher Education[2]. The main safety equipment in our laboratory includes:<br>
-            1. Biological safety cabinet.<br>
-            2. Flame retardant and waterproof workbench, which can withstand the corrosion of certain temperatures, acids and alkalis, disinfectants and other chemicals.<br>
-            3. Autoclave and other related sterilization equipment.<br>
-            4. Necessary personal protective equipment, goggles, protective gloves, face shields, etc.<br>
-            5. Fine mechanical ventilation system with filter.<br>
-            6. Registration of entry and exit from the laboratory.
-            </p>
-
-
-             <p class="nomal-style" style="position:relative; ">
-            <span  id="Waste disposal" style="font-size: 3rem; font-weight: bold;">
-             Waste disposal
-            </span>
-            <br>
-           (1) Waste Sterilization and Storage: Laboratory waste, including culture media, must be autoclaved to prevent environmental contamination. Waste liquids should be stored in properly sealed containers and kept in well-ventilated areas.<br>
-            (2) Waste Collection and Segregation: Waste should be collected and stored according to its chemical and hazardous properties. Mixing incompatible hazardous wastes is prohibited, and detailed records (including type, quantity, characteristics, packaging, and transfer dates) must be maintained[3].<br>
-            (3) Waste Reconfirmation and Inspection: Before disposal, waste will be reconfirmed as non-toxic and non-hazardous to ensure environmental and personnel safety. Regular inspections will be conducted to verify the sealing, integrity, labeling, and storage duration of containers.<br>
-            (4) Labeling and Centralized Waste Management: All containers, infectious materials, and waste must be clearly labeled and stored in designated locations. Laboratory waste is centrally managed and treated using appropriate physical or chemical methods. Waste that cannot be disposed of immediately is stored in specialized bins with clear labels.<br>
-            (5) Equipment Maintenance and Sanitation: Equipment is routinely cleaned, maintained, and repaired. In the event of malfunction, immediate thorough cleaning and sterilization will be performed to maintain a hygienic and safe laboratory environment.
-
-            </p>
-
-
-             <p class="nomal-style" style="position:relative; ">
-            <span  id="Laboratory safety regulations" style="font-size: 3rem; font-weight: bold;">
-             Laboratory safety regulations
-            </span>
-            <br>
-           To ensure standardized experimental procedures and personal safety, we adhere to the following safety regulations:
-           <br>
-           (1) Laboratory as an Important Space: The laboratory is a crucial venue for conducting teaching, research, and other experimental activities. Laboratory personnel must voluntarily comply with and uphold laboratory safety management regulations and follow the instructions of laboratory supervisors.
-           <br>
-           (2) Safety Training and Qualification: Personnel must first undergo training in safety knowledge, safety skills, and operational standards. They must master the correct use of equipment, facilities, and protective gear. Only those who pass the assessment are permitted to enter the laboratory and operate equipment.
-           <br>
-           (3) Risk Assessment for Hazardous Experiments: Experimental projects involving toxic or hazardous chemicals, dangerous gases, pathogens, radiation sources, radioactive devices, or special equipment must undergo risk assessment before commencing experimental activities[4].
-           <br>
-           (4) Electrical Safety: The unauthorized installation of high-power electrical appliances is strictly prohibited. Unauthorized wiring or the improper connection of power cables is forbidden, as is the daisy-chaining of multiple power strips. When electrical appliances are not in use for an extended period, the power supply should be disconnected.
-           <br>
-           (5) Gas Cylinder Management: Gas cylinders must be securely fastened and stored in well-ventilated areas, away from heat sources, and on flat, dry surfaces. Combustible gases and oxidizing gases should not be stored together.
-           <br>
-           (6) High-Risk Experiment Supervision: During experiments involving high temperature, high pressure, or high-speed operations, personnel must not leave their posts. Experiments conducted overnight require prior approval and must be supervised by at least two people.
-           <br>
-           (7) Waste Management: Laboratory waste must be sorted, collected, and temporarily stored according to regulations. It should not be discarded, poured out, or discharged indiscriminately, nor should it be mixed with general household waste.
-           <br>
-           (8) Confidentiality of Sensitive Experiments: Materials generated from confidential experimental projects must be managed through proper confidentiality channels, and strict confidentiality responsibilities must be implemented.
-           <br>
-            </p>
-
-            
-            <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;">
-                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.webp'); width: 40%; height: 72vh;background-size: contain;background-repeat: no-repeat"></div>
-                 <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.1.png.webp'); width: 55%; height: 68vh; background-size: contain;background-repeat: no-repeat"></div>
-
-                 
-                  
-                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
-                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">Figure. 1 | Some of laboratory safety regulations</h>
-                  </div>  
-             </div> 
-
-            <p  id="Experimentalsafety"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
-            Experimental safety
-            </p>
-            <p class="nomal-style" style="position:relative;">
-            &nbsp; &nbsp; &nbsp; &nbsp;Prior to starting our lab work, we received thorough safety training from our teachers, covering essential topics such as experimental techniques, waste management, chemical storage, equipment usage, and emergency procedures. Throughout our experiments, an experienced supervisor is on-site to provide guidance and ensure safe operations.
-            </p>
-
-             <p class="nomal-style" style="position:relative; ">
-            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold;text-align: left;">
-             Experimental skills training
-            </span><br>
-            The basic lab skills training encompasses various techniques such as cell culture and RNA extraction. Safety measures include meticulous documentation of equipment use, accurate labeling of samples, and strict compliance with waste disposal protocols 
-            <a  class = "text-link" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Emergency plan for laboratory accidents.pdf" target="_blank" rel="noopener noreferrer" title="click to PDF" style="color: #0a35f8c5; text-decoration: none;"> (for details, refer to Safety of common equipment and chemicals）.</a> In the event of accidents, instructors have outlined emergency evacuation routes and provided training on the use of first aid kits, fire-fighting equipment, and the lab accident emergency plan 
-             <a  class = "text-link" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Safety Regulations for Equipment and Chemicals.pdf" target="_blank" rel="noopener noreferrer" title="click to PDF" style="color: #0a35f8c5; text-decoration: none;">(for details, refer to Emergency plan for laboratory accidents）.</a>
-            Individuals who have not undergone safety training or demonstrated competence in basic lab skills are not permitted to conduct experiments. Throughout the experimental process, we maintain a rigorous and meticulous approach, ensuring every detail meets the required standards. With continuous effort, we are committed to making our lab work more efficient, safe, and reliable.
-            
-             </p>
-
-              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;">
-                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.1.webp'); width: 35%; height: 55vh;background-size: contain;background-repeat: no-repeat"></div>
-                 <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.webp'); width: 60%; height: 55vh; background-size: contain;background-repeat: no-repeat"></div>
-              </div>
-                 
-                  
-                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
-                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">
-                        Figure. 2 | The details of our laboratory safety
-                    </h>
-                  </div>  
-            <p class="nomal-style" style="position:relative; ">
-            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold;text-align: left;">
-             Personal protection training
-            </span>
-            <br>
-            <span style="font-weight: bold;">Dressing</span>: We always wear a standard long-sleeved lab coat, long pants, gloves, and a mask to ensure proper restraint of hair. Lab coats should reach the knees with sleeves snug at the wrists to prevent direct contact with hazardous materials. Avoid wearing jewelry that could compromise safety. Shoes must fully cover the feet, and high heels are prohibited.
-            <br>
-            <span style="font-weight: bold;">
-            Equipment usage:
-            </span>
-            <br>
-            (1) All equipment usage must be logged, and operating procedures must be strictly adhered to. Before using the equipment, carefully verify that all conditions meet the requirements and check for any abnormalities. During use, monitor the equipment’s status to ensure it operates normally, and make adjustments as needed to maintain optimal performance. After use, complete the required shutdown procedures, including sweeping, purging, or turning off the equipment. 
-            <br>
-            (2) Instrument maintenance is categorized into regular and daily maintenance, both aimed at identifying potential failure risks to implement timely preventive measures. Regular maintenance involves comprehensive servicing of large equipment at fixed intervals, while daily maintenance includes routine checks and inspections of instruments, such as spot check of each shift and the daily inspection[5].
-
-            </p>
-             <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh;height: auto; display: flex;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 2vh; justify-content: center;">
-                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-5.webp'); width: 70vw; height: 88vh;background-size: contain;background-repeat: no-repeat"></div>
-             </div>
-                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;margin-bottom: 5vh;">
-                    <h style="  position: center; text-align: center; color: #000 ;font-size: 25px; ">
-                     Figure 3 | Safety education
-                    </h>
-                  </div>   
-            <p  id="HP"     class="title-style"   style="position:relative; margin-top: 5vh;margin-bottom: 5vh; text-align: left;align-self: flex-start;text-align: left;">
-           HP Safety in & Dual-use analysis
-            </p>
-            <p class="nomal-style" style="position:relative;">
-            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold; text-align: left;">
-            Education    
-            </span>
-            <br>
-            Meanwhile, we attach great importance to "Laboratory safety". After the report of the incidents of "Collective Cancer Attack in a Laboratory Group of the Second Affiliated Hospital of Sun Yat-sen University" in November 2023, our team collectively learned the news and exchanged our own thoughts. On November 8, the Second Affiliated Hospital of Sun Yat-sen University issued an announcement saying that three of the people who have worked and studied in the laboratory of the Breast Tumor Center in recent years have suffered from cancer, and many people suspect that the incident is related to experimental reagents and materials. Although the existing information cannot prove that the cancer of the three students is related to the laboratory, the laboratory safety issue must arouse great public concern.
-            </p>
-            <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh;height: auto; display: flex;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 2vh; justify-content: center;">
-                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-3.webp'); width: 70vw; height: 65vh;background-size: contain;background-repeat: no-repeat"></div>
-             </div>
-                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;margin-bottom: 5vh;">
-                    <h style="  position: center; text-align: center; color: #000 ;font-size: 18px; ">
-                     Figure 4 <br><br> Online Discussion Regarding the Mass Cancer Incident at the Second Affiliated Hospital of Sun Yat-sen University, NetEase News Network, China, 14 November
-                    </h>
-                  </div> 
-                  
-                   <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh;height: auto; display: flex;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 2vh; justify-content: center;">
-                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-4.png.webp'); width: 38vw; height: 60vh;background-size: contain;background-repeat: no-repeat"></div>
-             </div>
-                  <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;margin-bottom: 5vh;">
-                    <h style="  position: center; text-align: center; color: #000 ;font-size: 18px; ">
-                     Figure 5 <br><br>Official Statement Issued by the Second Affiliated Hospital of Sun Yat-sen University and NetEase News Network, China, 14 November
-
-                    </h>
-                  </div>   
-               <p class="nomal-style" style="position:relative;">
-            &nbsp;&nbsp;&nbsp;This news report prompted us to raise safety awareness by organizing regular training sessions, create a safer laboratory environment through rigorous inspections and maintenance procedures, and strictly regulate experimental operations by implementing a comprehensive set of rules and guidelines.
-            </p>
-
-
-            <p class="nomal-style" style="position:relative; margin-top: 5vh;">
-            <span  id="Experimental skills training" style="font-size: 30px; font-weight: bold; text-align: left;">
-            Dual-use analysis 
-            </span>
-            <br>
-            <span style="font-weight: bold; margin-top: 2.5vh;">(1) Possible Benefits of the Project</span>
-            <br>      
-            • Promoting rational drug use: Resistance biomarkers may reduce unnecessary RC48 exposure in non-responders.
-            <br>
-            • Advancing Understanding of Drug Resistance: By constructing a drug-resistant cell model and identifying functional resistance genes[6] and protein biomarkers, this project will provide novel insights into the mechanisms of acquired resistance to ADC drugs like RC48 in bladder cancer.
-             <br>
-            • Facilitating Drug Development: The findings will offer a scientific basis for developing more effective therapeutic strategies and drugs, helping to overcome resistance and improve treatment outcomes for bladder cancer patients.
-    <br>
-            • Enhancing Clinical Applications: A clearer understanding of resistance mechanisms will enable more precise clinical treatment plans, reducing the risk of resistance development and extending the efficacy of existing drugs.
-        <br>
-            <span style="font-weight: bold;">(2) Potential Risks of the Project</span>
-    <br>
-            • Cell Model Safety: During the construction of the drug-resistant cell model, there is a potential risk of cell contamination[7] or unintended mutations, which could lead to inaccurate experimental results and pose a biosecurity risk to laboratory personnel.
-    <br>
-            • Risk of Data Misuse: The data generated on resistance genes and protein biomarkers could be misused for non-medical purposes, such as the development of harmful biological agents.
-    <br>
-            • Spread of Resistance Mechanisms: If the resistance mechanisms are improperly disseminated, they could potentially accelerate the development of resistance in other types of cancer[8].
-    <br>    
-            <span style="font-weight: bold;">(3) Measures to Ensure Safety</span>
-    <br>
-            • Stringent Biosafety Practices: Adhere to strict biosafety protocols during cell experiments to ensure a sterile cell culture environment and prevent contamination.
-    <br>
-            • Data Encryption and Confidentiality: Encrypt research data and restrict access to ensure that it is used solely for scientific purposes.
-    <br>
-            • Ethical Review and Compliance: All experiments are reviewed and approved by an ethics committee to ensure compliance with relevant laws, regulations, and ethical standards[9].
-    <br>
-            • Risk Assessment and Emergency Planning: Conduct regular risk assessments and develop emergency plans to address potential biosecurity incidents.
-    <br>    
-            <span style="font-weight: bold;">(4) Risks and Benefits Comparison</span>
-    <br>
-            • Controllable Risks: With stringent biosafety and data protection measures in place, potential risks can be effectively managed.
-    <br>
-            • Significant Benefits: The project's potential benefits in advancing the understanding of resistance mechanisms, promoting drug development, and improving clinical applications far outweigh the risks.
-    <br>
-            • Overall Evaluation: The project's benefits significantly outweigh the controllable risks, making it both safe and feasible.
-    </div> 
-
-
-
-             
-    
-
-            
-         </section>
+           <!-- 一月实验 -->
+           <div id="January" class="experiment-section">
+               <h2 class="month-title">January 实验</h2>
+               <div class="experiment-buttons">
+                   <a href="https://example.com/january-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
+                   <a href="https://example.com/january-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               </div>
+           </div>
+           
+           <!-- 二月实验 -->
+           <div id="February" class="experiment-section">
+               <h2 class="month-title">February 实验</h2>
+               <div class="experiment-buttons">
+                   <a href="https://example.com/february-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
+                   <a href="https://example.com/february-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               </div>
+           </div>
+           
+           <!-- 三月实验 -->
+           <div id="March" class="experiment-section">
+               <h2 class="month-title">March 实验</h2>
+               <div class="experiment-buttons">
+                   <a href="https://example.com/march-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
+                   <a href="https://example.com/march-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               </div>
+           </div>
+           
+           <!-- 四月实验 -->
+           <div id="April" class="experiment-section">
+               <h2 class="month-title">April 实验</h2>
+               <div class="experiment-buttons">
+                   <a href="https://example.com/april-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
+                   <a href="https://example.com/april-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               </div>
+           </div>
+           
+           <!-- 五月实验 -->
+           <div id="May" class="experiment-section">
+               <h2 class="month-title">May 实验</h2>
+               <div class="experiment-buttons">
+                   <a href="https://example.com/may-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
+                   <a href="https://example.com/may-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               </div>
+           </div>
+           
+           <!-- 六月实验 -->
+           <div id="June" class="experiment-section">
+               <h2 class="month-title">June 实验</h2>
+               <div class="experiment-buttons">
+                   <a href="https://example.com/june-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
+                   <a href="https://example.com/june-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               </div>
+           </div>
+           
+           <!-- 七月实验 -->
+           <div id="July" class="experiment-section">
+               <h2 class="month-title">July 实验</h2>
+               <div class="experiment-buttons">
+                   <a href="https://example.com/july-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
+                   <a href="https://example.com/july-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               </div>
+           </div>
+           
+        </div>
+        </div>
+    </section>
 
     
             
@@ -1481,8 +1317,8 @@
             
         // 关键资源URL列表
         const criticalResources = [
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png.webp',
-            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.1.png.webp',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.webp',
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.1.webp',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-1.webp',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.1.webp',
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/st-2.2.webp',
@@ -1603,7 +1439,7 @@
         });
              document.addEventListener('DOMContentLoaded', function() {
             const links = document.querySelectorAll('.toc-link');
-            const sections = document.querySelectorAll('section');
+            const sections = document.querySelectorAll('.experiment-section');
             
             // 为导航链接添加点击事件
             links.forEach(link => {

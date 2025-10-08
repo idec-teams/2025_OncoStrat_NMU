@@ -50,7 +50,7 @@
         .loading-logo {
             height: 30vh;
             width: 30vh;
-            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png.webp');
+            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png.webp');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
@@ -329,7 +329,7 @@
         }
 
         .sidebar-btn {
-            /* background-image: url('/images/1.png.webp'); */
+            /* background: url('/images/1.png.webp'); */
             background-size: contain;
             width: 16vh;
             height: 24.5vh !important;
@@ -424,7 +424,7 @@
         }
         .logo {
             position:relative;    
-            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png.webp");
+            background: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png.webp");
             width: 100%;
             height: 100%; 
             /* font-size: 24px;
@@ -805,7 +805,7 @@
             width: 100%;
             position: relative;
             padding: 0;
-            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png.webp');
+            background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/渐变2.png.webp');
             background-size: cover;
             background-position: top;
             display: flex;
@@ -1082,12 +1082,14 @@
         <div class="sun-background" style="background-size: cover;" id="sunBackground"></div>
         <div class="mountains"  style="background-size: cover; " id="mountains"></div>
 
-            <div class="hero-content" style="top: 10vh;">
-               
+            <div id="titletext">
+            <div class="hero-content" style="top: 0vh;">
+                <h class="home1" style="font-size: 16rem; ">Model </h>
             </div>
+           
             <!-- 调整布局 -->
-             
-        </div> 
+
+        </div>
         
    <div class="scroll-indicator" style="font-size: 4rem; margin-top: 5vh;">Explore more &#8681</div>
     </section>
@@ -1150,11 +1152,13 @@
     <!-- 内容区域 --> 
     <section id="content" class="content-section" style="background-color: #ffffff; max-width:75vw ;height: auto; border-radius: 20px;z-index: 3;top:5vh;position: relative; padding-bottom: 10vh;">
         
-       <div class="text-content0">
+       <div class="text-content0" >
         <div class="text-content">
-            
-           <p  id="Part I "     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
-            Part I: Prediction and Analysis of Global Epidemiological Trends in Bladder Cancer
+            <div class="sector0 " style="width:100%; height: 5vw ;display: flex;padding-left: 2vw; margin-top: 2.5vh; align-items: center;">
+            <div class="sector" style="display: flex;align-items: center;justify-content: center;  background-color: #eb4e05;color: #ffffff; font-size: 3rem; width: 20%; height: 100%; border-radius: 1rem; text-align: center; align-self: center; font-weight: bold;">Part I</div>
+            </div>
+           <p  id="PartI"     class="title-style"   style="position:relative; top: 2vh;  text-align: left;align-self: flex-start;text-align: left;">
+            Prediction and Analysis of Global Epidemiological Trends in Bladder Cancer
             </p>
              <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2.2rem; ; display: inline-block; width: 100%; text-align: left; ">
              1. Materials and Methods
@@ -1172,7 +1176,7 @@
               
             <!-- Formula 1 -->
              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 10vh; display: flex; gap: 0.5vw; padding-bottom: 2vh;  flex-wrap: nowrap; margin-top: 2.5vh; margin-bottom: 2.5vh;">
-                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/F1.png.webp'); width: 50%; height: 10vh;background-size: contain;background-repeat: no-repeat ;margin-left: 10vw;"></div>
+                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/F1.png.webp'); width: 50%; height: 10vh;background-size: contain;background-repeat: no-repeat ;margin-left: 10vw;"></div>
                  
                   
                   <div style="text-align: center;justify-content: center; align-items: center; align-self: flex-start;display: flex; position: relative; width: auto; min-width: 10vw ;height: 10vh;">
@@ -1195,7 +1199,7 @@
             </p>
             <!-- Formula 2 字符 -->
              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 10vh; display: flex; gap: 0.5vw; padding-bottom: 2vh;  flex-wrap: nowrap; margin-top: 2.5vh; margin-bottom: 2.5vh;">
-                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/F2.png.webp'); width: 70%; height: 10vh;background-size: contain;background-repeat: no-repeat;margin-left: 10vw"></div>
+                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/F2.png.webp'); width: 70%; height: 10vh;background-size: contain;background-repeat: no-repeat;margin-left: 10vw"></div>
              
                   
                   <div style="text-align: center;justify-content: center; align-items: center; align-self: flex-start;display: flex; position: relative; width: auto; min-width: 10vw ;height: 10vh;">
@@ -1406,10 +1410,10 @@
              </p>
 
              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;justify-content: center;">
-                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2a.png.webp'); width: 45%; height: 30vh;background-size: contain;background-repeat: no-repeat"></div>
-                 <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2b.png.webp'); width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
+                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2a.png.webp'); width: 45%; height: 30vh;background-size: contain;background-repeat: no-repeat"></div>
+                 <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2b.png.webp'); width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
                  <div class="img" style="align-self: flex-start; align-items: center; justify-content: center;  
-                  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2c.png.webp');width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
+                  background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片2c.png.webp');width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
 
                   
                   <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
@@ -1421,7 +1425,7 @@
 
 
              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;justify-content: center;">
-                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片3.png.webp'); width: 90%; height: 72vh;background-size: contain;background-repeat: no-repeat">
+                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片3.png.webp'); width: 90%; height: 72vh;background-size: contain;background-repeat: no-repeat">
 
                 </div>
     
@@ -1452,10 +1456,10 @@
        First, the ARIMA model was applied to analyze the linear component of the bladder cancer DALYs, prevalence, and death data (counts and rates). Residual diagnosis via autocorrelation/partial autocorrelation function plots and the Ljung-Box test indicated that the residual series satisfied the white noise property (p > 0.05), suggesting the ARIMA model had sufficiently extracted information from the time series (Figure 4).
                 </p>
                 <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;justify-content: center;">
-                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片4a.png.webp'); width: 90%; height: 50vh;background-size: contain;background-repeat: no-repeat">
+                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片4a.png.webp'); width: 90%; height: 50vh;background-size: contain;background-repeat: no-repeat">
 
                 </div>
-                <div class="img" style="align-self: flex-start;  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片4b.png.webp'); width: 90%; height: 40vh;background-size: contain;background-repeat: no-repeat">
+                <div class="img" style="align-self: flex-start;  background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片4b.png.webp'); width: 90%; height: 40vh;background-size: contain;background-repeat: no-repeat">
 
                 </div>
     
@@ -1493,10 +1497,10 @@
       Figure 5 illustrates the fitting performance of the ARIMA, LSTM, and ARIMA-LSTM models on the test set data, showing the clear upward trend in global bladder cancer incidence and mortality rates. Compared to the single ARIMA model, the ARIMA-LSTM ensemble model more accurately captured this characteristic. For DALYs prediction on the test set, the MAPE of the ARIMA-LSTM ensemble model was only 0.301%, nearly doubling the prediction accuracy compared to the ARIMA model (Table 4).
               </p>
                <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;justify-content: center;">
-                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片5a.png.webp'); width: 45%; height: 30vh;background-size: contain;background-repeat: no-repeat"></div>
-                 <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片5b.png.webp'); width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
+                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片5a.png.webp'); width: 45%; height: 30vh;background-size: contain;background-repeat: no-repeat"></div>
+                 <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片5b.png.webp'); width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
                  <div class="img" style="align-self: flex-start; align-items: center; justify-content: center;  
-                  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片5c.png.webp');width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
+                  background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片5c.png.webp');width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
 
                   
                   <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">
@@ -1516,10 +1520,10 @@
             <!-- Figure 6: ARIMA-LSTM model prediction results -->
 
              <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 40vh; display: flex; gap: 2vw; padding-bottom: 2vh;  flex-wrap: wrap; margin-top: 5vh; margin-bottom: 5vh;justify-content: center;">
-                <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片6a.png.webp'); width: 45%; height: 30vh;background-size: contain;background-repeat: no-repeat"></div>
-                 <div class="img" style="background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片6b.png.webp'); width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
+                <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片6a.png.webp'); width: 45%; height: 30vh;background-size: contain;background-repeat: no-repeat"></div>
+                 <div class="img" style="background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片6b.png.webp'); width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
                  <div class="img" style="align-self: flex-start; align-items: center; justify-content: center;  
-                  background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片6c.png.webp');width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
+                  background: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/图片6c.png.webp');width: 45%; height: 30vh; background-size: contain;background-repeat: no-repeat"></div>
 
                   
                   <div style="text-align: center;justify-content: center;align-self: flex-start;display: flex; position: relative; width: 100%;">

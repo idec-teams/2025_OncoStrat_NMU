@@ -12,6 +12,15 @@
             box-sizing: border-box;
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
+         :root {
+            --primary-color: #0a192f;
+            --secondary-color: #112240;
+            --accent-color: #eeedb4;
+            --text-color: #e6f1ff;
+            --text-secondary: #8892b0;
+            --font-main: 'Arial', sans-serif;
+             font-size: 62.5%; 
+        }
          /* 加载层样式 */
         .loading-overlay {
             position: fixed;
@@ -129,6 +138,233 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+         /* 导航栏样式 */
+         nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            margin-bottom: 0;
+            padding:0.5rem 0.5rem;
+            padding-right: 2vw;
+            display: flex;
+            
+            /* justify-content: space-between; */
+            align-items: center;
+            background: linear-gradient(to right, rgba(230, 54, 10, 0.7), rgba(200, 40, 5, 0.85));
+            z-index: 1000;
+            backdrop-filter: blur(1rem);
+            transition: all 0.4s ease;
+            border-bottom: 0.1rem solid rgba(255, 255, 255, 0.1);
+        }
+        
+        nav.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(180, 40, 5, 0.95);
+            box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.2);
+        }
+        .nav-links {
+            display: flex;
+            /* justify-content: flex-end; */
+            margin-left: 15vh;
+            flex-grow: 1;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.4rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links a:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-0.2rem);
+        }
+        
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -0.5rem;
+            left: 15%;
+            width: 70%;
+            height: 0.2rem;
+            background: #fff;
+            animation: underline 0.3s ease;
+        }
+        
+        .nav-links a.active {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-links a.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 60%;
+            width: 0.4rem;
+            background: #fff;
+            border-radius: 0 0.2rem 0.2rem 0;
+        }
+        
+        .nav-links a i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+        .logo {
+            position:relative;    
+            background-image: url("https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/白字透明.png");
+            width: 100%;
+            height: 100%; 
+            /* font-size: 24px;
+            font-weight: bold; */
+
+             
+            background-size: contain;
+            background-position: left center;
+            background-repeat: no-repeat;
+            /* color: var(--accent-color); */
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5vh;
+            justify-content: flex-end; /* 确保链接靠右对齐 */
+            flex-grow: 1; /* 占据剩余空间 */
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color:  #eeedb4;
+        }
+        .sub-menu {
+    max-height: 0;
+    overflow: hidden;
+    position: absolute; /* 绝对定位 */
+    left: 0%; /* 左侧对齐 */
+    width:15rem ;
+    background: white; /* 背景色 */
+    border-left: 10px solid #db3434 ;
+    top: 5vh;
+    padding: 0; 
+    text-align: left; /* 文本左对齐 */
+    font-weight: bold;
+    box-shadow: 0rem 0.4rem 2rem -0.5rem rgba(0, 0, 0, 0.15); /* 阴影效果 */
+    max-width: 30rem; /* 最大宽度 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.45s ease all 0.1s; /* 过渡动画 */
+    z-index: 10; /* 较高层叠顺序 */
+    border-radius: 1rem; /* 圆角 */
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    list-style: none;
+}
+.sub-menu .menu-item {
+    display: block; /* 块级显示 */
+    padding-left: 0;
+}
+.sub-menu .sub-menu-item a {
+    color: #000;
+    height: 3rem;
+    font-size: 1.5rem;
+    margin-left: 0rem;
+    padding-left: 0;
+
+    
+
+}
+.menu-item:nth-child(n+2):nth-child(-n+5) .plus-icon {
+    width: 1rem; /* 图标宽度 */
+    height: 1rem; /* 图标高度 */
+    stroke: hsl(0, 94%, 52%); /* 图标颜色 */
+    margin-bottom: 0.1rem; /* 底部外边距 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5) .sub-menu-item {
+    list-style-type: none; /* 移除列表标记 */
+    display: block; /* 块级显示 */
+    margin: 1rem; /* 外边距 */
+    position: relative; /* 相对定位 */
+    transform: translateY(-1.5rem); /* Y轴位移 */
+    opacity: 0; /* 完全透明 */
+    transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) all 0.1s; /* 过渡动画 */
+    visibility: hidden; /* 隐藏元素 */
+    border-radius: 40%; /* 圆角 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu {
+    max-height: 80rem; /* 最大高度 */
+    max-width: 12rem; /* 最大宽度 */
+    opacity: 1; /* 完全不透明 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a {
+    transition: 0.15s ease all; /* 链接过渡动画 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item a:hover {
+    color: #fc1202; /* 链接悬停颜色 */
+    text-decoration: underline #fc1202;
+    text-underline-offset: 0.8rem   ;
+     text-decoration-thickness: 0.2rem  ;
+
+
+}
+
+/* 子菜单项动画延迟设置 */
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:first-child {
+    transform: translateY(0px); /* 重置位移 */
+    opacity: 1; /* 完全不透明 */
+    transition-delay: 0.15s; /* 动画延迟 */
+    visibility: visible; /* 显示元素 */
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(2) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.3s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(3) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(4) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(5) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(6) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
+.menu-item:nth-child(n+2):nth-child(-n+5):hover .sub-menu-item:nth-child(7) {
+    transform: translateY(0px);
+    opacity: 1;
+    transition-delay: 0.4s;
+    visibility: visible;
+}
         
         /* Hero 区域样式 */
         .hero {
@@ -293,6 +529,45 @@
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.15);
         }
+    .gallery-text {
+position: relative;
+min-height: 120px; /* 根据你的内容调整，确保能容纳两段文本中较高的那一个 */
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+}
+
+.text-primary, .text-secondary {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+transition: opacity 0.5s ease;
+padding: 20px;
+text-align: center;
+}
+
+.text-primary {
+opacity: 1;
+}
+
+.text-secondary {
+opacity: 0;
+}
+
+.gallery-item:hover .text-primary {
+opacity: 0;
+}
+
+.gallery-item:hover .text-secondary {
+opacity: 1;
+}
         
         .image-container {
             position: relative;
@@ -329,13 +604,6 @@
             opacity: 1;
         }
         
-        .gallery-text {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
         
         .gallery-text h3 {
             margin-bottom: 10px;
@@ -366,14 +634,70 @@
             animation: twinkle 3s infinite;
         }
         
-        /* 页脚样式 */
-        footer {
-            background-color: #333;
-            color: white;
+             footer {
+            background-position: top;
+            background-color: #000;
+            padding: 40px 5vw; /* 修改为左右对称的padding */
+            width: 100%;
             text-align: center;
-            padding: 30px 0;
+            position: relative;
+            z-index: 2;
+            min-height: 20vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
+        .footer-content {
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .footer-contact {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        
+        .footer-contact p {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+        
+        .copyright-container {
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .copyright {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: inline-block;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero- h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero- p {
+                font-size: 1.1rem;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
         /* 响应式设计 */
         @media (max-width: 992px) {
             .gallery-item {
@@ -467,6 +791,49 @@
             <div class="loading-text" style="margin-top: 20vh ;" id="loadingText">loading...</div>
         </div>
     </div>
+      <!-- 导航栏 -->
+        <nav>
+            <div class="logo-container" style="width: 20vw; height: 3vw;">
+        <div class="logo"></div>
+            </div>
+        <div class="nav-links">
+
+            <a href="https://idec-teams.github.io/2025_OncoStrat_NMU/"><H1>Home</H1></a>
+           <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Project&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/background.html">Background</a></li>
+                                             <li class="sub-menu-item"><a href="#">Design</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Results</a></li>
+                                                     <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Report.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Report</a></li>
+                                                         <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Poster.pdf" rel="noopener noreferrer" title="click to PDF">Poster</a></li>
+                                                                <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Supplement.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Supplement</a></li>
+                                            <li class="sub-menu-item"><a href="https://idec-teams.github.io/2025_OncoStrat_NMU/safety.html">Safety</a></li>
+                                           
+                                        
+
+                                        </ol>
+            </li>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Document&nbsp;&#9660</H1></a>
+                  <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/Protocols.pdf"target="_blank" rel="noopener noreferrer" title="click to PDF">Protocols</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Lab&nbsp;notebook</a></li>
+                                                     
+                                                         
+                                        </ol>
+            </li>
+            <a href="#"><H1>ML-Model</H1></a>
+            <li class="menu-item" style="position: relative; list-style: none;"> <a href="#"><H1>Team&nbsp;&#9660</H1></a>
+                <ol class="sub-menu">
+                                            
+                                             <li class="sub-menu-item"><a href="{{ get_url(path='team.html') }}">Member</a></li>
+                                                 <li class="sub-menu-item"><a href="#">Community </a></li>
+                                                     <li class="sub-menu-item"><a href="#">Collaboration</a></li>
+                                                         
+                                        </ol>
+            </li>
+        </div>
+    </nav>
 
     <!-- Hero 区域 -->
     <section class="hero">
@@ -484,7 +851,7 @@
  <!-- 轮播区域 -->
     <section class="carousel-section" style="background-color: transparent;">
         <div class="container">
-            <h2 class="section-title">Pictures</h2>
+            <h2 class="section-title"style="color: #f5f5f5;">Pictures</h2>
             <div class="carousel">
                 <div class="carousel-track">
                     <div class="carousel-slide">
@@ -525,19 +892,27 @@
     <!-- 图片网格区域 -->
     <section class="gallery-section" style="background-color:transparent;">
         <div class="container">
-            <h2 class="section-title">摄影作品集</h2>
+            <h2 class="section-title" style="color: #f5f5f5;font-size: 4rem;">Members</h2>
+             <h2 class="section-title" style="color: #f5f5f5;">Students</h2>
+
             <div class="gallery-grid">
                 <!-- 图片项 1 -->
-                <div class="gallery-item">
+                <div class="gallery-item" style="width: 100%;">
                     <div class="image-container">
                         <img src="/images/Bg1.1.png" alt="A" class="image-primary">
                         <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>0</h3>
-                        <h3>0</h3>
-                        <h3>0</h3>
-                        <p>000</p>
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">Teamleader</h3>
+                            <h3>Chengming Yang</h3>
+                            <h3>Medical imaging</h3>
+                            <h3>Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>6</h3>
+                            
+                        </div>
                     </div>
                 </div>
                 
@@ -547,9 +922,17 @@
                         <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="田野" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉田野" class="image-secondary">
                     </div>
-                    <div class="gallery-text">
-                        <h3>金色田野</h3>
-                        <p>夕阳下的麦田，金色的光芒洒满大地，温暖而宁静。</p>
+                     <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Lushan Yang<br>Medical imaging<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>YES，that is it!</h3>
+                            
+                        </div>
                     </div>
                 </div> 
                 
@@ -558,9 +941,18 @@
                         <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="城市夜景" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="城市白天" class="image-secondary">
                     </div>
-                    <div class="gallery-text">
-                        <h3>都市夜色</h3>
-                        <p>繁华都市的夜景，灯火辉煌，展现了现代城市的活力。</p>
+                     <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Shu Bai<br>Clinical Medicine
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>The best way to predict the future is to create it.</h3>
+                            
+                        </div>
                     </div>
                 </div>
            
@@ -571,8 +963,19 @@
                         <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="另一湖泊" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>宁静湖泊</h3>
-                        <p>山间的湖泊，水面如镜，倒映着周围的山峦和天空。</p>
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Bufan Ying<br>
+Medical imaging
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+In my prime, all dreamed of came true: I stood in Cambridge, and loved one true.</h3>
+                            
+                        </div>
                     </div>
                 </div>
                 
@@ -583,8 +986,19 @@
                         <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="森林小径" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>0</h3>
-                        <p>000</p>
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Jiaoxue Guo<br>
+Clinical Medicine
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+</h3>
+                            
+                        </div>
                     </div>
                 </div> 
                 
@@ -594,9 +1008,21 @@
                         <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="日落" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="日落山脉" class="image-secondary">
                     </div>
-                    <div class="gallery-text">
-                        <h3>0</h3>
-                        <p>000</p>
+                  <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Yuchen Feng<br>
+Clinical Medicine
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+Undaunted by lengthy time, a youth pursues glory afar.	
+</h3>
+                            
+                        </div>
                     </div>
                 </div>
                  
@@ -606,34 +1032,354 @@
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
                     </div>
-                    <div class="gallery-text">
-                        <h3>0</h3>
-                        <p>000</p>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Xingyi Song<br>
+Anesthesia
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+
+</h3>
+                            
+                        </div>
+                    </div>
+                </div> 
+
+
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
+                    </div>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Xinyue Yu<br>
+Anesthesia
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+	
+</h3>
+                            
+                        </div>
                     </div>
                 </div> 
                 
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
+                    </div>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Huiyun Deng<br>
+Medical imaging
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+Be kind, be brave, savor each wave—let the life bloom warm, full, and grave.
+</h3>
+                            
+                        </div>
+                    </div>
+                </div> 
                 
                 <div class="gallery-item">
                     <div class="image-container">
-                        <img src="" alt="111" class="image-primary">
-                        <img src="" alt="222" class="image-secondary">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
+                    </div>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Xinrui Shang<br>s
+Medical imaging
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+
+</h3>
+                            
+                        </div>
+                    </div>
+                </div> 
+                 <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
+                    </div>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Cheng Zhong<br>
+Clinical Medicine
+
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+I talk to my cells. They just have a different way of responding – usually by dying.</h3>
+                            
+                        </div>
+                    </div>
+                </div> 
+
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
+                    </div>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>Zihan Zhao<br>
+Clinical Medicine
+
+<br>
+
+                            Undergraduate student</h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+My protein and I have a special relationship: it unfolds, and so do I.</h3>
+                            
+                        </div>
+                    </div>
+                </div> 
+                
+                <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
+                    </div>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>	
+Siyi Gao<br>
+Master's studen
+<br>
+
+                            </h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+	
+</h3>
+                            
+                        </div>
+                    </div>
+                </div> 
+
+                  <div class="gallery-item">
+                    <div class="image-container">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
+                    </div>
+                                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">player</h3>
+                            <h3>	
+	
+Dan Xie<br>
+Master's studen
+<br>
+
+                            </h3>
+                        </div>
+                        <div class="text-secondary">
+                            <h3>	
+	
+</h3>
+                            
+                        </div>
+                    </div>
+                </div> 
+                
+          
+                
+          
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        
+                
+        <div class="container" style="margin-top: 15vh;">
+            <h2 class="section-title" style="color: #f5f5f5;">Teachers</h2>
+            <div class="gallery-grid">
+                <!-- 图片项 1 --> 
+             <div class="gallery-item" style="width: 100%;">
+                    <div class="image-container">
+                        <img src="/images/Bg1.1.png" alt="A" class="image-primary">
+                        <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
                     </div>
                     <div class="gallery-text">
-                        <h3>0</h3>
-                        <p>000</p>
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">Mentor</h3>
+                            <h3>
+Lianghua Wang</h3>
+                            
+                           
+                        </div>
+                        <div class="text-secondary">
+                            <h3></h3>
+                            
+                        </div>
                     </div>
                 </div>
+                
+                 <div class="gallery-item" style="width: 100%;">
+                    <div class="image-container">
+                        <img src="/images/Bg1.1.png" alt="A" class="image-primary">
+                        <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
+                    </div>
+                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">Mentor</h3>
+                            <h3>
+Sheng Zhang</h3>
+                            
+                           
+                        </div>
+                        <div class="text-secondary">
+                            <h3>6</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+           
+              
+                <div class="gallery-item" style="width: 100%;">
+                    <div class="image-container">
+                        <img src="/images/Bg1.1.png" alt="A" class="image-primary">
+                        <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
+                    </div>
+                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">Mentor</h3>
+                            <h3>
+	
+Meng Guo</h3>
+                            
+                           
+                        </div>
+                        <div class="text-secondary">
+                            <h3>6</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="gallery-item" style="width: 100%;">
+                    <div class="image-container">
+                        <img src="/images/Bg1.1.png" alt="A" class="image-primary">
+                        <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
+                    </div>
+                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">Advisor</h3>
+                            <h3>
+	
+	
+Jianhua Luo</h3>
+    	
+                      
+                           
+                        </div>
+                        <div class="text-secondary">
+                            <h3>6</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+                 <div class="gallery-item" style="width: 100%;">
+                    <div class="image-container">
+                        <img src="/images/Bg1.1.png" alt="A" class="image-primary">
+                        <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
+                    </div>
+                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">Advisor</h3>
+                            <h3>
+	
+	
+Yu Kong</h3>
+                            
+                           
+                        </div>
+                        <div class="text-secondary">
+                            <h3>6</h3>
+                            
+                        </div>
+                    </div>
+                </div>
+              
+                <div class="gallery-item" style="width: 100%;">
+                    <div class="image-container">
+                        <img src="/images/Bg1.1.png" alt="A" class="image-primary">
+                        <img src="/images/Bg1.2.png" alt="B" class="image-secondary">
+                    </div>
+                    <div class="gallery-text">
+                       <div class="text-primary">
+                            <h3 style="font-size: 2rem;">Supervisor</h3>
+                            <h3>
+Mingjuan Sun</h3>
+                            
+                           
+                        </div>
+                        <div class="text-secondary">
+                            <h3></h3>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+              
             </div>
         </div>
     </section>
 
     <!-- 页脚 -->
-    <footer>
-        <div class="container">
-            <p>&copy; Team</p>
+   <footer>
+        <div class="footer-content">
+            <div class="footer-contact">
+                <p>Contact us by</p>
+                <p>Email : 1402418580@qq.com | Phone: 86-13566087400</p>
+                <p>Address : 800 Xiangyin Road, Yangpu District, Shanghai, China, 200433.</p>
+            </div>
+            
+            <div class="copyright-container">
+                <div class="copyright">&copy; 2025 Onco_Strat</div>
+            </div>
         </div>
     </footer>
-
     <script>
            // 关键资源URL列表
         const criticalResources = [

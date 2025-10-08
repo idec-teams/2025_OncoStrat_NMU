@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>摄影作品展示</title>
+    <title>Member</title>
     <style>
         /* 基础样式 */
         * {
@@ -12,6 +12,111 @@
             box-sizing: border-box;
             font-family: 'Helvetica Neue', Arial, sans-serif;
         }
+         /* 加载层样式 */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loading-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loading-logo {
+            height: 30vh;
+            width: 30vh;
+            background-image: url('https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/load.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: rotate 10s linear infinite;
+            margin-bottom: 5vh;
+        }
+
+        .pulse-container {
+            display: flex;
+            flex-direction: row;
+            gap: 15px;
+            margin-bottom: 3vh;
+        }
+
+        .pulse-ball {
+            width: 5rem;
+            height: 5rem;
+            border-radius: 50%;
+            background: #ffffff;
+            opacity: 0.8;
+            animation: pulse 1.2s infinite ease-in-out;
+        }
+
+        .pulse-ball:nth-child(1) { animation-delay: 0s; }
+        .pulse-ball:nth-child(2) { animation-delay: 0.4s; }
+        .pulse-ball:nth-child(3) { animation-delay: 0.8s; }
+        .pulse-ball:nth-child(4) { animation-delay: 1.2s; }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.6;
+            }
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-progress {
+            width: 300px;
+            height: 4px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 2vh;
+        }
+
+        .loading-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #f8f8f8;
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 1.6rem;
+            margin-top: 2vh;
+            text-align: center;
+            font-weight: 500;
+        }
+
         
         body {
             background-color: #f9f9f9;
@@ -60,50 +165,28 @@
             margin-bottom: 10px;
         }
         
-        /* 轮播区域样式 */
-        .carousel-section {
-            padding: 80px 0;
-            background-color: #fff;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            font-size: 2.2rem;
-            color: #333;
-            position: relative;
-        }
-        
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: #4a90e2;
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-        
-        .carousel {
-            position: relative;
-            max-width: 900px;
-            margin: 0 auto;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .carousel-track {
-            display: flex;
-            transition: transform 0.5s ease;
-        }
-        
-        .carousel-slide {
-            min-width: 100%;
-            height: 500px;
-            position: relative;
-        }
-        
+       .carousel {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 100%;
+    width: 100%; /* 添加宽度设置 */
+}
+
+.carousel-slide {
+    min-width: 100%;
+    height: 100%; /* 使用父容器高度 */
+    position: relative;
+    flex-shrink: 0; /* 防止幻灯片收缩 */
+}
         .carousel-slide img {
             width: 100%;
             height: 100%;
@@ -160,19 +243,19 @@
         
         /* 图片网格区域样式 */
         .gallery-section {
-            padding: 80px 0;
+            padding: 5vh 0;
             background-color: #f5f5f5;
         }
         
         .gallery-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 2vw; /* 使用视口宽度单位 */
             justify-content: center;
         }
         
         .gallery-item {
-            flex: 0 0 calc(20% - 30px);
+            flex: 0 0 calc(20% - 2vw);
             min-width: 200px;
             display: flex;
             flex-direction: column;
@@ -191,7 +274,9 @@
         .image-container {
             position: relative;
             width: 100%;
-            height: 200px;
+            height: 20vw; 
+            max-height: 250px; 
+            min-height: 180px; 
             overflow: hidden;
         }
         
@@ -252,25 +337,33 @@
         /* 响应式设计 */
         @media (max-width: 992px) {
             .gallery-item {
-                flex: 0 0 calc(33.333% - 30px);
+                flex: 0 0 calc(33.333% - 2vw);
             }
             
             .hero-text h1 {
                 font-size: 2.5rem;
             }
+            
+            .image-container {
+                height: 25vw; /* 调整中等屏幕上的高度 */
+            }
         }
         
         @media (max-width: 768px) {
             .gallery-item {
-                flex: 0 0 calc(50% - 30px);
+                flex: 0 0 calc(50% - 2vw);
             }
             
             .carousel-slide {
-                height: 400px;
+                height: 40vh; /* 调整中等屏幕上的高度 */
             }
             
             .hero-text h1 {
                 font-size: 2rem;
+            }
+            
+            .image-container {
+                height: 30vw; /* 调整小屏幕上的高度 */
             }
         }
         
@@ -280,7 +373,7 @@
             }
             
             .carousel-slide {
-                height: 300px;
+                height: 35vh; /* 调整移动设备上的高度 */
             }
             
             .hero-text {
@@ -291,10 +384,50 @@
             .hero-text h1 {
                 font-size: 1.8rem;
             }
+            
+            .image-container {
+                height: 50vw; /* 调整移动设备上的高度 */
+            }
+            
+            .gallery-grid {
+                gap: 4vw; /* 移动设备上增加间距 */
+            }
+        }
+        
+        /* 针对超小屏幕的额外优化 */
+        @media (max-width: 400px) {
+            .carousel-slide {
+                height: 30vh;
+            }
+            
+            .image-container {
+                height: 60vw;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>
 <body>
+     <!-- 加载动画层 -->
+      <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-logo"></div>
+            <div class="pulse-container">
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+                <div class="pulse-ball"></div>
+            </div>
+            <div class="loading-progress" >
+                <div class="loading-bar" id="loadingBar"></div>
+            </div>
+            <div class="loading-text" style="margin-top: 20vh ;" id="loadingText">loading...</div>
+        </div>
+    </div>
+
     <!-- Hero 区域 -->
     <section class="hero">
         <img src="/images/St-home.png" alt="风景照片" class="hero-image">
@@ -317,24 +450,24 @@
                             <p></p>
                         </div>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="/images/mountains.png" alt="2">
+                    <div class="carousel-slide" >
+                        <img src="/images/figure1-2.png" alt="2">
                         <div class="slide-caption">
-                            <h3></h3>
+                            <h3>2222</h3>
                             <p></p>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <img src="/images/figure1-2.png" alt="3">
                         <div class="slide-caption">
-                            <h3></h3>
+                            <h3>333</h3>
                             <p></p>
                         </div>
                     </div>
                     <div class="carousel-slide">
                         <img src="/images/Bg1.1.png" alt="4">
                         <div class="slide-caption">
-                            <h3></h3>
+                            <h3>4444</h3>
                             <p></p>
                         </div>
                     </div>
@@ -457,50 +590,208 @@
     </footer>
 
     <script>
-        // 轮播功能
-        document.addEventListener('DOMContentLoaded', function() {
-            const track = document.querySelector('.carousel-track');
-            const slides = Array.from(track.children);
-            const nextButton = document.querySelector('.carousel-btn.next');
-            const prevButton = document.querySelector('.carousel-btn.prev');
+        // 关键资源URL列表
+        const criticalResources = [
+            'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png',
+            ,
+        ];
+
+        // 预加载图片资源
+        function preloadImages(urls) {
+            return Promise.all(
+                urls.map(url => {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            updateProgress();
+                            resolve(url);
+                        };
+                        img.onerror = () => {
+                            console.warn(`Failed to load image: ${url}`);
+                            updateProgress();
+                            resolve(url); // 即使加载失败也继续
+                        };
+                        img.src = url;
+                    });
+                })
+            );
+        }
+
+        // 更新加载进度
+        let loadedResources = 0;
+        function updateProgress() {
+            loadedResources++;
+            const progress = Math.min(100, Math.round((loadedResources / criticalResources.length) * 100));
+            document.getElementById('loadingBar').style.width = `${progress}%`;
+            document.getElementById('loadingText').textContent = `loading... ${progress}%`;
+        }
+
+        // 隐藏加载动画
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.add('hidden');
             
-            const slideWidth = slides[0].getBoundingClientRect().width;
+            // 可选：完全移除元素
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 500);
+        }
+
+        // 初始化加载过程
+        document.addEventListener('DOMContentLoaded', () => {
+            const startTime = Date.now();
+            const minDisplayTime = 1500; // 最小显示时间1.5秒
             
-            // 设置幻灯片位置
-            const setSlidePosition = (slide, index) => {
-                slide.style.left = slideWidth * index + 'px';
-            };
-            slides.forEach(setSlidePosition);
-            
-            let currentIndex = 0;
-            
-            const moveToSlide = (track, currentSlide, targetSlide) => {
-                track.style.transform = 'translateX(-' + targetSlide.style.left + ')';
-                if (currentSlide) currentSlide.classList.remove('current-slide');
-                targetSlide.classList.add('current-slide');
-            };
-            
-            // 下一张按钮点击事件
-            nextButton.addEventListener('click', function() {
-                const currentSlide = slides[currentIndex];
-                currentIndex = (currentIndex + 1) % slides.length;
-                moveToSlide(track, currentSlide, slides[currentIndex]);
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    // 即使出错也要确保显示至少1.5秒
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(hideLoadingOverlay, remainingTime);
+                })
             });
             
-            // 上一张按钮点击事件
-            prevButton.addEventListener('click', function() {
-                const currentSlide = slides[currentIndex];
-                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                moveToSlide(track, currentSlide, slides[currentIndex]);
-            });
+      
+       
+        // 初始化
+
             
-            // 自动轮播
-            setInterval(function() {
-                const currentSlide = slides[currentIndex];
-                currentIndex = (currentIndex + 1) % slides.length;
-                moveToSlide(track, currentSlide, slides[currentIndex]);
-            }, 5000);
+       document.addEventListener('DOMContentLoaded', function() {
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carousel-btn.next');
+    const prevButton = document.querySelector('.carousel-btn.prev');
+       })
+    
+    
+    window.addEventListener('load', function() {
+        initCarousel();
+    });
+    /
+function initCarousel() {
+    const track = document.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.carousel-btn.next');
+    const prevButton = document.querySelector('.carousel-btn.prev');
+    
+    if (!track || slides.length === 0) {
+        console.error('轮播元素未找到');
+        return;
+    }
+    
+   
+    const setSlidePosition = () => {
+        const slideWidth = track.getBoundingClientRect().width;
+        slides.forEach((slide, index) => {
+            slide.style.left = slideWidth * index + 'px';
+            slide.style.width = slideWidth + 'px';
         });
+    };
+    
+    setSlidePosition();
+    
+    let currentIndex = 0;
+    let autoPlayInterval;
+    
+    const moveToSlide = (targetIndex) => {
+    
+    if (targetIndex < 0) targetIndex = slides.length - 1;
+    if (targetIndex >= slides.length) targetIndex = 0;
+  
+    const slideWidth = track.getBoundingClientRect().width;
+    const targetPosition = slideWidth * targetIndex; 
+    
+    track.style.transition = 'transform 0.5s ease';
+    track.style.transform = `translateX(-${targetPosition}px)`;
+    
+    currentIndex = targetIndex;
+};
+    
+ 
+    const nextSlide = () => {
+        moveToSlide(currentIndex + 1);
+    };
+    
+   
+    const prevSlide = () => {
+        moveToSlide(currentIndex - 1);
+    };
+    
+    
+    if (nextButton) {
+        nextButton.addEventListener('click', nextSlide);
+    }
+    
+    if (prevButton) {
+        prevButton.addEventListener('click', prevSlide);
+    }
+    
+    
+    const startAutoPlay = () => {
+        autoPlayInterval = setInterval(nextSlide, 5000);
+    };
+    
+    const stopAutoPlay = () => {
+        clearInterval(autoPlayInterval);
+    };
+    
+    // 鼠标悬停时暂停自动轮播
+    track.addEventListener('mouseenter', stopAutoPlay);
+    track.addEventListener('mouseleave', startAutoPlay);
+    
+    // 窗口大小改变时重新计算
+    window.addEventListener('resize', () => {
+        setSlidePosition();
+        moveToSlide(currentIndex);
+    });
+    
+    // 开始自动轮播
+    startAutoPlay();
+    
+    // 初始位置
+    moveToSlide(0);
+}
+
+        // 主初始化函数
+        function initializePage() {
+            const startTime = Date.now();
+            const minDisplayTime = 1500;
+            
+            // 开始预加载关键资源
+            preloadImages(criticalResources)
+                .then(() => {
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    
+                    // 确保加载动画至少显示1.5秒
+                    setTimeout(() => {
+                        hideLoadingOverlay();
+                        // 加载完成后初始化轮播
+                        initCarousel();
+                    }, remainingTime);
+                })
+                .catch(error => {
+                    console.error('Error preloading images:', error);
+                    const elapsed = Date.now() - startTime;
+                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
+                    setTimeout(() => {
+                        hideLoadingOverlay();
+                        initCarousel();
+                    }, remainingTime);
+                });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', initializePage);
     </script>
 </body>
 </html>

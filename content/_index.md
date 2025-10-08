@@ -103,7 +103,7 @@ The same way as changing the `hero` block in the `templates/index.html`, you can
 {% extends "juice/templates/index.html" %} 
 
 {% block favicon %}
-<link rel="icon" type="image/png" href="/favicon.ico" />
+<link rel="icon" type="image/webp" href="/favicon.ico" />
 {% endblock favicon %}
 ```
 

@@ -37,7 +37,7 @@ Generated site will be available in `public/` after build.
   - `templates/_macros.html` contains `render_header()` used by `templates/index.html`.
   - Customize header/logo/navigation by editing `_macros.html` or the `templates/` files.
 - Images and static assets
-  - Put site images under `static/images/` and reference them with `get_url(path="images/your.png")` in templates.
+  - Put site images under `static/images/` and reference them with `get_url(path="images/your.webp")` in templates.
 - Theme
   - The `themes/juice` directory holds the original theme. Local template overrides live in the top-level `templates/` folder.
 

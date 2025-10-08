@@ -17,6 +17,9 @@
             --font-main: 'Arial', sans-serif;
              font-size: 62.5%; 
         }
+        html {
+   scroll-padding-top:6rem ; /* 根据导航栏高度调整 */
+    }
         /* 加载层样式 */
         .loading-overlay {
             position: fixed;
@@ -1032,8 +1035,8 @@
             gap: 2rem;
         }
         
-        .experiment-btn {
-            flex: 0 0 calc(45% - 2rem);
+        .experiment-btn-e {
+            flex: 0 0 calc(30% - 4rem);
             min-width: 15rem;
             padding: 1.5rem 1rem;
             background: transparent;
@@ -1047,13 +1050,57 @@
             transition: all 0.3s ease;
             cursor: pointer;
         }
+          .experiment-btn-c {
+            flex: 0 0 calc(30% - 4rem);
+            min-width: 15rem;
+            padding: 1.5rem 1rem;
+            background: transparent;
+            border: 2px solid #ff7b47;
+            border-radius: 0.8rem;
+            color: #ff7b47;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .experiment-btn-o {
+            flex: 0 0 calc(30% - 4rem);
+            min-width: 15rem;
+            padding: 1.5rem 1rem;
+            background: transparent;
+            border: 2px solid #f7de00;
+            border-radius: 0.8rem;
+            color: #f7de00;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
         
-        .experiment-btn:hover {
+        .experiment-btn-e:hover {
             background: #ff4757;
             color: white;
             transform: translateY(-0.3rem);
             box-shadow: 0 0.5rem 1rem rgba(255, 71, 87, 0.3);
         }
+        .experiment-btn-c:hover {
+            background: #ff7b4c;
+            color: white;
+            transform: translateY(-0.3rem);
+            box-shadow: 0 0.5rem 1rem rgba(255, 71, 87, 0.3);
+        }
+        
+        .experiment-btn-o:hover {
+            background: #f7de00;
+            color: white;
+            transform: translateY(-0.3rem);
+            box-shadow: 0 0.5rem 1rem rgba(255, 71, 87, 0.3);
+        }
+        
         
         .experiment-btn:active {
             transform: translateY(-0.1rem);
@@ -1157,12 +1204,7 @@
         </div>
         <div class="sidebar-content">
             <ul class="toc-list" id="toc">
-                <li class="toc-item level-1">
-                    <a href="#January" class="toc-link"style="font-size: 1.8rem ;" >January</a>
-                </li>
-                <li class="toc-item level-1">
-                    <a href="#February" class="toc-link" style="font-size: 1.7rem;">February</a>
-                </li>
+               
                 <li class="toc-item level-1">
                     <a href="#March" class="toc-link" style="font-size: 1.7rem;" >March</a>
                 </li>
@@ -1193,67 +1235,188 @@
        <div class="text-content0">
         <div class="text-content">
             
-           <!-- 一月实验 -->
-           <div id="January" class="experiment-section">
-               <h2 class="month-title">January 实验</h2>
-               <div class="experiment-buttons">
-                   <a href="https://example.com/january-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
-                   <a href="https://example.com/january-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
-               </div>
-           </div>
            
-           <!-- 二月实验 -->
-           <div id="February" class="experiment-section">
-               <h2 class="month-title">February 实验</h2>
-               <div class="experiment-buttons">
-                   <a href="https://example.com/february-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
-                   <a href="https://example.com/february-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
-               </div>
-           </div>
            
            <!-- 三月实验 -->
            <div id="March" class="experiment-section">
-               <h2 class="month-title">March 实验</h2>
-               <div class="experiment-buttons">
-                   <a href="https://example.com/march-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
-                   <a href="https://example.com/march-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               <h2 class="month-title" style="color: #000; font-size: 3rem;">Cell Thawing</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh; ">
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/1.Cell Thawing_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/1.Cell Thawing_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/1.Cell Thawing_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
                </div>
+                <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Cell Subculture and Medium Change</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/2.Cell Subculture and Medium Change_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                  <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/2.Cell Subculture and Medium Change_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/2.Cell Subculture and Medium Change_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Growth curve measurement (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/3.Growth curve measurement (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                  <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/3.Growth curve measurement (I)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/3.Growth curve measurement (I)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+                <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Growth curve measurement (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/4.Growth curve measurement (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/4.Growth curve measurement (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/4.Growth curve measurement (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+
            </div>
            
            <!-- 四月实验 -->
            <div id="April" class="experiment-section">
-               <h2 class="month-title">April 实验</h2>
-               <div class="experiment-buttons">
-                   <a href="https://example.com/april-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
-                   <a href="https://example.com/april-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+                <h2 class="month-title" style="color: #000; font-size: 3rem;">Sample Preparation for Proteome Sequencing (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/5.Sample Preparation for Proteome Sequencing (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/5.Sample Preparation for Proteome Sequencing (I)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/5.Sample Preparation for Proteome Sequencing (I)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Sample Preparation for Proteome Sequencing (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+       <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/6.Sample Preparation for Proteome Sequencing (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/6.Sample Preparation for Proteome Sequencing (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/6.Sample Preparation for Proteome Sequencing (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Sample Preparation for Whole Genome Sequencing</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+       <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/7.Sample Preparation for Whole Genome Sequencing_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/7.Sample Preparation for Whole Genome Sequencing_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/7.Sample Preparation for Whole Genome Sequencing_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Flow Cytometric Analysis of Apoptosis (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/8.Flow Cytometric Analysis of Apoptosis (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/8.Flow Cytometric Analysis of Apoptosis (I)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/8.Flow Cytometric Analysis of Apoptosis (I)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Flow Cytometric Analysis of Apoptosis (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/9.Flow Cytometric Analysis of Apoptosis (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/9.Flow Cytometric Analysis of Apoptosis (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/9.Flow Cytometric Analysis of Apoptosis (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
                </div>
            </div>
            
            <!-- 五月实验 -->
            <div id="May" class="experiment-section">
-               <h2 class="month-title">May 实验</h2>
-               <div class="experiment-buttons">
-                   <a href="https://example.com/may-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
-                   <a href="https://example.com/may-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+               <h2 class="month-title" style="color: #000; font-size: 3rem;">Flow Cytometric Analysis of the Cell Cycle (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/10.Flow Cytometric Analysis of the Cell Cycle (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/10.Flow Cytometric Analysis of the Cell Cycle (I)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/10.Flow Cytometric Analysis of the Cell Cycle (I)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Flow Cytometric Analysis of the Cell Cycle (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/11.Flow Cytometric Analysis of the Cell Cycle (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/11.Flow Cytometric Analysis of the Cell Cycle (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/11.Flow Cytometric Analysis of the Cell Cycle (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Transwell Migration Assay (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/12.Transwell Migration Assay (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/12.Transwell Migration Assay (I)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/12.Transwell Migration Assay (I)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Transwell Migration Assay (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/13.Transwell Migration Assay (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/13.Transwell Migration Assay (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/13.Transwell Migration Assay (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Transwell Invasion Assay (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/14.Transwell Invasion Assay (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/14.Cell Thawing_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/14.Cell Thawing_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
                </div>
            </div>
            
            <!-- 六月实验 -->
            <div id="June" class="experiment-section">
-               <h2 class="month-title">June 实验</h2>
-               <div class="experiment-buttons">
-                   <a href="https://example.com/june-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
-                   <a href="https://example.com/june-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+                <h2 class="month-title" style="color: #000; font-size: 3rem;">Transcriptomics Data Analysis</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/15.Transcriptomics Data Analysis_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/15.Transcriptomics Data Analysis_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/15.Transcriptomics Data Analysis_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
                </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Proteomics Data Analysis</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/16.Proteomics Data Analysis_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/16.Proteomics Data Analysis_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/16.Proteomics Data Analysis_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Integrative Analysis of Transcriptomics and Proteomics</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/17.Integrative Analysis of Transcriptomics and Proteomics_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/17.Integrative Analysis of Transcriptomics and Proteomics_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/17.Integrative Analysis of Transcriptomics and Proteomics_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Integrative Analysis of Transcriptomics and Proteomics</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/18.Integrative Analysis of Transcriptomics and Proteomics_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                  <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/18.Integrative Analysis of Transcriptomics and Proteomics_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/18.Integrative Analysis of Transcriptomics and Proteomics_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Reverse Transcription</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/19.Reverse Transcription_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                  <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/19.Reverse Transcription_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/19.Reverse Transcription_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">qRT-PCR (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/20.qRT-PCR (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/20.qRT-PCR (I)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/20.qRT-PCR (I)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+               <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">qRT-PCR (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/21.qRT-PCR (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/21.qRT-PCR (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/21.qRT-PCR (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+                <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Transwell Invasion Assay (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/22.Transwell Invasion Assay (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/22.Transwell Invasion Assay (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/22.Transwell Invasion Assay (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+                <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Whole genome data analysis</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/23.Whole genome data analysis_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                   <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/23.Whole genome data analysis_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/23.Whole genome data analysis_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+              
+
+
            </div>
            
            <!-- 七月实验 -->
            <div id="July" class="experiment-section">
-               <h2 class="month-title">July 实验</h2>
-               <div class="experiment-buttons">
-                   <a href="https://example.com/july-exp1.pdf" target="_blank" class="experiment-btn">实验一</a>
-                   <a href="https://example.com/july-exp2.pdf" target="_blank" class="experiment-btn">实验二</a>
+                <h2 class="month-title" style="color: #000; font-size: 4rem;">Western Blot</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/24.Western Blot_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                  <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/24.Western Blot_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/24.Western Blot_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
                </div>
+                <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Angiogenesis Assay (I)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/25.Angiogenesis Assay (I)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                  <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/25.Angiogenesis Assay (I)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/25.Angiogenesis Assay (I)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+                <h2 class="month-title" style="color: #000; font-size: 3rem; margin-top: 5vh;">Angiogenesis Assay (II)</h2>
+               <div class="experiment-buttons" style="margin-top: 7vh;">
+ <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/26.Angiogenesis Assay (II)_English version.pdf" target="_blank" class="experiment-btn-e">English Version.pdf</a>
+                  <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/26.Angiogenesis Assay (II)_Chinese version.pdf" target="_blank" class="experiment-btn-c">Chinese Version.pdf</a>
+                    <a href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/PDFs/26.Angiogenesis Assay (II)_Original version.pdf" target="_blank" class="experiment-btn-o">Original Version.pdf</a>
+               </div>
+              
            </div>
            
         </div>

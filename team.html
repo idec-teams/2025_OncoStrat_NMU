@@ -348,6 +348,23 @@
             font-size: 0.9rem;
             line-height: 1.5;
         }
+         /* 星空背景 */
+        .star-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: #000;
+        }
+        
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
         
         /* 页脚样式 */
         footer {
@@ -460,8 +477,12 @@
         </div>
     </section>
 
-    <!-- 轮播区域 -->
-    <section class="carousel-section">
+ <div class="star-background" id="starBackground"></div>
+   
+ 
+ 
+ <!-- 轮播区域 -->
+    <section class="carousel-section" style="background-color: transparent;">
         <div class="container">
             <h2 class="section-title">Pictures</h2>
             <div class="carousel">
@@ -502,7 +523,7 @@
     </section>
 
     <!-- 图片网格区域 -->
-    <section class="gallery-section">
+    <section class="gallery-section" style="background-color:transparent;">
         <div class="container">
             <h2 class="section-title">摄影作品集</h2>
             <div class="gallery-grid">
@@ -514,12 +535,14 @@
                     </div>
                     <div class="gallery-text">
                         <h3>0</h3>
+                        <h3>0</h3>
+                        <h3>0</h3>
                         <p>000</p>
                     </div>
                 </div>
                 
-                <!-- 图片项 2 -->
-                <!-- <div class="gallery-item">
+              
+             <div class="gallery-item">
                     <div class="image-container">
                         <img src="https://images.unsplash.com/photo-1505144808419-1957a94ca61e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="田野" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉田野" class="image-secondary">
@@ -528,10 +551,9 @@
                         <h3>金色田野</h3>
                         <p>夕阳下的麦田，金色的光芒洒满大地，温暖而宁静。</p>
                     </div>
-                </div> -->
+                </div> 
                 
-                <!-- 图片项 3 -->
-                <!-- <div class="gallery-item">
+                <div class="gallery-item">
                     <div class="image-container">
                         <img src="https://images.unsplash.com/photo-1476820865390-c52aeebb9891?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="城市夜景" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="城市白天" class="image-secondary">
@@ -540,10 +562,10 @@
                         <h3>都市夜色</h3>
                         <p>繁华都市的夜景，灯火辉煌，展现了现代城市的活力。</p>
                     </div>
-                </div> -->
-                
-                <!-- 图片项 4 -->
-                <!-- <div class="gallery-item">
+                </div>
+           
+              
+                <div class="gallery-item">
                     <div class="image-container">
                         <img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="湖泊" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="另一湖泊" class="image-secondary">
@@ -553,9 +575,9 @@
                         <p>山间的湖泊，水面如镜，倒映着周围的山峦和天空。</p>
                     </div>
                 </div>
-                 -->
-                <!-- 图片项 5 -->
-                <!-- <div class="gallery-item">
+                
+              
+                 <div class="gallery-item">
                     <div class="image-container">
                         <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="森林" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="森林小径" class="image-secondary">
@@ -564,10 +586,10 @@
                         <h3>0</h3>
                         <p>000</p>
                     </div>
-                </div> -->
+                </div> 
                 
-                <!-- 图片项 6 -->
-                <!-- <div class="gallery-item">
+             
+                <div class="gallery-item">
                     <div class="image-container">
                         <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="日落" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="日落山脉" class="image-secondary">
@@ -577,9 +599,9 @@
                         <p>000</p>
                     </div>
                 </div>
-                 -->
-                <!-- 图片项 7 -->
-                <!-- <div class="gallery-item">
+                 
+       
+                <div class="gallery-item">
                     <div class="image-container">
                         <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="山脉" class="image-primary">
                         <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="雪山" class="image-secondary">
@@ -588,9 +610,9 @@
                         <h3>0</h3>
                         <p>000</p>
                     </div>
-                </div> -->
+                </div> 
                 
-                <!-- 图片项 8 -->
+                
                 <div class="gallery-item">
                     <div class="image-container">
                         <img src="" alt="111" class="image-primary">
@@ -613,7 +635,7 @@
     </footer>
 
     <script>
-        // 关键资源URL列表
+           // 关键资源URL列表
         const criticalResources = [
             'https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/St-home.png',
             ,
@@ -680,13 +702,102 @@
                     const elapsed = Date.now() - startTime;
                     const remainingTime = Math.max(0, minDisplayTime - elapsed);
                     setTimeout(hideLoadingOverlay, remainingTime);
-                })
+                });
+        // 创建星空背景等其他初始化代码
+            createStars();
+            window.addEventListener('scroll', handleScroll);
+        });
+
+        // 原有的星空和滚动处理函数
+        function createStars() {
+            const starBackground = document.getElementById('starBackground');
+            const starCount = 200;
+            
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                const animationDelay = Math.random() * 5;
+                
+                star.style.width = `${size}px`;
+                star.style.height = `${size}px`;
+                star.style.left = `${left}%`;
+                star.style.top = `${top}%`;
+                star.style.animationDelay = `${animationDelay}s`;
+                
+                starBackground.appendChild(star);
+            }
+        }
+        
+        function handleScroll() {
+            const scrollPosition = window.scrollY;
+            const heroHeight = document.querySelector('.hero').offsetHeight;
+            const mountains = document.getElementById('mountains');
+            const sunBackground = document.getElementById('sunBackground');
+            
+            if (scrollPosition <= heroHeight * 1.2) {
+                const opacity = 1 - (scrollPosition / (heroHeight * 0.8));
+                sunBackground.style.opacity = opacity;
+                sunBackground.style.display = 'block';
+            } else {
+                sunBackground.style.opacity = 0;
+                sunBackground.style.display = 'none';
+            }
+        }
+        
+      
+
+
+
+
+
+             document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('.toc-link');
+            const sections = document.querySelectorAll('section');
+            
+            // 为导航链接添加点击事件
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // 移除所有active类
+                    links.forEach(l => l.classList.remove('active'));
+                    
+                    // 添加active类到当前链接
+                    this.classList.add('active');
+                    
+                    // 滚动到对应部分
+                    const targetId = this.getAttribute('href');
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
             });
             
-      
-       
-        // 初始化
-
+            // 监听滚动事件，高亮当前部分
+            window.addEventListener('scroll', function() {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    
+                    if (pageYOffset >= sectionTop - 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                links.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        });
             
        document.addEventListener('DOMContentLoaded', function() {
     const track = document.querySelector('.carousel-track');
@@ -773,37 +884,8 @@
                 moveToSlide(currentIndex);
             });
         });
-        // 主初始化函数
-        function initializePage() {
-            const startTime = Date.now();
-            const minDisplayTime = 1500;
-            
-            // 开始预加载关键资源
-            preloadImages(criticalResources)
-                .then(() => {
-                    const elapsed = Date.now() - startTime;
-                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
-                    
-                    // 确保加载动画至少显示1.5秒
-                    setTimeout(() => {
-                        hideLoadingOverlay();
-                        // 加载完成后初始化轮播
-                        initCarousel();
-                    }, remainingTime);
-                })
-                .catch(error => {
-                    console.error('Error preloading images:', error);
-                    const elapsed = Date.now() - startTime;
-                    const remainingTime = Math.max(0, minDisplayTime - elapsed);
-                    setTimeout(() => {
-                        hideLoadingOverlay();
-                        initCarousel();
-                    }, remainingTime);
-                });
-        }
-
-        // 页面加载完成后初始化
-        document.addEventListener('DOMContentLoaded', initializePage);
+        
+    
     </script>
 </body>
 </html>

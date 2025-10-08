@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
      <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/idec-teams/2025_OncoStrat_NMU/main/static/images/icon.png">
     <title>ML-model</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
       :root {
@@ -1204,14 +1206,15 @@
              </div> 
 
              <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-         Where  represents the AR coefficients,  represents the MA coefficients, and  is the error term.
-             </p>
+         Where:\(\phi\) represents the AR coefficients,\(\theta\) represents the MA coefficients,\(\epsilon_t\) is the error term.
+        </p>
+        
 
              <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
         1.4. Long Short-Term Memory (LSTM) Network
             </p>
               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-        LSTM is a specialized type of Recurrent Neural Network (RNN). This model learns a function that maps historical data points to future observations. It utilizes sequences derived from the data to predict future values. The model requires a list of features (X), corresponding labels (y), and a window size ##(). This process involves sliding an## -sized window across the data to generate target values ##() and input ##sequences ().  is the value immediately following the##  window, which consists of##  consecutive feature values. LSTM's unique gating mechanism enables it to handle complex nonlinear dynamics and long-term dependencies, making it ideal for processing long sequence data. The fundamental algorithm is:
+        LSTM is a specialized type of Recurrent Neural Network (RNN). This model learns a function that maps historical data points to future observations. It utilizes sequences derived from the data to predict future values. The model requires a list of features (\(X\)), corresponding labels (\(y\)), and a window size (\(time\_steps\)). The process involves sliding a \(time\_steps\)-sized window across the data to generate target values (\(y_s\)) and input sequences (\(X_s\)). \(y_s\) is the value immediately following the \(X_s\) window, which consists of \(time\_steps\) consecutive feature values.LSTM's unique gating mechanism enables it to handle complex nonlinear dynamics and long-term dependencies, making it ideal for processing long sequence data. The fundamental algorithm is:
               </p>
 
                 <!-- Formula 3 字符多 -->
@@ -1227,7 +1230,11 @@
              </div> 
 
                   <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-        Where  represents the forget gate,  is a weight coefficient,  is the bias, and  represents the input. Subsequently, the model decides which values to keep () and generates candidate values () via the  function. Combining these results yields the updated cell state .
+        \(f_t\) represents the forget gate,
+            \(W_f\) is a weight coefficient,
+            \(b_f\) is the bias,
+            \(x_t\) represents the input.
+        Subsequently, The model decides which values to keep (\(r_t\)) and generates candidate values (\(\tilde{C}_t\)) via the \(\tanh\) function. Combining these results yields the updated cell state:
                   </p>
                   <!-- Formula 4,5,6  -->
                    <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 10vh; display: flex; gap: 0.5vw; padding-bottom: 2vh;  flex-wrap: nowrap; margin-top: 2.5vh; margin-bottom: 2.5vh;">
@@ -1261,7 +1268,7 @@
                   </div>  
              </div> 
                        <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-       In Formula (4), ## represents the weight coefficients for the input gate.
+       In Formula (4), \(W_c\) represents the weight coefficients for the input gate.
                        </p>
 
                         <!-- Formula 7,8 -->
@@ -1382,7 +1389,7 @@
 
 
            <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-       Where  is the predicted value,  is the actual value, and n is the number of samples.
+      Where \(\hat{y}_{i}\) is the predicted value, \(y_{i}\) is the actual value, and \(n\) is the number of samples.
            </p>
 
 
@@ -1480,6 +1487,10 @@
              </div> 
 
             <!-- Formula 13 字符-->
+
+               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
+     Where \(\hat{Y}_{\text{ARIMA}}\) is the linear prediction from the ARIMA model, and \(\hat{Y}_{\text{LSTM}}\) is the LSTM prediction of the ARIMA residuals[6]. Thus, this ensemble model improves overall prediction accuracy through joint modeling of linear and nonlinear components.
+               </p>
               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
       Figure 5 illustrates the fitting performance of the ARIMA, LSTM, and ARIMA-LSTM models on the test set data, showing the clear upward trend in global bladder cancer incidence and mortality rates. Compared to the single ARIMA model, the ARIMA-LSTM ensemble model more accurately captured this characteristic. For DALYs prediction on the test set, the MAPE of the ARIMA-LSTM ensemble model was only 0.301%, nearly doubling the prediction accuracy compared to the ARIMA model (Table 4).
               </p>
@@ -1552,7 +1563,7 @@
             1.2. Screening of Differentially Expressed Genes (DEGs)
              </p>
               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-          Batch effects in the training set data were corrected using the "sva" package. Differential expression analysis was performed using the "limma" package. Based on literature precedents[9], the filtering criteria for DEGs were set as## (FC: fold change) and adjusted p-value (adj. P.Val) < 0.05. All R packages in this study were run on the R 4.1.0 platform.
+          Batch effects in the training set data were corrected using the "sva" package. Differential expression analysis was performed using the "limma" package. Based on literature precedents[9], the filtering criteria for DEGs were set as \( \left| \log FC \right| > 2 \), (FC: fold change) and adjusted p-value (adj. P.Val) < 0.05. All R packages in this study were run on the R 4.1.0 platform.
               </p>
                <p class="nomal-style" style="position:relative; font-weight: bold; margin-top: 4vh; font-size: 2rem; ; display: inline-block; width: 100%; text-align: left; ">
            1.3. Gene Function and Pathway Enrichment Analysis
@@ -1844,7 +1855,7 @@
                <!-- 字符 -->
 
               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-         This part introduces improvements to the traditional GCN feature extraction module. The input data form a heterogeneous bipartite graph containing a set of gene nodes  and a set of disease nodes . The initial feature of a gene  is denoted as , and that of a disease  as .
+         This part introduces improvements to the traditional GCN feature extraction module. The input data form a heterogeneous bipartite graph containing a set of gene nodes \(G\) and a set of disease nodes \(D\). The initial feature of a gene \(g_i\) is denoted as \(x^0_{g_i}\), and that of a disease \(d_i\) as \(x^0_{d_i}\).
               </p>
               <p class="nomal-style" style="position:relative;text-indent: 2em; ">
        The updated features after GNN processing should capture structural information from the graph. Therefore, for feature learning of node i, we consider both its own features and those of its neighbors. Traditional GCNs aggregate information from all neighbors, which is computationally inefficient for large-scale disease-gene networks with high node degrees. To improve efficiency, we randomly sample neighbors for each target node and aggregate information only from the sampled set. Each sampling and aggregation operation allows a node to receive information from its one-hop neighbors. In complex networks, however, information propagation occurs not only between directly connected nodes but also indirectly. While traditional GCNs perform two aggregation steps, our improved model conducts L(L=3) rounds of sampling and aggregation.
@@ -1857,7 +1868,7 @@
                    </p>
                    <!-- 字符 -->
                     <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-      For a gene g and a disease d, after L layers of sampling and feature aggregation, we obtain feature sets  and . The output of the feature extraction module is:
+      For <span style="font-style: italic;">a</span> gene <span style="font-style: italic;">g</span>  and <span style="font-style: italic;">a</span>  disease <span style="font-style: italic;">d</span> , after<span style="font-style: italic;">L</span>  layers of sampling and feature aggregation, we obtain feature sets \(\{x_{g}^{1}, x_{g}^{2}, \cdots, x_{g}^{L}\}\) and \(\{x_{d}^{1}, x_{d}^{2}, \cdots, x_{d}^{L}\}\). <span class="emphasis">The output of the feature extraction module is:
                     </p>
                      <div class=" img-div" style="width: 100%; padding-left: 5vw; padding-right: 5vw; min-height: 10vh; display: flex; gap: 0.5vw; padding-bottom: 2vh;  flex-wrap: nowrap; margin-top: 2.5vh; margin-bottom: 2.5vh;">
                    <div class="img" style="background-image: 
@@ -1921,7 +1932,7 @@
 
                        <!-- Formula 17 字符-->
                         <p class="nomal-style" style="position:relative;text-indent: 2em; ">
-     where  represents all possible gene-disease association pairs in the training set,  denotes existing associations, and  denotes non-existing associations;  is the sigmoid function;  is the  regularization term, and W represents all learnable parameters. The Adam optimizer[16] is used for model training.
+     where \( \mathcal{R} = \{(g, d^+, d^-) \mid (g, d^+) \in \mathcal{R}^+, (g, d^-) \in \mathcal{R}^-\} \) represents all possible gene-disease association pairs in the training set, \( \mathcal{R}^+ \) denotes existing associations, and \( \mathcal{R}^- \) denotes non-existing associations; \( \sigma \) is the sigmoid function; \( \lambda \|\mathbf{W}\|_2^2 \) is the \( L_2 \) regularization term, and \( \mathbf{W} \) represents all learnable parameters.
                         </p>
 
 
